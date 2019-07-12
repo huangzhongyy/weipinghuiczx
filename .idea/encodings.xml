@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding">
+    <file url="file://$PROJECT_DIR$" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/alicom-dysms-api" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/alicom-mns-receive-samples" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/aliyun-java-sdk-core" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/aliyun-java-sdk-dysmsapi" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/weipinghui-common" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/weipinhui-HZweb" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/weipinhui-after" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/weipinhuiHZAfter" charset="UTF-8" />
+  </component>
+</project>
