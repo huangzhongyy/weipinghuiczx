@@ -96,7 +96,9 @@
          <module>alicom-mns-receive-samples</module><!-- 短信验证阿里大于-->
         <module>aliyun-java-sdk-core</module><!-- 短信验证阿里大于-->
         <module>aliyun-java-sdk-dysmsapi</module>
-        <module>weipinhuiHZAfter</module><!-- 短信验证阿里大于-->
+        <module>weipinhuiHZAfter</module>
+        <module>weipinhuiMWXweb</module>
+        <module>weipinhuiMWXAfter</module><!-- 短信验证阿里大于-->
     </modules>
 
 
