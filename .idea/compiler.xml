@@ -11,9 +11,12 @@
         <module name="aliyun-java-sdk-core" />
         <module name="aliyun-java-sdk-dysmsapi" />
         <module name="weipinghui-common" />
+        <module name="weipinhui-eureka" />
         <module name="weipinhui-HZweb" />
         <module name="weipinhui-web" />
         <module name="weipinhuiHZAfter" />
+        <module name="weipinhuiMWXAfter" />
+        <module name="weipinhuiMWXweb" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
@@ -26,9 +29,12 @@
       <module name="weipinghuicommon" target="1.5" />
       <module name="weipinghuiczx" target="1.8" />
       <module name="weipinhui-after" target="1.8" />
+      <module name="weipinhui-eureka" target="1.8" />
       <module name="weipinhui-HZweb" target="1.8" />
       <module name="weipinhui-web" target="1.8" />
       <module name="weipinhuiHZAfter" target="1.8" />
+      <module name="weipinhuiMWXAfter" target="1.8" />
+      <module name="weipinhuiMWXweb" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>
