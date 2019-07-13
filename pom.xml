@@ -8,7 +8,6 @@
     <artifactId>weipinghuiczx</artifactId> <!-- 父包-->
     <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
-
     <properties> <!--包 -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
@@ -90,16 +89,19 @@
     </build>
 
     <modules>
-
-         <module>weipinghui-common</module>
-         <module>alicom-dysms-api</module> <!-- 短信验证阿里大于 4个包-->
-         <module>alicom-mns-receive-samples</module><!-- 短信验证阿里大于-->
-        <module>aliyun-java-sdk-core</module><!-- 短信验证阿里大于-->
+        <module>alicom-dysms-api</module>
+        <module>alicom-mns-receive-samples</module>
+        <module>aliyun-java-sdk-core</module>
         <module>aliyun-java-sdk-dysmsapi</module>
+        <module>weipinghui-common</module>
+        <module>weipinhui-eureka</module>
         <module>weipinhuiHZAfter</module>
+        <module>weipinhuiMWXAfter</module>
         <module>weipinhuiMWXweb</module>
-        <module>weipinhuiMWXAfter</module><!-- 短信验证阿里大于-->
+        <module>weipinhui-HZweb</module>
     </modules>
+
+
 
 
 </project>

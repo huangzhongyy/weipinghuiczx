@@ -8,9 +8,10 @@
       <module fileurl="file://$PROJECT_DIR$/aliyun-java-sdk-dysmsapi/aliyun-java-sdk-dysmsapi.iml" filepath="$PROJECT_DIR$/aliyun-java-sdk-dysmsapi/aliyun-java-sdk-dysmsapi.iml" />
       <module fileurl="file://$PROJECT_DIR$/weipinghui-common/weipinghui-common.iml" filepath="$PROJECT_DIR$/weipinghui-common/weipinghui-common.iml" />
       <module fileurl="file://$PROJECT_DIR$/weipinghuiczx.iml" filepath="$PROJECT_DIR$/weipinghuiczx.iml" />
+      <module fileurl="file://$PROJECT_DIR$/weipinhuiHZAfter/weipinhui-HZAfter.iml" filepath="$PROJECT_DIR$/weipinhuiHZAfter/weipinhui-HZAfter.iml" />
       <module fileurl="file://$PROJECT_DIR$/weipinhui-HZweb/weipinhui-HZweb.iml" filepath="$PROJECT_DIR$/weipinhui-HZweb/weipinhui-HZweb.iml" />
+      <module fileurl="file://$PROJECT_DIR$/weipinhuiMWXweb/weipinhui-MWXweb.iml" filepath="$PROJECT_DIR$/weipinhuiMWXweb/weipinhui-MWXweb.iml" />
       <module fileurl="file://$PROJECT_DIR$/weipinhui-eureka/weipinhui-eureka.iml" filepath="$PROJECT_DIR$/weipinhui-eureka/weipinhui-eureka.iml" />
-      <module fileurl="file://$PROJECT_DIR$/weipinhui-HZweb/weipinhui-web.iml" filepath="$PROJECT_DIR$/weipinhui-HZweb/weipinhui-web.iml" />
       <module fileurl="file://$PROJECT_DIR$/weipinhuiHZAfter/weipinhuiHZAfter.iml" filepath="$PROJECT_DIR$/weipinhuiHZAfter/weipinhuiHZAfter.iml" />
       <module fileurl="file://$PROJECT_DIR$/weipinhuiMWXAfter/weipinhuiMWXAfter.iml" filepath="$PROJECT_DIR$/weipinhuiMWXAfter/weipinhuiMWXAfter.iml" />
       <module fileurl="file://$PROJECT_DIR$/weipinhuiMWXweb/weipinhuiMWXweb.iml" filepath="$PROJECT_DIR$/weipinhuiMWXweb/weipinhuiMWXweb.iml" />

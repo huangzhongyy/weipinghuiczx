@@ -12,7 +12,9 @@
         <module name="aliyun-java-sdk-dysmsapi" />
         <module name="weipinghui-common" />
         <module name="weipinhui-eureka" />
+        <module name="weipinhui-HZAfter" />
         <module name="weipinhui-HZweb" />
+        <module name="weipinhui-MWXweb" />
         <module name="weipinhui-web" />
         <module name="weipinhuiHZAfter" />
         <module name="weipinhuiMWXAfter" />
@@ -25,12 +27,17 @@
       <module name="aliyun-java-sdk-core" target="1.6" />
       <module name="aliyun-java-sdk-dysmsapi" target="1.6" />
       <module name="maven-archiver" target="1.5" />
+      <module name="maven-archiver (1)" target="1.8" />
+      <module name="maven-archiver (2)" target="1.8" />
+      <module name="maven-archiver (3)" target="1.8" />
       <module name="weipinghui-common" target="1.8" />
       <module name="weipinghuicommon" target="1.5" />
       <module name="weipinghuiczx" target="1.8" />
       <module name="weipinhui-after" target="1.8" />
       <module name="weipinhui-eureka" target="1.8" />
+      <module name="weipinhui-HZAfter" target="1.8" />
       <module name="weipinhui-HZweb" target="1.8" />
+      <module name="weipinhui-MWXweb" target="1.8" />
       <module name="weipinhui-web" target="1.8" />
       <module name="weipinhuiHZAfter" target="1.8" />
       <module name="weipinhuiMWXAfter" target="1.8" />
