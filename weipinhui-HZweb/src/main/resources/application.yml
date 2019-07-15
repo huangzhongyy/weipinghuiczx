@@ -1,5 +1,7 @@
 server:
   port: 8081
+    servlet:
+      context-path: /weipinghui
 
 spring:
   thymeleaf:
@@ -20,20 +22,7 @@ spring:
 
   resources:
     static-locations: classpath:/templates/,classpath:/META-NF/resources/,classpath:/resources/,classpath:/static/,classpath:/public/,classpath:/upload
-#
-#  application:
-#    name: weipinghuiHZweb
-#
-#eureka:
-#  client:
-#    register-with-eureka: false
-#    service-url:
-#      defaultZone: http://localhost:6003/eureka #向这个注册
-#      #Eureka服务器集群
-#      #defaultZone: http://eureka6001.com:6001/eureka/,http://eureka6002.com:6002/eureka/
-#  instance:
-#    instance-id: weipinghuiHZweb-8081
-#    prefer-ip-address: true     #访问路径可以显示IP地址
+
 
 
 

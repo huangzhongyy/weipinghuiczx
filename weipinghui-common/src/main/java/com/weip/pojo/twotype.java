@@ -6,6 +6,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 
+import java.util.List;
+
 /**
  * @program: weipinghuiczx
  * @Date: 2019/7/11 19:54
@@ -22,4 +24,5 @@ public class twotype
    private int two_tid;//二级分类
    private String two_tname;//分类名称
    private int two_one_tid;//所属一级分类
+   private List<threetype> threetypeList;//对应的三级分类集合
 }

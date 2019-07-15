@@ -35,12 +35,12 @@
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-netflix-ribbon</artifactId>
         </dependency>-->
-<!--
-        &lt;!&ndash; Feign相关 &ndash;&gt;
+
+    <!--Feign相关 -->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-openfeign</artifactId>
-        </dependency>-->
+        </dependency>
 
         <!-- 微服务配置中心
         <dependency>
