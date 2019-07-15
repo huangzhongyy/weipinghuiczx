@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=GBK">
+    <title></title>
+    <script type="text/javascript" src="crossStorage_data/jquery.js"></script>
+    <script type="text/javascript" src="crossStorage_data/core3.js"></script>
+</head>
+<body>
+    <script type="text/javascript">
+    	(function () {
+            var messenger = new $.Messenger('csHelper', 'CS');
+            messenger.addTarget(window.parent, 'parent');
+            messenger.listen(function (msg) {
+                var o = $.parseJSON(msg);
+                if (o.method == 'set') {
+                    $.Storage.set(o.key, o.val, o.expires);
+                    var sendMsg = $.stringifyJSON({
+                        method : 'set',
+                        id : o.id,
+                        key : o.key,
+                        val : val
+                    });
+                    messenger.targets.parent.send(sendMsg);
+                }
+
+                if (o.method == 'get') {
+                    var val = $.Storage.get(o.key);
+                    var sendMsg = $.stringifyJSON({
+                        method : 'get',
+                        id : o.id,
+                        key : o.key,
+                        val : val
+                    });
+                    messenger.targets.parent.send(sendMsg);
+                }
+            });
+        })();
+    </script>
+
+
+</body></html>
