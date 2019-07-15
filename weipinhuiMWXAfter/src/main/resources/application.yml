@@ -1,7 +1,5 @@
 server:
-  port: 8080
-  servlet:
-    context-path: /yemian
+  port: 8001
 
 #数据源
 spring:
@@ -24,10 +22,23 @@ mybatis:
     use-generated-keys: true
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 
-pagehelper:
-  helperDialect: mysql
-  reasonable: true
-  pageSizeZero: true
+eureka:
+  client: #客户端注册进eureka服务列表内
+    service-url:
+      #defaultZone: http://localhost:6002/eureka
+      #Eureka服务器集群
+      defaultZone: http://eureka6003.com:6003/eureka/
+  instance:
+    instance-id: microservice-dept8002
+    prefer-ip-address: true     #访问路径可以显示IP地址
+    leaseRenewalIntervalInSeconds: 10  #租期更新时间间隔（默认30秒）
+    leaseExpirationDurationInSeconds: 30 #租期到期时间（默认90秒）
+
+info:
+  app.name: cssl-microservice
+  company.name: www.cssl.com
+  build.artifactId: microservice
+  build.version: 1.0-SNAPSHOT
 
 thymeleaf:
   encoding: UTF-8

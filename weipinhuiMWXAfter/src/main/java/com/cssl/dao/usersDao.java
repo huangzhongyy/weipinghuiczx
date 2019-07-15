@@ -1,6 +1,7 @@
 package com.cssl.dao;
 
 import com.weip.pojo.users;
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 /**
@@ -9,6 +10,7 @@ import org.apache.ibatis.annotations.Param;
  * @Author: Mr.Deng
  * @Description:
  */
+@Mapper
 public interface usersDao
 {
    //登录
