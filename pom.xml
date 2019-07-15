@@ -99,6 +99,8 @@
         <module>weipinhuiMWXAfter</module>
         <module>weipinhuiMWXweb</module>
         <module>weipinhui-HZweb</module>
+        <module>weipinhui-CZWweb</module>
+        <module>weipinhui-CZWafter</module>
     </modules>
 
 
