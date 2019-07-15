@@ -58,13 +58,13 @@
                     </div>
 
                     <!--    form表单  -->
-                    <form id="reg_mobile_form" action="/register" method="post" autocomplete="off"
+                    <form id="reg_mobile_form" action="/regist" method="post" autocomplete="off"
                           class="register-form">
 
                         <!--   用户名   *******-->
                         <div class="c-form-item  has-form-item-icon  J_item_group">
-                            <div class="ui-form-item-group">
-                                <input id="J_login_name" class="ui-input  u-input" type="text" name="loginName" placeholder="用户名" passport_mars_sead_hover="" passport_mars_sead_input="loginName"
+                            <div class="ui-form-item-group">                                   <!--用户名 -->
+                                <input id="J_login_name" class="ui-input  u-input" type="text" name="username" placeholder="用户名" passport_mars_sead_hover="" passport_mars_sead_input="loginName"
                                  style="width: 248px;height: 32px;line-height: 32px;padding-left:40px;">
                                 <span class="c-icon  c-icon-account  c-icon-form"></span>
                                 <span class="u-input-warning vipFont if-wrong"></span>
@@ -76,7 +76,7 @@
                         <!--  手机号码   ****-->
                         <div class="control-group  has-form-item-icon  clearfix">
                             <div class="ui-form-item-group">
-                                <input type="text" class="ui-input ipt-phone" id="J_mobile_name" name="loginName"
+                                <input type="text" class="ui-input ipt-phone" id="J_mobile_name" name="phone"
                                        placeholder="请输入手机号码" passport_mars_sead_hover=""
                                        passport_mars_sead_input="mobileRegMobile" mars_sead="125|2|1|2">
                                 <span class="u-input-warning vipFont if-wrong"></span>
@@ -88,12 +88,12 @@
 
                         <div class="control-group" id="J_verify_code_mobile"></div>
 
-                        <div class="control-group  has-form-item-icon  clearfix">
+                    <!--    <div class="control-group  has-form-item-icon  clearfix">
                             <div class="ui-form-item-group adjust-tip-icon">
                                 <input type="text" id="J_mobile_code" class="ui-input ipt-verify-code" name="pvcode"
                                        placeholder="请输入验证码" passport_mars_sead_hover=""
-                                       passport_mars_sead_input="mobileRegMobileCode" mars_sead="125|2|1|8"><!--
-             --><a href="javascript:;" role="button" id="J_mobile_verifycode_btn"
+                                       passport_mars_sead_input="mobileRegMobileCode" mars_sead="125|2|1|8">&lt;!&ndash;
+             &ndash;&gt;<a href="javascript:;" role="button" id="J_mobile_verifycode_btn"
                    class="ui-btn-medium ui-btn-disable btn-verify-code" passport_mars_sead_hover="" tabindex="-1"
                    mars_sead="125|2|1|7">获取验证码</a>
                                 <span class="u-input-warning vipFont if-wrong"></span>
@@ -101,7 +101,7 @@
                                 <span class="c-icon  c-icon-captcha  c-icon-form"></span>
                             </div>
                             <div class="u-input-tip"><span class="text"></span></div>
-                        </div>
+                        </div>-->
 
                         <div class="control-group  has-form-item-icon  clearfix">
                             <div class="ui-form-item-group">
