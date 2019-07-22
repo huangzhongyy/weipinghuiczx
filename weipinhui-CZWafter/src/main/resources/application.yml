@@ -1,7 +1,7 @@
 server:
   port: 30002
-  servlet:
-    context-path: /CZWafter
+#  servlet:
+#    context-path: /CZWafter  #不要起名字否则微服务调用不到
 
 #数据源
 spring:
@@ -11,6 +11,24 @@ spring:
     username: root
     password: 123
 
+  application:
+    name: microservice-czwafter
+
+eureka:
+  client:
+    register-with-eureka: true
+    service-url:
+      defaultZone: http://localhost:6003/eureka/
+  instance:
+    instance-id: microservice-czwafter-80
+    prefer-ip-address: true     #访问路径可以显示IP地址
+
+feign:
+  httpclient:
+    connection-timeout: 30000
+  hystrix:
+    enabled: true
+
 #映射静态资源
     static-path-pattern: /**
 
@@ -18,7 +36,7 @@ spring:
     static-locations: classpath:/templates/,classpath:/META-NF/resources/,classpath:/resources/,classpath:/static/,classpath:/public/,classpath:/upload
 
 mybatis:
-  type-aliases-package: com.cssl.pojo
+  type-aliases-package: com.weip.pojo
   configuration:
     auto-mapping-behavior: full
     use-generated-keys: true
@@ -35,3 +53,5 @@ thymeleaf:
   cache: false
   prefix: classpath:/templates/  #默认
   suffix: .html                  #默认
+
+

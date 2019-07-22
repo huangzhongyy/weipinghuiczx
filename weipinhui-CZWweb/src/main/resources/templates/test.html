@@ -1,10 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>测试</title>
 </head>
 <body>
-   我在测试能不能访问的到
+   我在测试能不能访问的到<a th:text="${name}"></a>
+   <img src="http://192.168.220.133:81/image/1.jpg" title="nginx的图片" alt="aa" />
+   <img src="http://106.52.15.109:888/image/2.jpg" />
 </body>
 </html>
