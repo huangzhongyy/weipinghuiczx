@@ -8,4 +8,7 @@
         SELECT * FROM users WHERE username=#{username} AND PASSWORD=#{password}
     </select>
 
+    <select id="findAllusers" resultType="users">
+        SELECT username FROM users
+    </select>
 </mapper>

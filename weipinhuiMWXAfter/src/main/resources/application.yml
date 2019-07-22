@@ -3,6 +3,8 @@ server:
 
 #数据源
 spring:
+  application:
+    name: weipinhuiMWXAfter
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
     url: jdbc:mysql:///weipinhui
@@ -16,33 +18,18 @@ spring:
     static-locations: classpath:/templates/,classpath:/META-NF/resources/,classpath:/resources/,classpath:/static/,classpath:/public/,classpath:/upload
 
 mybatis:
-  type-aliases-package: com.cssl.pojo
-  configuration:
-    auto-mapping-behavior: full
-    use-generated-keys: true
-    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  config-location: classpath:mybatis/mybatis-cfg.xml
+  type-aliases-package: com.weip.pojo
+  mapper-locations: classpath:mybatis/mapper/**/*.xml
 
 eureka:
   client: #客户端注册进eureka服务列表内
     service-url:
-      #defaultZone: http://localhost:6002/eureka
+      defaultZone: http://localhost:6003/eureka
       #Eureka服务器集群
-      defaultZone: http://eureka6003.com:6003/eureka/
+      #defaultZone: http://eureka6003.com:6003/eureka/
   instance:
-    instance-id: microservice-dept8002
+    instance-id: weipinhuiMWXAfter8001
     prefer-ip-address: true     #访问路径可以显示IP地址
     leaseRenewalIntervalInSeconds: 10  #租期更新时间间隔（默认30秒）
     leaseExpirationDurationInSeconds: 30 #租期到期时间（默认90秒）
-
-info:
-  app.name: cssl-microservice
-  company.name: www.cssl.com
-  build.artifactId: microservice
-  build.version: 1.0-SNAPSHOT
-
-thymeleaf:
-  encoding: UTF-8
-  #开发时关闭缓存,不然没法看到实时页面
-  cache: false
-  prefix: classpath:/templates/  #默认
-  suffix: .html                  #默认

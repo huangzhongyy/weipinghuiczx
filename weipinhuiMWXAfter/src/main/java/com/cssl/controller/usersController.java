@@ -3,10 +3,12 @@ package com.cssl.controller;
 import com.cssl.service.usersService;
 import com.weip.pojo.users;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * @program: weipinghuiczx
@@ -20,14 +22,22 @@ public class usersController
     @Resource
     private usersService service;
 
-    @RequestMapping("/login")
+    @RequestMapping("/after/login/{username}/{password}")
     @ResponseBody
-    public boolean Login(String username,String password)
+    public users Login(@PathVariable("username") String username, @PathVariable("password") String password)
     {
-     System.out.println("jinlaile");
+       System.out.println("after.....");
+       System.out.println("uname:"+username+"         pwd:"+password);
        users user=service.login(username,password);
-       if(user!=null || !user.equals(""))
-           return true;
-       return false;
+       return user;
     }
+
+   @RequestMapping("/after/token")
+   @ResponseBody
+   public List<users> findusers()
+   {
+     System.out.println("after.....");
+     List<users> ulist=service.findAllusers();
+     return ulist;
+ }
 }
