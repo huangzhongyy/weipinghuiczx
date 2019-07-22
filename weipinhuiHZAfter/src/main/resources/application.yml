@@ -51,3 +51,10 @@ eureka:
     prefer-ip-address: true     #访问路径可以显示IP地址
     leaseRenewalIntervalInSeconds: 10   #租期更新时间间隔（默认30秒）
     leaseExpirationDurationInSeconds: 30 #租期到期时间（默认90秒）
+
+
+info:
+  app.name: cssl-weipinghui
+  company.name: www.cssl.com
+  build.artifactId: weipinghhz
+  build.version: 1.0-SNAPSHOT

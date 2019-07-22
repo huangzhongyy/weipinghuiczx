@@ -14,4 +14,6 @@ public interface UserDao {
 
  public int usersRegist(users users);//注册
 
+ public users SelectPhone(String phone);//查询手机号码
+
 }
