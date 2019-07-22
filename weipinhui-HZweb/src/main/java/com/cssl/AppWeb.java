@@ -2,6 +2,8 @@ package com.cssl;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
+import org.springframework.cloud.openfeign.EnableFeignClients;
 
 
 /**
@@ -13,7 +15,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  *
  */
 @SpringBootApplication
-//@EnableEurekaClient//eureka客户端
+@EnableEurekaClient//eureka客户端
+@EnableFeignClients
 public class AppWeb {
  public static void main(String[] args) {
   SpringApplication.run(AppWeb.class,args);

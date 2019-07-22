@@ -13,16 +13,11 @@
     <link href="regist_files/common-hash-44b3cc4d.css" type="text/css" rel="stylesheet">
     <link href="regist_files/login-hash-df33b44e.css" type="text/css" rel="stylesheet">
 
-    <script src="regist_files/jquery-1.js" type="text/javascript"></script>
+
+    <script type="text/javascript" src="js/jquery-1.8.3.min.js"></script>
+
     <script src="regist_files/core3.js" type="text/javascript"></script>
     <script src="regist_files/core-hash-07ce7ff1.js" type="text/javascript"></script>
-    <script type="text/javascript">
-        var staticHost = 'https://user.vipstatic.com/passport';
-        var domainHost = 'https://passport.vip.com';
-        var imageHost = 'https://passport.vip.com/static';
-        var ctx = '';
-        var abcType = '';
-    </script>
     <script type="text/javascript" charset="utf-8" async="" src="regist_files/vfp-7-f64856b5.js"></script>
 </head>
 <body class="regSingle  J-container" _vip_tracker="_tracker_1562037680379">
@@ -53,19 +48,18 @@
                 <div id="reg-form-wrapper">
                     <div class="ui-tips-big ui-tips1 c-register-top-tips hidden">
                         <i class="vipFont if-sigh"></i>
-                        <a href="javascript:;" role="button" class="close">×</a>
+                        <   a href="javascript:;" role="button" class="close">×</a>
                         <p class="info"><i class="vipFont if-sigh"></i><span class="info-msg"></span></p>
                     </div>
 
                     <!--    form表单  -->
-                    <form id="reg_mobile_form" action="/regist" method="post" autocomplete="off"
-                          class="register-form">
+                    <form id="jsz" action="ZZregist" method="post">
 
                         <!--   用户名   *******-->
                         <div class="c-form-item  has-form-item-icon  J_item_group">
                             <div class="ui-form-item-group">                                   <!--用户名 -->
-                                <input id="J_login_name" class="ui-input  u-input" type="text" name="username" placeholder="用户名" passport_mars_sead_hover="" passport_mars_sead_input="loginName"
-                                 style="width: 248px;height: 32px;line-height: 32px;padding-left:40px;">
+                                <input  onblur="yhm()" class="ui-input  u-input" type="text" id="username" name="username" placeholder="用户名" passport_mars_sead_hover="" passport_mars_sead_input="loginName"
+                                 style="width: 248px;height: 32px;line-height: 32px;padding-left:40px;"> <span id="yhm" style="color: #dd1717"></span>
                                 <span class="c-icon  c-icon-account  c-icon-form"></span>
                                 <span class="u-input-warning vipFont if-wrong"></span>
                                 <span class="u-input-success vipFont if-success"></span>
@@ -74,40 +68,46 @@
                         </div>
 
                         <!--  手机号码   ****-->
-                        <div class="control-group  has-form-item-icon  clearfix">
+                      <!--  <div class="control-group  has-form-item-icon  clearfix">
                             <div class="ui-form-item-group">
-                                <input type="text" class="ui-input ipt-phone" id="J_mobile_name" name="phone"
+                                <input type="text" class="ui-input ipt-phone" id="phone" name="phone"
                                        placeholder="请输入手机号码" passport_mars_sead_hover=""
-                                       passport_mars_sead_input="mobileRegMobile" mars_sead="125|2|1|2">
-                                <span class="u-input-warning vipFont if-wrong"></span>
-                                <span class="u-input-success vipFont if-success"></span>
-                                <span class="c-icon  c-icon-mobile  c-icon-form"></span>
+                                       >
+
+                            </div>
+                            <div class="u-input-tip"><span class="text"></span></div>
+                        </div>-->
+                     <div class="control-group  has-form-item-icon  clearfix">
+                            <div class="ui-form-item-group">
+                                <input type="text" onblur="sjhmp()" class="ui-input ipt-phone" id="phone"  name="phone"
+                                       placeholder="请输入手机号码" passport_mars_sead_hover=""
+                                      ><span id="sjhm" style="color: #dd1717"></span>
                             </div>
                             <div class="u-input-tip"><span class="text"></span></div>
                         </div>
 
                         <div class="control-group" id="J_verify_code_mobile"></div>
 
-                    <!--    <div class="control-group  has-form-item-icon  clearfix">
+                        <div class="control-group  has-form-item-icon  clearfix">
                             <div class="ui-form-item-group adjust-tip-icon">
-                                <input type="text" id="J_mobile_code" class="ui-input ipt-verify-code" name="pvcode"
-                                       placeholder="请输入验证码" passport_mars_sead_hover=""
-                                       passport_mars_sead_input="mobileRegMobileCode" mars_sead="125|2|1|8">&lt;!&ndash;
-             &ndash;&gt;<a href="javascript:;" role="button" id="J_mobile_verifycode_btn"
-                   class="ui-btn-medium ui-btn-disable btn-verify-code" passport_mars_sead_hover="" tabindex="-1"
-                   mars_sead="125|2|1|7">获取验证码</a>
-                                <span class="u-input-warning vipFont if-wrong"></span>
-                                <span class="u-input-success vipFont if-success"></span>
-                                <span class="c-icon  c-icon-captcha  c-icon-form"></span>
+
+                                <input type="text" id="pvcode" class="ui-input ipt-verify-code" name="pvcode"
+                                       placeholder="请输入验证码">
+                                <!--  验证码   ****-->
+
+       <a class="ui-input"  id="sms" onclick="getCode()">获取验证码</a>
+
+                                <span id="qyzm" name="qyzm" style="display: none"></span>
+
                             </div>
                             <div class="u-input-tip"><span class="text"></span></div>
-                        </div>-->
-
+                        </div>
+                    <!-- 密码-->
                         <div class="control-group  has-form-item-icon  clearfix">
                             <div class="ui-form-item-group">
-                                <input type="password" class="ui-input" id="J_mobile_pwd" name="password" maxlength="20"
-                                       placeholder="密码由6-20位字母，数字和符号组合" passport_mars_sead_hover=""
-                                       passport_mars_sead_input="mobileRegPw" mars_sead="125|2|1|5">
+                                <input type="password" class="ui-input" id="password" name="password" maxlength="20"
+                                       placeholder="密码字母和数字不能小于6位,大于18位" passport_mars_sead_hover=""
+                                      ><span id="dlmm" style="color: #dd1717"></span>
                                 <span class="u-input-warning vipFont if-wrong"></span>
                                 <span class="u-input-success vipFont if-success"></span>
                                 <span class="c-icon  c-icon-password  c-icon-form"></span>
@@ -117,9 +117,7 @@
                     <span class="indicator-item-bg">
                         <span class="indicator-item"></span>
                     </span>
-                    <span class="indicator-text text-weak">弱</span>
-                    <span class="indicator-text text-medium">中</span>
-                    <span class="indicator-text text-strong">强</span>
+
                 </span><!--
              --><span class="text password-tip"></span>
                             </div>
@@ -127,10 +125,9 @@
 
                         <div class="control-group  has-form-item-icon  clearfix">
                             <div class="ui-form-item-group">
-                                <input type="password" class="ui-input confirm-pwd" id="J_mobile_confirm_pwd"
+                                <input type="password" class="ui-input confirm-pwd" id="rePassWord"
                                        name="confirmPassword" maxlength="20" placeholder="请再次输入上面的密码"
-                                       passport_mars_sead_hover="" passport_mars_sead_input="mobileRegCPw"
-                                       mars_sead="125|2|1|6">
+                                       ><span id="qrmm" style="color: #dd1717"></span>
                                 <span class="u-input-warning vipFont if-wrong"></span>
                                 <span class="u-input-success vipFont if-success"></span>
                                 <span class="c-icon  c-icon-password  c-icon-form"></span>
@@ -138,7 +135,7 @@
                             <div class="u-input-tip"><span class="text"></span></div>
                         </div>
 
-                        <div class="control-group clearfix">
+       <!--                 <div class="control-group clearfix">
                             <div class="ui-form-item-group">
                 <span class="ui-checkbox mr0">
                     <input type="checkbox" id="J_mobile_agree" name="agree" class="ui-checkbox-normal" value="1"
@@ -151,17 +148,16 @@
                                         href="https://i.vpal.com/clause.html" class="u-link" target="_blank">《唯品支付用户服务协议》</a></label>
                             </div>
                             <div class="u-input-tip"><span class="text"></span></div>
+                        </div>-->
+                        <div class="control-group mb30 clearfix">
+
+
+                                <input class="ui-btn-large ui-btn-primary ui-btn-loading reg-form-btn form-submit" type="submit" value="注册">
+
+
                         </div>
 
-                        <div class="control-group mb30 clearfix">
-                            <a href="javascript:;" role="button" id="J_mobile_reg_button"
-                               class="ui-btn-large ui-btn-primary ui-btn-loading reg-form-btn form-submit"
-                               passport_mars_sead_hover="" mars_sead="125|2|1|9">
-                                <span class="ui-btn-loading-before">立即注册</span>
-                                <span class="ui-btn-loading-after"><i class="ii-loading-gray-16x16"></i><span
-                                        class="ui-btn-txt">处理中...</span></span>
-                            </a>
-                        </div>
+
                     </form>
 
                 </div>
@@ -176,87 +172,140 @@
 <div class="c-footer">
     <p class="c-copyright">Copyright 2008-2019 vip.com，All Rights Reserved ICP证：粤 B2-20080329</p>
 </div>
-<script type="text/html" id="J-dialog-guide-login">
-    <h3 class="ui-dialog-tips  f-text-center">
-        <span class="text">
-            <span class="vipFont if-success">&#xe602;</span>注册成功！
-        </span>
-    </h3>
-    <p>请在登录页面完成登录，即可开始愉快的购物之旅。</p>
-</script>
 
-<script type="text/javascript">
-    var errorMsg = [];
-
-    var registerFormPageSourceType = 0;
-    var registerFormMarsSeed = {
-        // 手机注册
-        '#J_mobile_name': '125|2|1|2',
-        '#J_mobile_pwd': '125|2|1|5',
-        '#J_mobile_confirm_pwd': '125|2|1|6',
-        '#J_mobile_verifycode_btn': '125|2|1|7',
-        '#J_mobile_code': '125|2|1|8',
-        '#J_mobile_reg_button': '125|2|1|9',
-        '#J_mobile_agree': '125|2|1|11',
-        '#J_mobile_provision': 'ff=125|2|1|12',
-        '#for-cascade-login-link': 'ff=125|2|1|14',
-        '#mailbox_close': '125|2|2|16'
-    };
-
-    $(function () {
-        $.Loader
-            .advScript({
-                name: 'form',
-                url: '//member-ssl.vipstatic.com/js/public/passport/1/register-hash-8ec032b0.js'
-            }, {
-                name: 'mars',
-                url: '//3rd.vipstatic.com/mars/mars.js'
-            }, {
-                name: 'captcha',
-                url: '//captcha.vip.com/getbootstrap'
-            }, {
-                name: 'captchaInit',
-                def: function () {
-                    if (window.VipSecureCode) {
-                        var initOpt = {
-                            parseJSON: $.parseJSON,
-                            stringifyJSON: $.stringifyJSON
-                        };
-                        /*global VipSecureCode*/
-                        VipSecureCode.init(initOpt);
-                    }
-                },
-                requires: ['captcha']
-            });
-    });
-
-    window.VTM = {
-        sessionUser: {
-            id: $.Cookie.get('VipRUID'),
-            name: $.Cookie.get('VipRNAME')
-        },
-        pageId: 102
-    };
-
-    (function () {
-        var _script = document.createElement("script");
-        _script.src = "https://ms.vipstatic.com/vtm/vtm_config_res/prod/vtm.js" +
-            (window.location.href.indexOf("preview=1") != -1 ? "?preview=1" : "");
-        document.body.appendChild(_script);
-    })();
-</script>
-<script src="regist_files/vtm.js"></script>
-
-<script type="text/javascript" >
-    /*验证用户名 */
-    $(function () {
-
-
-    });
-</script>
 
 <noscript><img src="//mar.vip.com/n" height="1" width="1" border="0" alt=""/></noscript>
 
+<script type="text/javascript">
 
+    //根据手机号码发送短信
+    function zsms()
+    {
+        var $phone=$("#phone").val();
+            alert($phone);
+            $.post("/ZZsms",{"phone":$phone},function(date){
+                if(date==0){
+                    alert("手机号码已经被注册过了")
+                }
+                alert("------------"+date);
+                $("#qyzm").text(date);
+            });
+
+    }
+
+    //手机短信验证
+    function getCode() {
+        var $phone=$("#phone").val();
+        if($phone==null||$phone==""){
+            alert("请先输入手机号码");
+        }else{
+            var reg=/^1(?:3\d|4[4-9]|5[0-35-9]|6[67]|7[013-8]|8\d|9\d)\d{8}$/;
+            if(reg.test($phone)){
+                var time = localStorage.retime;
+                var t = new Date().getTime()/1000;
+                if (time===undefined || t-time>=60) {
+                    localStorage.retime = t;
+                    return zsms();
+                } else {
+                    alert("短信验证码60秒只能点击一次。\n在"+Math.ceil(60-(t-time))+"秒之后可以再次点击。");
+                }
+            }else{
+                alert("格式错误");
+            }
+
+        }
+    }
+
+
+    //判断短信验证码
+    function YanZhen() {
+    var $qyzmz=$("#qyzm").text();//后台传到span上面的验证码
+    alert("后台验证码"+$qyzmz);
+    var $yzm=$("#pvcode").val();
+    alert("输入的验证码"+$yzm);
+    if($yzm==null||$yzm==""){
+        alert("验证码不能为空");
+        return false;
+    }else{
+        if($qyzmz==$yzm){
+            alert("相同");
+            return true;
+        }else{
+            alert("输入的不相同");
+            return false;
+        }
+    }
+    return true;
+    }
+
+    function yhm(){
+        //判断用户名
+        var reg=/^[a-z0-9_-]{6,18}$/;
+        var $mz=$("#username").val();
+        if($mz==null||$mz==""){
+            $("#yhm").text("用户名不能为空").css({"display":"inline"});
+            return false;
+        }else{
+                if(reg.test($mz)){
+                $("#yhm").css({"display":"none"});
+                return true;
+            }else{
+                $("#yhm").text("用户名不能小于2位！超过16位").css({"display":"inline"});
+                return false;
+            }
+        }
+        return true;
+    };
+
+    function sjhmp(){//判断手机号码
+        var reg=/^1(?:3\d|4[4-9]|5[0-35-9]|6[67]|7[013-8]|8\d|9\d)\d{8}$/;
+        var $sj=$("#phone").val();
+        if(reg.test($sj)){
+            $("#sjhm").css({"display":"none"});
+        }else{
+            $("#sjhm").text("手机号码格式输入错误!!").css({"display":"inline"});
+            return false;
+        }
+        return true;
+    };
+
+    function MiMa(){//判断密码
+        var reg=/^[a-z0-9_-]{6,18}$/;
+        var $mima=$("#password").val();
+        if($mima==null||$mima==""){
+            $("#dlmm").text("密码不能为空").css({"display":"inline"});
+            return false;
+        }else{
+            if(reg.test($mima)){
+                $("#dlmm").css({"display":"none"});
+            }else{
+                $("#dlmm").text("密码字母和数字不能小于6位,大于18位").css({"display":"inline"});
+                return false;
+            }
+        }
+        return true;
+    };
+
+
+    function qrmm(){//确认密码
+        var $mima=$("#password").val();//第一个密码
+        var $qrmima=$("#rePassWord").val();
+        if($mima==$qrmima){
+            $("#qrmm").css({"display":"none"});
+        }else{
+            $("#qrmm").text("2次输入的密码不一致").css({"display":"inline"});
+            return false;
+        }
+        return true;
+    };
+
+    $(function () {
+        $("#jsz").submit(function () {
+            return yhm()&&sjhmp()&&YanZhen()&&MiMa()&&qrmm();
+        });
+
+
+    })
+</script>
 </body>
 </html>
