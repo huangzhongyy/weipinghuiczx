@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace就是接口的全路径 -->
+<mapper namespace="com.cssl.dao.ShouYeDao">
+
+    <select id="selectOne" resultType="onetype">
+        SELECT * FROM onetype
+    </select>
+
+    <select id="selectTwo" resultType="twotype">
+        SELECT * FROM twotype where two_one_tid = #{oneId}
+    </select>
+
+    <select id="selectThree" resultType="threetype">
+        SELECT * FROM threetype where three_two_tid = #{twoID}
+    </select>
+</mapper>
