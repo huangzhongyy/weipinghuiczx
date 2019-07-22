@@ -6,6 +6,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 
+import java.io.Serializable;
+
 /**
  * @program: weipinghuiczx
  * @Date: 2019/7/10 10:10
@@ -17,7 +19,7 @@ import lombok.experimental.Accessors;
 @NoArgsConstructor
 @AllArgsConstructor
 @Accessors(chain=true)
-public class users
+public class users implements Serializable
 {
    private int uid;//用户ID
    private String username;//用户名字

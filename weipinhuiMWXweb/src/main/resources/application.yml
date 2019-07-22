@@ -1,37 +1,54 @@
 server:
-  port: 8080
-  servlet:
-    context-path: /yemian
+  port: 80
 
-#数据源
 spring:
-  datasource:
-    driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql:///weipinhui
-    username: root
-    password: root
+  thymeleaf:
+    encoding: UTF-8
+    #开发时关闭缓存,不然没法看到实时页面
+    cache: false
+    prefix: classpath:/static/
+    suffix: .html
 
-#映射静态资源
+  #spring:
+  application:
+    name: weipinhuiMWXweb
+
+  mvc:
     static-path-pattern: /**
-
+  #修改默认的静态寻址资源目录
   resources:
-    static-locations: classpath:/templates/,classpath:/META-NF/resources/,classpath:/resources/,classpath:/static/,classpath:/public/,classpath:/upload
+    static-locations: classpath:/templates/,classpath:/META-INF/resources/,classpath:/resources/,classpath:/static/,classpath:/public/
 
-mybatis:
-  type-aliases-package: com.cssl.pojo
-  configuration:
-    auto-mapping-behavior: full
-    use-generated-keys: true
-    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  redis:
+    database: 0
+    host: 192.168.44.128
+    port: 6379
+    password: 123456
+    timeout: 10s
+    jedis:
+      pool:
+        max-active: 8
+        max-wait: -1
+        max-idle: 5
+        min-idle: -1
 
-pagehelper:
-  helperDialect: mysql
-  reasonable: true
-  pageSizeZero: true
+  datasource:
+      type: com.alibaba.druid.pool.DruidDataSource
+      driver-class-name: com.mysql.jdbc.Driver
+      url: jdbc:mysql:///weipinhui
+      username: root
+      password: root
+      dbcp2:
+        min-idle: 5
+        initial-size: 5
+        max-total: 5
+        max-wait-millis: 200
 
-thymeleaf:
-  encoding: UTF-8
-  #开发时关闭缓存,不然没法看到实时页面
-  cache: false
-  prefix: classpath:/templates/  #默认
-  suffix: .html                  #默认
+eureka:
+  client:
+    register-with-eureka: true
+    service-url:
+      defaultZone: http://localhost:6003/eureka/
+  instance:
+    instance-id: weipinhuiMWXweb-80
+    prefer-ip-address: true     #访问路径可以显示IP地址

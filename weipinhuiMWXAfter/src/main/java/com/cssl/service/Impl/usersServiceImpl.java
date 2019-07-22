@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * @program: weipinghuiczx
@@ -25,5 +26,10 @@ public class usersServiceImpl implements usersService
    public users login(String name, String pwd)
    {
       return udao.login(name,pwd);
+   }
+
+   @Override
+   public List<users> findAllusers() {
+      return udao.findAllusers();
    }
 }

@@ -1,0 +1,53 @@
+server:
+  port: 8080
+
+
+#mybatis:
+#  config-location: classpath:mybatis/mybatis-cfg.xml
+#  type-aliases-package: com.cssl.pojo
+#  mapper-locations: classpath:mybatis/mapper/**/*.xml
+
+mybatis:
+  type-aliases-package: com.weip.pojo
+  configuration:
+    auto-mapping-behavior: full
+    use-generated-keys: true
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+spring:
+  application:
+    #微服务名
+    name: weipinhuiHZAfter
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql:///weipinhui
+    username: root
+    password: 125927
+    dbcp2:
+      min-idle: 5
+      initial-size: 5
+      max-total: 5
+      max-wait-millis: 200
+
+
+#management:
+#  endpoints:
+#    web:
+#      exposure:
+#        include: "*"
+#  endpoint:
+#      health:
+#        show-details: ALWAYS
+
+eureka:
+  client: #客户端注册进eureka服务列表内
+    service-url:
+      defaultZone: http://localhost:6003/eureka
+      #Eureka服务器集群
+      #defaultZone: http://eureka6611.com:6001/eureka/,http://eureka6622.com:6002/eureka/
+  instance:
+    instance-id: weipinhuiHZAfter-dept8282
+    prefer-ip-address: true     #访问路径可以显示IP地址
+    leaseRenewalIntervalInSeconds: 10   #租期更新时间间隔（默认30秒）
+    leaseExpirationDurationInSeconds: 30 #租期到期时间（默认90秒）
