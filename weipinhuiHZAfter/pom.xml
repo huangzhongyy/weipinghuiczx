@@ -15,6 +15,12 @@
 
     <dependencies>
 
+        <dependency>
+            <groupId>com.cssl</groupId>
+            <artifactId>alicom-dysms-api</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
 
         <!-- 引入comm通用包 -->
         <dependency>
@@ -27,6 +33,12 @@
             <groupId>de.codecentric</groupId>
             <artifactId>spring-boot-admin-starter-client</artifactId>
             <version>2.1.5</version>
+        </dependency>
+
+        <!-- Ribbon相关 -->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-netflix-ribbon</artifactId>
         </dependency>
 
 
@@ -70,6 +82,17 @@
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-config</artifactId>
+        </dependency>
+
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-redis</artifactId>
+        </dependency>
+        <!-- 分布式session -->
+        <dependency>
+            <groupId>org.springframework.session</groupId>
+            <artifactId>spring-session-data-redis</artifactId>
         </dependency>
 
 

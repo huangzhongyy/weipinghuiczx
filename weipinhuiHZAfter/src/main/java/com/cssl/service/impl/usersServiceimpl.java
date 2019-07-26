@@ -18,9 +18,15 @@ public class usersServiceimpl implements usersService {
  @Autowired
  private UserDao udao;
 
+ @Override
+ public users SelectPhone(String phone) {
+  System.out.println("手机号码业务层-------");
+  return udao.SelectPhone(phone);
+ }
 
  @Override
  public int usersRegist(users users) {
+  System.out.println("注册业务层----------");
   return udao.usersRegist(users);
  }
 }

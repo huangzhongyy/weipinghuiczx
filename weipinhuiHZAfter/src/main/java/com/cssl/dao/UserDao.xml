@@ -4,12 +4,15 @@
 
 <mapper namespace="com.cssl.dao.UserDao">
 
-
-
+<!-- 注册用户-->
 	<insert id="usersRegist" parameterType="users">
       insert into users (username,`password`,phone,utype) values (#{username},#{password},#{phone},1)
 	</insert>
 
+	<!--查询手机号码 -->
+  <select id="SelectPhone" resultType="users">
+	 select * from users where phone=#{phone}
+  </select>
 
 </mapper>
  
