@@ -1,11 +1,15 @@
 package com.cssl.service;
 
+import com.weip.pojo.goods;
 import com.weip.pojo.users;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import java.util.List;
+import java.util.Map;
 
 /**
  * @program: weipinghuiczx
@@ -23,6 +27,10 @@ public interface UsersServicez {
  @RequestMapping("/sms")
  public int sms(String phone);
 
-@RequestMapping("/pp")
+ @RequestMapping("/pp")
  public users YzPhone(String phone);
+
+ @RequestMapping("/shangpingFina")
+ public List<goods> Finagoods(Map<String,Object> map);
+
 }
