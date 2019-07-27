@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.cssl.dao.GoodsDao">
+
+    <sql id="whereFina">
+
+    </sql>
+
+<select id="Finagoods" resultType="goods">
+
+  select g_id,g_name,g_description,g_price,g_discount,g_number,g_image,g_tid from goods
+  <include refid="whereFina"/>
+
+</select>
+
+</mapper>
+ 
+
