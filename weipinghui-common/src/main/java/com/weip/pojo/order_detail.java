@@ -25,4 +25,5 @@ public class order_detail
    private String od_image;//商品图片
    private int od_quantity;//买了几个商品
    private double od_summoney;//总价
+   private int od_status;//订单状态
 }
