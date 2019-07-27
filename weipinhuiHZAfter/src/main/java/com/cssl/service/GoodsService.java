@@ -12,5 +12,6 @@ import java.util.Map;
  * @Description:
  */
 public interface GoodsService {
+ //查询全部
  public List<goods> Finagoods(Map<String,Object> map);
 }

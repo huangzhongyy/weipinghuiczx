@@ -42,7 +42,7 @@
         </dependency>
 
 
-        <!-- 将微服务provider注册进eureka -->
+        <!-- 将微服务provider注册进eureka 啦啦-->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
