@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="easyui/themes/default/easyui.css" id="easyuiTheme">
+    <link rel="stylesheet" type="text/css" href="easyui/themes/icon.css">
+    <script type="text/javascript" src="easyui/jquery.min.js"></script>
+    <script type="text/javascript" src="easyui/jquery.easyui.min.js"></script>
+    <script type="text/javascript" src="easyui/locale/easyui-lang-zh_CN.js"></script>
+    <!--<script type="text/javascript" src="easyui/jquery.edatagrid.js" ></script>-->
+    <title>订单页面</title>
+    <style>
+        .goodimg{
+            height:80px;
+            width:80px;
+            margin: 8px 5px 5px 5px;
+            display: inline-block;
+            border-radius: 5px;
+        }
+
+        .button1,.button2 {
+            background-color: #4CAF50; /* Green */
+            border: none;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+        }
+    </style>
+
+
+</head>
+<body style="padding-top:20px; ">
+    <!-- 订单号查询  start-->
+
+    <p>你好阿瑟东嗷嗷aaa</p>
+   <div style="margin-left: 30px;margin-bottom: 30px;" id="hh">
+    <input id="ss" style="width: 350px;"></input>
+    <div id="mm" style="width:120px; ">
+        <div data-options="name:'orders',iconCls:'icon-ok'">orders</div>
+    </div>
+   </div>
+
+    <!-- 订单号查询  start-->
+    <!--  查询订单  start-->
+    <table id="dg">
+
+    </table>
+    <!--  查询订单  end-->
+
+    <script type="text/javascript">
+        $(function(){
+
+            function querydata(sidv,pagesizev,rowsv,od_idv) {
+
+                $('#dg').datagrid({
+                    url:'order',
+                    striped:true,    	//斑马线效果
+                    singleSelect:true,
+                    fitColumns:true,	  //匹配列宽
+                    fit:true,			  //匹配父容器
+                    autoRowHeight:true, //行高设置,冻结列后图片的行高要高于冻结列行高
+                    scrollbarSize:0,     // 可以将多出的空白消除
+                    pagination:true,
+                    pagePosition:'top',
+                    pageNumber:pagesizev, //页码
+                    pageSize: 3,     //每页显示多少条记录
+                    pageList: [1,2,3, 6, 9],
+                    rowNumbers: true,
+                    queryParams:{       //带的参数
+                        sid:sidv,
+                        od_id:od_idv
+                    },
+                    loadMsg: '正在加载数据.......',
+                    /*rowStyler: function(index,row){
+                        return 'background-color:#ccc';
+                    },*/
+                    frozenColumns:[[
+
+                        {field:'od_id',title:'订单编号',width:250,align:'center'}
+                    ]],
+                    columns:[[
+                        {field:'od_uname',title:'用户姓名',width:100,align:'center'},
+                        {field:'g_name',title:'商品名',width:180,align:'center'},
+                        {field:'g_image',title:'图片',width:150,align:'center',
+                            formatter: function(value,row,index){
+                                return '<img class="goodimg" src="'+row.g_image+'"/>';
+                            }
+                        },
+                        {field:'od_quantity',title:'数量',width:60,align:'center'},
+                        {field:"g_price",title:'价格',width:100,align:'right',
+                            formatter:function(v){
+                                return parseFloat(v).toFixed(2)
+                            }
+                        },
+                        {field:'od_summoney',title:'总价',width:100,align:'right',
+                            formatter:function(v){
+                                return parseFloat(v).toFixed(2)
+                            }
+                        },
+                        {field:'od_date',title:'订单日期',width:200,align:'center'},
+                        {field:'od_status',title:'订单状态',width:200,align:'center',
+                            formatter:function(v,row,index){
+                                if(v == 1){
+                                    return '<a class="button1" >确认发货</a>';
+                                }else if(v == 2){
+                                    return '<a class="button2" >已发货</a>';
+                                }else if(v == 3){
+                                    return '<button class="button2" >已收货</button>';
+                                }
+                            }
+                        }
+
+                    ]]
+                });
+
+                var pager = $('#dg').datagrid('getPager');
+                pager.pagination({
+                    beforePageText: '第',
+                    afterPageText: '页, 共 {pages} 页',
+                    displayMsg:'显示第 {from} 到 {to} 条记录，共 {total} 条记录',
+                    //layout:['first','prev','links','next','last','manual'],
+                    //links:3
+                });
+            }
+
+            //一开始查一下
+            querydata(1,1,3,'');
+
+            $('#ss').searchbox({
+                searcher:function(value){
+                    alert(value );
+                    querydata(1,1,3,value);
+
+                },
+                menu:'#mm',
+                prompt:' 请 输 入 要  查 询 的 订 单 号'
+            });
+
+            alert("123");
+            //点击确认发货
+            $(".button1").click(function () {
+                var $fh = $(this);
+                var $od_id = $fh.attr('data');
+                alert($od_id);
+                $.post("updatestatu",{"status":2,"od_id":$od_id},function (data) {
+                    alert(data);
+                });
+            });
+
+
+           /* $.parser.parse($('#dg'));*/
+        });
+
+
+
+    </script>
+</body>
+</html>

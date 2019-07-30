@@ -1,4 +1,4 @@
-package com.cssl.config;
+/*package com.cssl.config;
 
 import com.netflix.loadbalancer.IRule;
 import com.netflix.loadbalancer.RoundRobinRule;
@@ -14,4 +14,4 @@ public class ConfigBean {
 		//return new RandomRule();
 		//return new RetryRule();
 	}
-}
+}*/
