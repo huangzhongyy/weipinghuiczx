@@ -14,21 +14,30 @@ spring:
     static-locations: classpath:/templates/,classpath:/META-NF/resources/,classpath:/resources/,classpath:/static/,classpath:/public/,classpath:/upload
 
 
-  redis:
-    database: 0
-    host: 192.168.44.128
-    port: 6379
-    password: 123456
-    timeout: 10s
-    jedis:
-      pool:
-        max-active: 8
-        max-wait: -1
-        max-idle: 5
-        min-idle: -1
+
+#  redis:
+#    database: 0
+#    host: 192.168.44.128
+#    port: 6379
+#    password: 123456
+#    timeout: 10s
+#    jedis:
+#      pool:
+#        max-active: 8
+#        max-wait: -1
+#        max-idle: 5
+#        min-idle: -1
 
   application:
     name: WEIPINGHUI-WEBHZ
+
+ribbon:
+  ReadTimeout: 5000
+  ConnectTimeout: 5000
+
+feign:
+  httpclient:
+    connection-timeout: 30000
 
 eureka:
   client:
