@@ -24,8 +24,9 @@ public class goods
    private String g_description;//商品描述
    private double g_price;//商品价格
    private double g_discount;//商品折扣
-   private int g_number;//商品数量
+   private int g_number;//商品库存
    private String g_image;//商品图片
    private int g_tid;//商品所属分类
+   private int g_sid;//商品所属商家
 }
 
