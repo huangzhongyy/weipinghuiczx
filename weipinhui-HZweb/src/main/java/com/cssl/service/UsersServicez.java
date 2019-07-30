@@ -31,6 +31,6 @@ public interface UsersServicez {
  public users YzPhone(String phone);
 
  @RequestMapping("/shangpingFina")
- public List<goods> Finagoods(Map<String,Object> map);
+ public Map<String,Object> Finagoods(Map<String,Object> map);
 
 }
