@@ -1,5 +1,6 @@
 package com.cssl;
 
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
@@ -10,6 +11,7 @@ import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
  * @Author: Mr.Deng
  * @Description:
  */
+@MapperScan("com.cssl.dao")//扫描接口
 @SpringBootApplication
 @EnableEurekaClient//客户端
 public class weipinghuiHZAfterApp {

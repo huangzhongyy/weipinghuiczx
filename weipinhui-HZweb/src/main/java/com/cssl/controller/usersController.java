@@ -26,7 +26,7 @@ public class usersController {
 
  @RequestMapping(value = "/ZZregist")
  public String Registz(users user){
- System.out.println("------------进来了前端的嘛-------------");
+ //System.out.println("------------进来了前端的嘛-------------");
  int num=userszz.Regist(user);
  System.out.println("-----------"+num);
  if(num>0){
@@ -38,7 +38,7 @@ public class usersController {
 @RequestMapping(value = "/ZZsms")
 @ResponseBody
 public int Qsms(String phone) {
- System.out.println("手机啊啊啊啊啊啊啊啊啊啊啊啊"+phone);
+ //System.out.println("手机啊啊啊啊啊啊啊啊啊啊啊啊"+phone);
  if(userszz.YzPhone(phone)==null){
   return userszz.sms(phone);
  }

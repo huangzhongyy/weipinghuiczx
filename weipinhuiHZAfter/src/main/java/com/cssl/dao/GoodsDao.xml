@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.cssl.dao.GoodsDao">
+<!--
+    <sql id="whereFina">
+   <if test="the_fuselage_memory!=null and the_fuselage_memory!=''">
+       the_fuselage_memory=#{the_fuselage_memory}
+   </if>
+    </sql>-->
+
+<select id="Finagoods" resultType="goods">
+
+    select g_id,g_name,g_description,g_price,g_discount,g_number,g_image,g_tid
+    from goods g
+    inner join   goods_details o on  g.g_id=o.goods_id
+   <where>
+       <if test="g_name!=null and g_name!=''">
+           g_name=#{g_name}
+       </if>
+       <if test="the_fuselage_memory!=null and the_fuselage_memory!=''">
+           and the_fuselage_memory=#{the_fuselage_memory}
+       </if>
+       <if test="the_screen_size!=null and the_screen_size!=''">
+           and the_screen_size=#{the_screen_size}
+       </if>
+   </where>
+
+</select>
+
+</mapper>
+ 
+
