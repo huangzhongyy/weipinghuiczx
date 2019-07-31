@@ -13,6 +13,19 @@ spring:
 
   application:
     name: microservice-czwconsumer
+
+  redis:
+    database: 0
+    host: 192.168.220.135
+    port: 6379
+    password: 1
+    timeout: 10s
+    jedis:
+      pool:
+        max-active: 8
+        max-wait: -1
+        max-idle: 5
+        min-idle: -1
   mvc:
     view:
       prefix: /
@@ -39,11 +52,11 @@ eureka:
     instance-id: microservice-czwconsumer-80
     prefer-ip-address: true     #访问路径可以显示IP地址
 
-#feign:
-  #httpclient:
-    #connection-timeout: 30000
-#  hystrix:
-#    enabled: true
+feign:
+  httpclient:
+    connection-timeout: 30000
+  hystrix:
+    enabled: true
 
 
 mybatis:

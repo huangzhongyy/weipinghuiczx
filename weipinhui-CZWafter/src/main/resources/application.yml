@@ -13,6 +13,36 @@ spring:
 
   application:
     name: microservice-czwafter
+  mvc:
+    view:
+      prefix: /
+      suffix: .html
+#映射静态资源
+    static-path-pattern: /**
+
+  resources:
+    static-locations: classpath:/templates/,classpath:/META-NF/resources/,classpath:/resources/,classpath:/static/,classpath:/public/,classpath:/upload
+
+  redis:
+      database: 0
+      host: 192.168.220.135
+      port: 6379
+      password: 1
+      timeout: 20s
+      jedis:
+        pool:
+          max-active: 8
+          max-wait: -1
+          max-idle: 5
+          min-idle: -1
+
+  thymeleaf:
+    encoding: UTF-8
+    #开发时关闭缓存,不然没法看到实时页面
+    cache: false
+    prefix: classpath:/templates/  #默认
+    suffix: .html                  #默认
+
 
 eureka:
   client:
@@ -29,11 +59,6 @@ feign:
   hystrix:
     enabled: true
 
-#映射静态资源
-    static-path-pattern: /**
-
-  resources:
-    static-locations: classpath:/templates/,classpath:/META-NF/resources/,classpath:/resources/,classpath:/static/,classpath:/public/,classpath:/upload
 
 mybatis:
   type-aliases-package: com.weip.pojo
@@ -47,11 +72,7 @@ pagehelper:
   reasonable: true
   pageSizeZero: true
 
-thymeleaf:
-  encoding: UTF-8
-  #开发时关闭缓存,不然没法看到实时页面
-  cache: false
-  prefix: classpath:/templates/  #默认
-  suffix: .html                  #默认
+
+
 
 

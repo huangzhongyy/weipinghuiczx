@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @program: weipinghuiczx
@@ -41,5 +42,16 @@ public class ShouYeServiceImpl implements ShouYeService {
   System.out.println("list2"+list2.size());
   System.out.println("list3"+list3.size());
   return list2;
+ }
+
+ @Override
+ public List<Map<String, Object>> selectOrderByMap(Map<String, Object> map) {
+  return syd.selectOrderByMap(map);
+ }
+
+ //总订单数用于分页
+ @Override
+ public int selectOrderCountBysid(Integer sid,String od_id) {
+  return syd.selectOrderCountBysid(sid,od_id);
  }
 }

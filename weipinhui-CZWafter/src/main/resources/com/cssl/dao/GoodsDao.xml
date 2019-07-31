@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace就是接口的全路径 -->
+<mapper namespace="com.cssl.dao.GoodsDao">
+
+    <select id="selectCountBygid" resultType="int" >
+        select g_number from goods where g_id = #{gid}
+    </select>
+</mapper>

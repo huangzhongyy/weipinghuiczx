@@ -16,4 +16,35 @@
     <select id="selectThree" resultType="threetype">
         SELECT * FROM threetype where three_two_tid = #{twoID}
     </select>
+
+    <!--  通过map查询订单  -->
+    <select id="selectOrderByMap" resultType="Map" parameterType="map">
+        select o.*,g.g_name,g.g_image,g.g_price from order_detail o
+        inner join goods g on o.od_gid = g.g_id
+
+        <where>
+            <if test="map.sid!=null" >
+               od_sid = #{map.sid}
+            </if>
+            <if test="map.od_id != null">
+              and od_id LIKE concat('%',#{map.od_id},'%')
+            </if>
+        </where>
+
+        ORDER BY od_date DESC
+        limit #{map.qudiao},#{map.xianshi}
+
+    </select>
+
+    <!--  通过sid查询总记录数，用于分页-->
+    <select id="selectOrderCountBysid" resultType="int">
+        select count(1) FROM order_detail
+        <where>
+            od_sid = #{sid}
+
+            <if test="od_id != null and od_id !=''">
+                and od_id LIKE concat('%',#{od_id},'%')
+            </if>
+        </where>
+    </select>
 </mapper>
