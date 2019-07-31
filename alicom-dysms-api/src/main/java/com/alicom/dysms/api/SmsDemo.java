@@ -41,11 +41,11 @@ public class SmsDemo {
     static final String accessKeySecret = "n25pR7axUEpcHZZ92FIWjzsGghwXnM";
     //发短信的。
 
-    public static SendSmsResponse sendSms() throws ClientException {
+    public static SendSmsResponse sendSms(String phone,int sms) throws ClientException {
 
         //可自助调整超时时间
-        System.setProperty("sun.net.client.defaultConnectTimeout", "10000");
-        System.setProperty("sun.net.client.defaultReadTimeout", "10000");
+        System.setProperty("sun.net.client.defaultConnectTimeout", "60000");
+        System.setProperty("sun.net.client.defaultReadTimeout", "60000");
 
         //初始化acsClient,暂不支持region化
         IClientProfile profile = DefaultProfile.getProfile("cn-hangzhou", accessKeyId, accessKeySecret);
@@ -55,13 +55,13 @@ public class SmsDemo {
         //组装请求对象-具体描述见控制台-文档部分内容
         SendSmsRequest request = new SendSmsRequest();
         //必填:待发送手机号
-        request.setPhoneNumbers("13117410301");
+        request.setPhoneNumbers(phone);
         //必填:短信签名-可在短信控制台中找到
         request.setSignName("长沙实力");
         //必填:短信模板-可在短信控制台中找到
         request.setTemplateCode("SMS_169636711");
         //可选:模板中的变量替换JSON串,如模板内容为"亲爱的${name},您的验证码为${code}"时,此处的值为
-        request.setTemplateParam("{\"code\":\"5201314\"}");
+        request.setTemplateParam("{\"code\":"+sms+"}");
 
         //选填-上行短信扩展码(无特殊需求用户请忽略此字段)
         //request.setSmsUpExtendCode("90997");
@@ -70,17 +70,21 @@ public class SmsDemo {
         request.setOutId("yourOutId");
 
         //hint 此处可能会抛出异常，注意catch
-        SendSmsResponse sendSmsResponse = acsClient.getAcsResponse(request);
+        SendSmsResponse sendSmsResponse = null;
+        try {
+            sendSmsResponse = acsClient.getAcsResponse(request);
+        } catch (ClientException e) {
+            e.printStackTrace();
+        }
 
         return sendSmsResponse;
     }
 
-
     public static QuerySendDetailsResponse querySendDetails(String bizId) throws ClientException {
 
         //可自助调整超时时间
-        System.setProperty("sun.net.client.defaultConnectTimeout", "10000");
-        System.setProperty("sun.net.client.defaultReadTimeout", "10000");
+        System.setProperty("sun.net.client.defaultConnectTimeout", "100000");
+        System.setProperty("sun.net.client.defaultReadTimeout", "100000");
 
         //初始化acsClient,暂不支持region化
         IClientProfile profile = DefaultProfile.getProfile("cn-hangzhou", accessKeyId, accessKeySecret);
@@ -107,25 +111,24 @@ public class SmsDemo {
 
         return querySendDetailsResponse;
     }
-
     public static void main(String[] args) throws ClientException, InterruptedException {
 
-        //发短信
-       SendSmsResponse response = sendSms();
+/*        //发短信
+       SendSmsResponse response = sendSms("111",2);
         System.out.println("短信接口返回的数据----------------");
         System.out.println("Code=" + response.getCode());
         System.out.println("Message=" + response.getMessage());
         System.out.println("RequestId=" + response.getRequestId());
         System.out.println("BizId=" + response.getBizId());
 
-        Thread.sleep(3000L);
+        Thread.sleep(3000L);*/
 
 
 
     }
 
-    public static boolean run() throws ClientException, InterruptedException{
-        SendSmsResponse response = sendSms();
+    public static boolean run(String phone,int sms) throws ClientException, InterruptedException{
+        SendSmsResponse response = sendSms(phone,sms);
         System.out.println("短信接口返回的数据----------------");
         System.out.println("Code=" + response.getCode());
         System.out.println("Message=" + response.getMessage());
@@ -133,9 +136,9 @@ public class SmsDemo {
         System.out.println("BizId=" + response.getBizId());
         boolean rs = false ;
 
-        Thread.sleep(3000L);
+        //Thread.sleep(3000L);
 
-        //查明细
+   /*     //查明细
         if(response.getCode() != null && response.getCode().equals("OK")) {
             QuerySendDetailsResponse querySendDetailsResponse = querySendDetails(response.getBizId());
             System.out.println("短信明细查询接口返回数据----------------");
@@ -157,7 +160,7 @@ public class SmsDemo {
             System.out.println("TotalCount=" + querySendDetailsResponse.getTotalCount());
             System.out.println("RequestId=" + querySendDetailsResponse.getRequestId());
             rs = true;
-        }
+        }*/
         return rs ;
     }
 }
