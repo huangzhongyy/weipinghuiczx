@@ -28,5 +28,16 @@ public class goods
    private String g_image;//商品图片
    private int g_tid;//商品所属分类
    private int g_sid;//商品所属商家
+
+   public goods(String gname,String gdesc,Double gprice,Double gdiscount,int gnumber,String image,int gtype,int sid){
+        this.g_name = gname;
+        this.g_description = gdesc;
+        this.g_price = gprice;
+        this.g_discount = gdiscount;
+        this.g_number = gnumber;
+        this.g_image = image;
+        this.g_tid = gtype;
+        this.g_sid = sid;
+   }
 }
 

@@ -6,6 +6,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 
+import java.io.Serializable;
+
 /**
  * @program: weipinghuiczx
  * @Date: 2019/7/11 19:50
@@ -17,7 +19,7 @@ import lombok.experimental.Accessors;
 @NoArgsConstructor
 @AllArgsConstructor
 @Accessors(chain=true)
-public class shanjia
+public class shanjia implements Serializable
 {
    private int s_id;//商家ID
    private String s_pwd;//商家密码
