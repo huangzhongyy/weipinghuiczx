@@ -10,9 +10,9 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
 
-    <groupId>com.alicom.dysms</groupId>
+
     <artifactId>alicom-dysms-api</artifactId>
-    <version>1.0</version>
+
 
     <dependencies>
         <dependency>
