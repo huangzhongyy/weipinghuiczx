@@ -12,7 +12,7 @@
     <artifactId>weipinhui-CZWafter</artifactId>
 
     <dependencies>
-        <!-- 引入comm通用包，可以使用Dept -->
+        <!-- 引入comm通用包，可以使用公共的组件 -->
         <dependency>
             <groupId>com.cssl</groupId>
             <artifactId>weipinghui-common</artifactId>

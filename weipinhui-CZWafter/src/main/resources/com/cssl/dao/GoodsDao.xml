@@ -5,7 +5,66 @@
 <!-- namespace就是接口的全路径 -->
 <mapper namespace="com.cssl.dao.GoodsDao">
 
+    <!--库存 -->
     <select id="selectCountBygid" resultType="int" >
         select g_number from goods where g_id = #{gid}
     </select>
+
+    <!-- 商家对应的商品 -->
+     <select id="selectGoodsBysid" resultType="goods" >
+         SELECT * FROM goods WHERE g_sid = #{sid} limit #{page},#{rows}
+     </select>
+
+    <!--  所有商品 ，分页-->
+    <select id="selectGoodsCount" resultType="int" >
+        select count(*) from goods where g_sid = #{sid}
+    </select>
+
+
+    <!--  根据g_id查整个商品信息  -->
+	<select id="selectGoodBygid" resultType="goods" >
+       select * from goods where g_id = #{gid}
+	</select>
+
+    <!--   增加一个商品  -->
+    <insert id="addgood" >
+
+INSERT INTO `weipinhui`.`goods`
+	(
+	`g_name`,
+	`g_description`,
+	`g_price`,
+	`g_discount`,
+	`g_number`,
+	`g_image`,
+	`g_tid`,
+	`g_sid`
+	)
+	VALUES
+	(
+	  #{good.g_name},#{good.g_description},#{good.g_price},#{good.g_discount},#{good.g_number},#{good.g_image},#{good.g_tid},#{good.g_sid}
+	)
+    </insert>
+
+    <!--  删除一个商品  -->
+    <delete id="deleteGoodBygid" >
+       delete from goods where g_id = #{gid}
+    </delete>
+
+    <!--   修改一个商品  -->
+    <update id="updateGood">
+        UPDATE `weipinhui`.`goods`
+	SET
+	`g_name` = #{good.g_name} ,
+	`g_description` = #{good.g_description} ,
+	`g_price` = #{good.g_price} ,
+	`g_discount` = #{good.g_discount} ,
+	`g_number` = #{good.g_number} ,
+	`g_image` = #{good.g_image} ,
+	`g_tid` = #{good.g_tid} ,
+	`g_sid` = #{good.g_sid}
+
+	WHERE
+	`g_id` = #{good.g_id} ;
+    </update>
 </mapper>

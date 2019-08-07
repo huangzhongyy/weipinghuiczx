@@ -1,7 +1,5 @@
 server:
   port: 30001
-#  servlet:
-#    context-path: /CZWweb  #不要起名字否则微服务调用不到
 
 #数据源
 spring:
@@ -16,7 +14,7 @@ spring:
 
   redis:
     database: 0
-    host: 192.168.220.135
+    host: 192.168.220.137
     port: 6379
     password: 1
     timeout: 10s
@@ -56,7 +54,8 @@ feign:
   httpclient:
     connection-timeout: 30000
   hystrix:
-    enabled: true
+    enabled: false #大概是溶断
+
 
 
 mybatis:
@@ -71,6 +70,9 @@ pagehelper:
   reasonable: true
   pageSizeZero: true
 
+ribbon:
+  ReadTimeout: 5000
+  ConnectTimeout: 5000
 
 
 

@@ -78,16 +78,15 @@
     <div data-options="region:'west',title:'菜单管理',split:true" style="width:200px;">
         <!--  菜单管理  start-->
         <div id="aa" class="easyui-accordion" style="width:100%;">
-            <div title="订单查询" data-options="iconCls:'icon-save'" style="overflow:auto;padding:10px;height: 535px;">
-                <a class="aa" style="color:#0099FF;" src="order.html">订单查询</a>
-                <a class="aa" style="color:#0099FF;">权限管理</a>
+            <div title="订单管理" data-options="iconCls:'icon-save'" style="overflow:auto;padding:10px;height: 535px;">
+                <a class="aa" id="show" style="color:#0099FF;" src="order.html">订单查询</a>
 
             </div>
             <div title="商品管理" data-options="iconCls:'icon-reload'" style="padding:10px;height: 535px;">
-                content2
+                <a class="aa" style="color:#0099FF;" src="aftergoods.html">商品管理</a>
             </div>
-            <div title="权限管理" data-options="iconCls:'icon-lock',selected:true" style="height: 535px;">
-                嘿,李兰妈妈
+            <div title="个人信息" data-options="iconCls:'icon-lock',selected:true" style="padding:10px;height: 535px;">
+                <a class="aa" style="color:#0099FF;" src="aftergoods.html">个人信息</a>
             </div>
         </div>
         <!--  菜单管理  end-->
@@ -98,12 +97,11 @@
     <div data-options="region:'center'" style="padding:0px;background:#eee;">
         <!--  选项卡   -->
         <div id="tt" class="easyui-tabs" style="width: 100%;height:100%;">
+            <!--
             <div title="Tab1" data-options="closable:true" style="padding:20px;display:none;">
                 tab1
             </div>
-            <div title="Tab2" data-options="closable:true" style="overflow:auto;padding:20px;display:none;">
-                tab2
-            </div>
+            -->
         </div>
         <!--  选项卡   -->
     </div>
@@ -117,7 +115,7 @@
             if ($('#tt').tabs('exists', title)) {
                 $('#tt').tabs('select', title);
             } else {
-                var content = '<iframe scrolling="auto" frameborder="0"  src="' + src + '" style="width:100%;height:100%;"></iframe>';
+                var content = '<iframe scrolling="auto" frameborder="0"  src="' + src + '" style="width:100%;height:99%;"></iframe>';
                 $('#tt').tabs('add', {
                     title: title,
                     //href:src, //src //显示网页中body部分
@@ -127,12 +125,15 @@
             }
         }
 
+        // 收集 链接 和标题
         $('.aa').click(function () {
             var $this = $(this);
             var href = $this.attr('src');
             var title = $this.html();
             addTab(title, href);
         });
+
+        $('.aa:eq(0)').click(); // 页面一加载 模拟点击一下订单查询
     });
 </script>
 </body>
