@@ -22,6 +22,12 @@
         </dependency>
 
 
+        <!--  redis:不需要再导驱动 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-redis</artifactId>
+        </dependency>
+
         <!-- 引入comm通用包 -->
         <dependency>
             <groupId>com.cssl</groupId>
@@ -52,6 +58,7 @@
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
+            <version>5.1.46</version>
         </dependency>
 
         <!-- 阿里巴巴的数据源-->
