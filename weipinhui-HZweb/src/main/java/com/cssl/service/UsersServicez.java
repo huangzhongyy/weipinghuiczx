@@ -1,14 +1,12 @@
 package com.cssl.service;
 
-import com.weip.pojo.goods;
+import com.weip.pojo.Order_detail;
 import com.weip.pojo.users;
 import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -32,5 +30,30 @@ public interface UsersServicez {
 
  @RequestMapping("/shangpingFina")
  public Map<String,Object> Finagoods(Map<String,Object> map);
+
+ @RequestMapping("/ShopCar")
+ public Map<String,Object> addShopCar(int gid);
+
+ @RequestMapping("/jiajia")
+ public Map<String,Object> upOneSockt( int gid);
+
+ @RequestMapping("/jianjian")
+ public Map<String,Object> lowerStock( int gid);
+
+@RequestMapping("/Sdelete")//删除
+ public Map<String,Object> ShopCarDelete(int gid);
+
+@RequestMapping("/sumz")
+ public double sumShopcar();
+@RequestMapping("/fuxuan")
+ public Map<String,Object> checkedjian(int gid);
+
+@RequestMapping("/jiajiajia")
+ public Map<String,Object> checkedjiajia( int gid);
+
+
+//订单结算
+@RequestMapping("/orderj")
+ public int Orderjiesuan(@RequestParam("cartCheckBox") String[] cartCheckBox);
 
 }

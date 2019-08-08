@@ -17,9 +17,9 @@ spring:
 
 #  redis:
 #    database: 0
-#    host: 192.168.44.128
+#    host: 192.168.191.130
 #    port: 6379
-#    password: 123456
+#    password: huangzhong
 #    timeout: 10s
 #    jedis:
 #      pool:
@@ -32,12 +32,13 @@ spring:
     name: WEIPINGHUI-WEBHZ
 
 ribbon:
-  ReadTimeout: 5000
-  ConnectTimeout: 5000
+  ReadTimeout: 50000
+  ConnectTimeout: 50000
+
 
 feign:
   httpclient:
-    connection-timeout: 30000
+    connection-timeout: 90000
 
 eureka:
   client:
@@ -50,11 +51,7 @@ eureka:
     instance-id: myservice-consumer-8087
     prefer-ip-address: true     #访问路径可以显示IP地址
 
-info:
-  app.name: HZweb-8081
-  company.name: www.cssl.com
-  build.artifactId: $project.artifactId$
-  build.version: $project.version$
+
 
 
 
