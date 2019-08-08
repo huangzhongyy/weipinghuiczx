@@ -1,12 +1,15 @@
 package com.cssl.Service;
 
+import com.weip.pojo.goods;
 import com.weip.pojo.onetype;
+import com.weip.pojo.shanjia;
 import com.weip.pojo.twotype;
 import org.springframework.cloud.openfeign.FeignClient;
 
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 
 import java.util.List;
@@ -21,6 +24,9 @@ import java.util.Map;
 @FeignClient("MICROSERVICE-CZWAFTER")
 public interface ShouYeService {
 
+ @RequestMapping("/after/login")
+ public shanjia afterLogin(shanjia sj);
+
  @RequestMapping("/aftershouye")
  public List<twotype> loadFenLei(Integer oneid);
 
@@ -28,11 +34,25 @@ public interface ShouYeService {
  public Map<String,Object> selectOrderByMap(Map<String,Object> map);
 
  @RequestMapping("/after/updatestatuss")
- public String updateStatue(@RequestParam("status") Integer status,@RequestParam("od_id") String od_id);
+ public String updateStatue(@RequestParam("status")Integer status,@RequestParam("od_id") String od_id);
 
+ // 商家对应的商品
+ @RequestMapping("/after/goodsbysid")
+ public Map<String,Object> selectGoodsBySid(@RequestParam("sid")int sid,@RequestParam("page")int page,@RequestParam("rows")int rows);
 
+ //  商家增加一个商品
+ @RequestMapping("/after/addgood")
+ public String addgood(goods good);
+ // 删除一个商品
+ @RequestMapping("/after/destroyRowgoood")
+ public String destroyRow(@RequestParam("gid") int gid);
 
+ @RequestMapping("/after/findGoodBygid")
+ public goods findGoodBygid(@RequestParam("gid") int gid);
 
+ // 修改一个商品
+ @RequestMapping("/after/updategood")
+ public String updateGood(goods good);
 
 
 

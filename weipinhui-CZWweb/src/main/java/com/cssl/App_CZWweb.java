@@ -22,8 +22,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EnableFeignClients
 //RedisFlushMode.IMMEDIATE，可以确保zuul存储到redis的session对象在请求服务中能立即被获取
 @EnableRedisHttpSession(
- maxInactiveIntervalInSeconds = 300,
- redisFlushMode = RedisFlushMode.IMMEDIATE)
+ maxInactiveIntervalInSeconds = 300)
 public class App_CZWweb {
  public static void main(String[] args) {
   SpringApplication.run(App_CZWweb.class,args);

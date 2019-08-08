@@ -1,9 +1,14 @@
 package com.cssl.control;
 
+import com.cssl.service.GoodsService;
 import com.cssl.service.Order_detailService;
+import com.cssl.service.ShangJIaService;
 import com.cssl.service.ShouYeService;
+import com.weip.pojo.goods;
 import com.weip.pojo.onetype;
+import com.weip.pojo.shanjia;
 import com.weip.pojo.twotype;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -26,6 +31,7 @@ import java.util.Map;
  * @Author: Mr.Deng
  * @Description:
  */
+@RefreshScope
 @Controller
 public class ShouYeController {
 
@@ -33,8 +39,16 @@ public class ShouYeController {
      private ShouYeService sys;
      @Resource
      private Order_detailService ods;
+     @Resource
+     private GoodsService gs;
+     @Resource
+     private ShangJIaService sjs;
 
-
+     @RequestMapping("/after/login")
+     @ResponseBody
+     public shanjia afterLogin(@RequestBody shanjia sj){
+         return sjs.login(sj);
+     }
      // 大分类
      @RequestMapping("/aftershouye")
      @ResponseBody
@@ -51,10 +65,15 @@ public class ShouYeController {
       */
      @RequestMapping("/after/order")
      @ResponseBody
-     public Map<String,Object> selectOrderByMap(@RequestBody Map<String,Object> map){
+     public Map<String,Object> selectOrderByMap(@RequestBody Map<String,Object> map,HttpSession session){
       Map<String,Object> map2 = new HashMap<>();
       // 商家id
       Integer sid = Integer.parseInt(map.get("sid").toString());
+      Object sj1 = session.getAttribute("sj");
+      System.out.println("aaaaaaaaaaaaaa:"+sj1);
+      shanjia sj = (shanjia) session.getAttribute("sj");
+      System.out.println(sj);
+      System.out.println(session.getId()+"*****(*(");
       // 订单id
       String od_id = null;
       Object od_id1 = map.get("od_id");
@@ -74,7 +93,7 @@ public class ShouYeController {
   */
    @RequestMapping("/after/updatestatuss")
    @ResponseBody
-   public String updateStatu(@RequestBody Integer status,String od_id){
+   public String updateStatu(Integer status,String od_id){
     System.out.println("进来了");
      int num =  ods.updateOrder_status(status,od_id);
      if(num>0){
@@ -84,7 +103,91 @@ public class ShouYeController {
      }
    }
 
-     @RequestMapping("/after/test")
+ /**
+  * 商家对应的商品
+  * @param sid
+  * @param page
+  * @param rows
+  * @return
+  */
+   @RequestMapping("/after/goodsbysid")
+   @ResponseBody
+   public Map<String, Object> selectGoodsBySid(int sid,int page,int rows){
+    Map<String,Object> map = new HashMap<>();
+    map.put("total",gs.selectGoodsCount(sid));
+    map.put("rows",gs.selectGoodsBysid(sid,page,rows));
+    return map;
+   }
+
+ /**
+  *
+  *  增加一个商品
+  */
+  @RequestMapping("/after/addgood")
+  @ResponseBody
+  public String addgood(@RequestBody goods good){  // 接收对象要用requestBody吧
+   System.out.println(good.getG_name()+"****");
+     int num =   gs.addgood(good);
+     if(num > 0){
+       return "增加成功";
+     }else{
+      return "增加成功";
+     }
+  }
+ /**
+  *  删除一个商品
+  */
+  @RequestMapping("/after/destroyRowgoood")
+  @ResponseBody
+  public String deleteGoodBygid(int gid){
+     int num = gs.deleteGoodBygid(gid);
+     if(num>0){
+       return "删除成功";
+     }else{
+      return "删除失败";
+     }
+  }
+
+ /**
+  * 查找一个商品
+  */
+ @RequestMapping("/after/findGoodBygid")
+ @ResponseBody
+ public goods findGoodBygid(int gid){
+  return gs.selectGoodBygid(gid);
+ }
+
+ /**
+  * 修改一个商品
+  * @param
+  * @return
+  */
+ @RequestMapping("/after/updategood")
+ @ResponseBody
+  public String updateGood(@RequestBody goods good){
+  int num = gs.updateGood(good);
+  if(num>0){
+   return  "修改成功";
+  }
+  return "修改失败";
+ }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ @RequestMapping("/after/test")
      @ResponseBody
      public String test(HttpSession session){
      String user = (String) session.getAttribute("user");

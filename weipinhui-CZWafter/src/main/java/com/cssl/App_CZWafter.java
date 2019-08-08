@@ -16,15 +16,13 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
  * @Description:
  */
 //@ServletComponentScan(basePackages = "com.cssl.control")
-//启动事务
+//启动事务啊
 @EnableTransactionManagement
 @MapperScan("com.cssl.dao")
 @SpringBootApplication
 @EnableEurekaClient
 //RedisFlushMode.IMMEDIATE，可以确保zuul存储到redis的session对象在请求服务中能立即被获取
-@EnableRedisHttpSession(
- maxInactiveIntervalInSeconds = 300,
- redisFlushMode = RedisFlushMode.IMMEDIATE)
+@EnableRedisHttpSession
 public class App_CZWafter {
  public static void main(String[] args) {
   SpringApplication.run(App_CZWafter.class,args);

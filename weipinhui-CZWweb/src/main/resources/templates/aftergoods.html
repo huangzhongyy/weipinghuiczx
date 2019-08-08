@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>后台商品页面</title>
+    <link rel="stylesheet" type="text/css" href="easyui/themes/default/easyui.css" id="easyuiTheme">
+    <link rel="stylesheet" type="text/css" href="easyui/themes/icon.css">
+    <link rel="stylesheet" type="text/css" href="aftercss/style.css">
+    <script type="text/javascript" src="easyui/jquery.min.js"></script>
+    <script type="text/javascript" src="easyui/jquery.easyui.min.js"></script>
+    <script type="text/javascript" src="easyui/locale/easyui-lang-zh_CN.js"></script>
+    <script type="text/javascript" src="easyui/jquery.edatagrid.js" ></script>
+    <style>
+        #tb{
+            margin-top: 20px;
+        }
+        #tb tr td:first-child{
+            width: 130px;
+            text-align: right;
+            padding-right: 10px;
+        }
+        #tb tr{
+            height:40px;
+            margin: 10px;
+        }
+        #tb input{
+            width: 220px;
+        }
+        .addanniu{
+            width: 150px;
+            height: 40px;
+            margin: 15px;
+            letter-spacing: 10px;
+            background-color: #95B8E7;
+        }
+        .goodimg{
+            height:55px;
+            width:55px;
+            margin: 8px 5px 5px 5px;
+            display: inline-block;
+            border-radius: 5px;
+        }
+        .button{
+            background-color: #4CAF50; /* Green */
+            border: none;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+        }
+
+    </style>
+</head>
+<body style="padding:0px 0px 0px 0px; ">
+
+
+
+<div class="social-btns" style="height: 60px;padding: 2px;margin: 2px;" >
+    <a class="btn" href="#" onclick="addgood();">增加</a>
+    <a class="btn" href="#" onclick="updategood();">修改</a>
+    <a class="btn" href="#" onclick="deletegood();">删除</a>
+</div>
+    <div id="dd" >aasasd</div>
+
+<script type="text/javascript" >
+    $(function () {
+        // 变成一个对话框
+        $('#dd').dialog({
+            title: '增加商品',
+            width: 420,
+            height: 400,
+            closed: true, //定义在刚打开页面时是否不显示窗口。
+            cache: false,
+            href: 'addGood.html',
+            modal: true,
+            loadingMessage:'加载中.....'
+        });
+
+         // 增加一个商品
+          addgood  = function() {
+              $('#dd').dialog({
+                  title:'增加商品',
+                  href:'addGood.html'
+              });
+             $('#dd').dialog('open');
+         };
+
+         // 修改一个商品
+          updategood = function () {
+
+              var onerow = $("#dg").datagrid("getSelected");
+              //没有选中一行
+              if(onerow == null){
+                  $.messager.show({
+                      title:'提示消息',
+                      msg:'请选择想要修改的商品',
+                  });
+              }else {//选中一行，最多只能选中一行
+                  //alert(onerow.g_id);
+                  $('#dd').dialog({
+                      title:'修改商品',
+                      href:'showContent?gid='+onerow.g_id
+                  });
+                  $('#dd').dialog('open');
+              }
+          }
+
+        //删除调用的方法
+         deletegood  = function() {
+            var onerow = $("#dg").datagrid("getSelected");
+            //没有选中一行
+            if(onerow == null){
+                $.messager.show({
+                    title:'提示消息',
+                    msg:'请选择对应的商品',
+                    timeout:3000
+                });
+            }else{//选中一行，最多只能选中一行
+                //确定删除吗
+                var r = confirm("确定删除吗？");
+                if(r == true){
+                    // 退出操作;
+                    $.post("destroyRowgood",{"gid":onerow.g_id},function (data) {
+                        $.messager.show({
+                            title:'提示消息',
+                            msg:data,
+                            timeout:3000
+                        });
+                        $("#dg").datagrid("reload"); // 重新加载一下
+                    });
+                }
+
+
+            }
+        }
+    });
+</script>
+
+<table id="dg" style="margin: 10px 0px;"></table>
+
+
+
+<script type="text/javascript">
+    $(function(){
+        function querydata(sidv,pagev,rowsv) {
+            $("#dg").datagrid({
+                url:"goodsbysid",
+                striped:true,    	//斑马线效果
+                fitColumns:true,	  //匹配列宽
+                fit:true,			  //匹配父容器
+                singleSelect:true,		//多行删除连续调用destroyRow.action
+                scrollbarSize:0,     // 可以将多出的空白消除
+
+                pagination:true,//分页工具栏
+                pagePosition:'top',
+                pageNumber:pagev, //页码
+                pageSize: rowsv,     //每页显示多少条记录
+                pageList: [4,6,8,10],  //放进来的pagesize要是这里面的一个
+                rowNumbers: false,
+                queryParams:{       //带的参数
+                    sid:sidv
+                },
+                loadMsg: '正在加载数据.......',
+                idField:'g_id',//绑定主键这个是必须的，不绑定删除不了
+                columns:[[
+                    //列的绑定
+                    {field:'g_id',title:'商品ID',width:50,align:'center'},
+                    {field:'g_name',title:'商品名字',width:100,align:'center',editor:{type:'validatebox',options:{required:true}}},
+                    {field:'g_description',title:'商品描述',width:130,align:'center',editor:{type:'validatebox',options:{required:true}}} ,
+                    {field:'g_price',title:'价格',width:80,align:'center',editor:{type:'validatebox',options:{required:true}},
+                        formatter:function(v,row,index){
+                            return parseFloat(v).toFixed(2);
+                        }
+                    } ,
+                    {field:'g_discount',title:'折扣',width:40,align:'center',editor:{type:'validatebox',options:{required:true}}} ,
+                    {field:'g_p',title:'折后价',width:80,align:'center',
+                        formatter: function(v,row,index){
+                            return  parseFloat(row.g_price*0.8).toFixed(2);
+                        }
+                    } ,
+                    {field:'g_number',title:'库存',width:80,align:'center',editor:{type:'validatebox',options:{required:true}}},
+                    {field:'g_image',title:'图片',width:150,align:'center',
+                        formatter: function(value,row,index){
+                            return '<img class="goodimg" src="'+row.g_image+'"/>';
+                        }
+                    }
+                ]],
+
+            });//结束
+        }
+
+        //一开始查一下
+        querydata(1,1,6);
+
+        var pager = $('#dg').datagrid('getPager');
+        pager.pagination({
+            beforePageText: '第',
+            afterPageText: '页, 共 {pages} 页',
+            displayMsg:'显示第 {from} 到 {to} 条记录，共 {total} 条记录',
+            //layout:['first','prev','links','next','last','manual'],
+            //links:3
+        });
+    });
+</script>
+
+</body>
+</html>
