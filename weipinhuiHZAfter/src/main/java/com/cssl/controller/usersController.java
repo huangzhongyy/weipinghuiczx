@@ -2,7 +2,6 @@ package com.cssl.controller;
 
 import com.cssl.service.usersService;
 import com.alicom.dysms.api.*;
-import com.weip.pojo.goods;
 import com.weip.pojo.users;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

@@ -10,24 +10,85 @@
    </if>
     </sql>-->
 
-<select id="Finagoods" resultType="goods">
+    <select id="Finagoods" resultType="goods">
+        select g_id,g_name,g_description,g_price,g_discount,g_number,g_image,g_tid
+        from goods g
+        inner join   goods_details o on  g.g_id=o.goods_id
+        <where>
+            <if test="g_name!=null and g_name!=''">
+                g_name=#{g_name}
+            </if>
+            <if test="the_fuselage_memory!=null and the_fuselage_memory!=''">
+                and the_fuselage_memory=#{the_fuselage_memory}
+            </if>
+            <if test="the_screen_size!=null and the_screen_size!=''">
+                and the_screen_size=#{the_screen_size}
+            </if>
+        </where>
 
-    select g_id,g_name,g_description,g_price,g_discount,g_number,g_image,g_tid
-    from goods g
-    inner join   goods_details o on  g.g_id=o.goods_id
-   <where>
-       <if test="g_name!=null and g_name!=''">
-           g_name=#{g_name}
-       </if>
-       <if test="the_fuselage_memory!=null and the_fuselage_memory!=''">
-           and the_fuselage_memory=#{the_fuselage_memory}
-       </if>
-       <if test="the_screen_size!=null and the_screen_size!=''">
-           and the_screen_size=#{the_screen_size}
-       </if>
-   </where>
+    </select>
+<!-- 根据ID查询对象的商品-->
+    <select id="goodsByID" resultType="Goods">
+        select * from goods where g_id=#{gid}
+    </select>
 
-</select>
+<!-- 新增对应的购物车的方法-->
+    <insert id="ShopCarInsert">
+        insert into shopcar (`number`,xiaoJi,gooid,biaoshi) values (#{number},#{xiaoJi},#{gooid},1)
+    </insert>
+
+<!-- 购物袋数据-->
+    <select id="shopcar" resultType="map">
+        select g_id,g_name,g_description,g_price,g_discount,g_number,g_image,g_tid,g_sid,`number`,xiaoJi,biaoshi
+        from goods g
+        inner join shopcar s on g.g_id=s.gooid
+    </select>
+<!-- 查询商品是否存在-->
+    <select id="SelectCar" resultType="ShopCar">
+        select * from shopcar where gooid=#{gid}
+    </select>
+<!-- 如果商品存在就只数量和价钱改变-->
+    <update id="ShopCarupdate">
+        update shopcar set `number`=#{number},xiaoJi=#{xiaoJi}  where gooid=#{gooid}
+    </update>
+
+    <!--加数量-->
+    <update id="upOneStock">
+        update shopcar set `number`=`number`+1 where gooid=#{gooid}
+    </update>
+
+<!--删除商品-->
+    <delete id="ShopCardelete">
+          delete from shopcar where gooid=#{gid}
+    </delete>
+
+    <select id="ShopCarSum" resultType="double">
+      select SUM(xiaoJi) from shopcar
+    </select>
+
+
+    <update id="ShopCarBiaoshiupdate">
+       update shopcar set biaoshi=#{biaoshi},xiaoJi=#{xiaoJi} where gooid=#{gooid}
+    </update>
+
+    <!--订单详情表-->
+    <insert id="orderdetailinsert">
+        insert into order_detail (od_id,od_uid,od_uname,od_sid,od_gid,od_quantity,od_summoney,od_status,od_date)  values
+(#{od_id},#{od_uid},#{od_uname},#{od_sid},#{od_gid},#{od_quantity},#{od_summoney},#{od_status},#{od_date})
+    </insert>
+
+    <!--查询订单 -->
+    <select id="dingdanjiesuandage" resultType="ShopCar">
+select * from shopcar where gooid=#{gooid}
+
+    </select>
+
+
+  <!-- 结算成功删除订单-->
+<delete id="dingdandelete">
+delete from shopcar where gooid=#{gooid}
+</delete>
+
 
 </mapper>
  

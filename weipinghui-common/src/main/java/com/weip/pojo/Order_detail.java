@@ -6,7 +6,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 
-import java.sql.Date;
+import java.util.Date;
+
 
 /**
  * @program: weipinghuiczx
@@ -19,9 +20,9 @@ import java.sql.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 @Accessors(chain=true)
-public class order_detail
+public class Order_detail
 {
-   private int od_id;//订单详情ID
+   private String od_id;//订单详情ID
    private int od_uid;//用户ID
    private String od_uname;//用户名字
    private int od_sid;//商家ID

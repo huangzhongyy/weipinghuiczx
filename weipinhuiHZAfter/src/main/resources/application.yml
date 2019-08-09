@@ -30,7 +30,27 @@ spring:
       max-total: 5
       max-wait-millis: 200
 
+#  redis:
+#    database: 0
+#    host: 192.168.191.130
+#    port: 6379
+#    password: huangzhong
+#    timeout: 10s
+#    jedis:
+#      pool:
+#        max-active: 8
+#        max-wait: -1
+#        max-idle: 5
+#        min-idle: -1
 
+ribbon:
+  ReadTimeout: 50000
+  ConnectTimeout: 50000
+
+
+feign:
+  httpclient:
+    connection-timeout: 90000
 #management:
 #  endpoints:
 #    web:
@@ -53,8 +73,3 @@ eureka:
     leaseExpirationDurationInSeconds: 30 #租期到期时间（默认90秒）
 
 
-info:
-  app.name: cssl-weipinghui
-  company.name: www.cssl.com
-  build.artifactId: weipinghhz
-  build.version: 1.0-SNAPSHOT
