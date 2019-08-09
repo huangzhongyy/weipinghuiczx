@@ -4,6 +4,7 @@ import com.cssl.dao.GoodsDao;
 import com.cssl.service.GoodsService;
 import com.weip.pojo.goods;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -27,6 +28,7 @@ public class GoodsServiceImpl implements GoodsService {
 
  //商家对应的商品
  @Override
+ @Cacheable(value = "goods",key = "#sid")
  public List<goods> selectGoodsBysid(int sid,int page,int rows) {
   return gd.selectGoodsBysid(sid,page,rows);
  }

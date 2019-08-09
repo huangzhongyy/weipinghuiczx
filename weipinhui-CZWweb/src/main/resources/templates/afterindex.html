@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" type="text/css" href="easyui/themes/default/easyui.css" id="easyuiTheme">
     <link rel="stylesheet" type="text/css" href="easyui/themes/icon.css">
+    <link rel="stylesheet" type="text/css" href="aftercss/myeasyui.css">
     <script type="text/javascript" src="easyui/jquery.min.js"></script>
     <script type="text/javascript" src="easyui/jquery.easyui.min.js"></script>
     <script type="text/javascript" src="easyui/locale/easyui-lang-zh_CN.js"></script>
@@ -67,7 +68,7 @@
 </head>
 <body class="easyui-layout">
     <div data-options="region:'north'" class="header">
-        <p class="header_welcome">欢迎您：曹志威</p>
+        <p class="header_welcome">欢迎您：<span id="username">曹志威</span></p>
         <span class="header_title">欢迎来到唯品会后台管理系统</span>
         <a href="" class="header_exit">退出系统</a>
     </div>
@@ -136,5 +137,44 @@
         $('.aa:eq(0)').click(); // 页面一加载 模拟点击一下订单查询
     });
 </script>
+
+    <script type="text/javascript">
+        var websocket = null;
+        var target = "ws://localhost:30001/websocket/";
+
+
+        // 建立连接 和接收回调信息
+        function connect() {
+            var username = document.getElementById('username').value;
+            if(username=='')
+                target+='匿名';
+            else
+                target+=username;
+            //判断当前浏览器是否支持WebSocket
+            if ('MozWebSocket' in window) {
+                websocket = new MozWebSocket(target);
+            } else if ('WebSocket' in window) {
+                websocket = new WebSocket(target);
+            } else {
+                alert('Not support websocket');
+            }
+
+            //接收到消息的回调方法
+            websocket.onmessage = function (event) {
+                $.messager.show({
+                    title:'库存警告',
+                    msg:event.data,
+                    timeout:3100
+                });
+            }
+        }
+
+        connect(); // 调用方法
+
+        //监听窗口关闭事件，当窗口关闭时，主动去关闭websocket连接，防止连接还没断开就关闭窗口，server端会抛异常。
+        window.onbeforeunload = function () {
+            websocket.close();
+        }
+    </script>
 </body>
 </html>

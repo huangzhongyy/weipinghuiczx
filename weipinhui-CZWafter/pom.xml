@@ -31,11 +31,11 @@
             <version>2.0.1</version>
         </dependency>
 
-        <!-- 热部署：修改代码自动重启-->
-        <dependency>
+        <!-- 热部署：修改代码自动重启  对redis取值有影响-->
+       <!-- <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-devtools</artifactId>
-        </dependency>
+        </dependency>-->
 
         <!-- mysql数据库驱动 -->
         <dependency>
@@ -96,5 +96,7 @@
             <groupId>org.springframework.session</groupId>
             <artifactId>spring-session-data-redis</artifactId>
         </dependency>
+
+
     </dependencies>
 </project>

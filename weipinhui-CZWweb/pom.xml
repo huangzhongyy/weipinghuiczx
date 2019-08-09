@@ -12,12 +12,13 @@
     <artifactId>weipinhui-CZWweb</artifactId>
 
     <dependencies>
-
+        <!-- 导入实体类 -->
         <dependency>
             <groupId>com.cssl</groupId>
             <artifactId>weipinghui-common</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
@@ -80,8 +81,8 @@
         </dependency>
 
 
-        <!--热部署-->
-        <dependency>
+        <!--热部署 与redis取值有影响  -->
+  <!--      <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>springloaded</artifactId>
             <version>1.2.8.RELEASE</version>
@@ -89,6 +90,37 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-devtools</artifactId>
+        </dependency>-->
+
+        <!--  quartz 用于做库存预警  -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-quartz</artifactId>
         </dependency>
+        <!--  websocket -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-websocket</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+            <version>1.2.57</version>
+        </dependency>
+
+        <!--  腾讯云图片上传-->
+        <dependency>
+            <groupId>com.qcloud</groupId>
+            <artifactId>cos_api</artifactId>
+            <version>5.2.4</version>
+        </dependency>
+
+        <!-- 如果使用外部的tomcat的話  -->
+        <!--<dependency>
+            <groupId>javax</groupId>
+            <artifactId>javaee-api</artifactId>
+            <version>8.0</version>
+            <scope>provided</scope>
+        </dependency> -->
     </dependencies>
 </project>

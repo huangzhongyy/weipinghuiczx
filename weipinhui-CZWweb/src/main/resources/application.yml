@@ -40,7 +40,14 @@ spring:
     cache: false
     prefix: classpath:/templates/  #默认
     suffix: .html                  #默认
-
+  tengxun:
+    accessKey: AKIDlMmDdzx9yc4L9ugXKEzazDFH7lKiGxSm # 密钥id
+    secretKey: oTwKafhbNi5TIJBxSuDKH1laJD10uzRm #密钥
+    bucket: ap-chengdu                          #存储桶所属区域
+    bucketName:  8888-1259515176                #存储桶名称
+    path: https://8888-1259515176.cos.ap-chengdu.myqcloud.com # 访问路径
+    qianzhui: image
+                                        # 前缀
 eureka:
   client:
     register-with-eureka: true

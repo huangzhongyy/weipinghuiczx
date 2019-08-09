@@ -69,11 +69,11 @@ public class ShouYeController {
       Map<String,Object> map2 = new HashMap<>();
       // 商家id
       Integer sid = Integer.parseInt(map.get("sid").toString());
-      Object sj1 = session.getAttribute("sj");
-      System.out.println("aaaaaaaaaaaaaa:"+sj1);
+
+      // session
+      System.out.println("sessionId: *****"+session.getId());
       shanjia sj = (shanjia) session.getAttribute("sj");
       System.out.println(sj);
-      System.out.println(session.getId()+"*****(*(");
       // 订单id
       String od_id = null;
       Object od_id1 = map.get("od_id");

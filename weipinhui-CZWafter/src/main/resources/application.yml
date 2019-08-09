@@ -11,11 +11,12 @@ spring:
 
   application:
     name: microservice-czwafter
+
   mvc:
     view:
       prefix: /
       suffix: .html
-#映射静态资源
+    #映射静态资源
     static-path-pattern: /**
 
   resources:
@@ -34,12 +35,6 @@ spring:
           max-idle: 5
           min-idle: -1
 
-  thymeleaf:
-    encoding: UTF-8
-    #开发时关闭缓存,不然没法看到实时页面
-    cache: false
-    prefix: classpath:/templates/  #默认
-    suffix: .html                  #默认
 
 
 eureka:
