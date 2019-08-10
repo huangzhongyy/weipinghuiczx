@@ -6,6 +6,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 
+import java.io.Serializable;
+
 /**
  * @program: weipinghuiczx
  * @Date: 2019/7/11 19:36
@@ -17,7 +19,7 @@ import lombok.experimental.Accessors;
 @NoArgsConstructor
 @AllArgsConstructor
 @Accessors(chain=true)
-public class Goods
+public class Goods implements Serializable
 {
    private int g_id;//商品编码
    private String g_name;//商品名字
@@ -29,7 +31,7 @@ public class Goods
    private int g_tid;//商品所属分类
    private int g_sid;//商品所属商家
 
-   public Goods(String gname,String gdesc,Double gprice,Double gdiscount,int gnumber,String image,int gtype,int sid){
+   public Goods(String gname, String gdesc, Double gprice, Double gdiscount, int gnumber, String image, int gtype, int sid){
         this.g_name = gname;
         this.g_description = gdesc;
         this.g_price = gprice;
