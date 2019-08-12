@@ -80,14 +80,44 @@
     <!--查询订单 -->
     <select id="dingdanjiesuandage" resultType="ShopCar">
 select * from shopcar where gooid=#{gooid}
-
     </select>
-
 
   <!-- 结算成功删除订单-->
 <delete id="dingdandelete">
 delete from shopcar where gooid=#{gooid}
 </delete>
+
+<!-- 订单管理-->
+   <select id="orderdetail" resultType="map">
+   select od_id,g_description,od_date,
+  od_summoney,od_status,od_quantity,od_gid from order_detail o
+  inner join goods g on o.od_gid=g.g_id
+       <where>
+           <if test="od_uid!=null and od_uid!=''">
+               od_uid=#{od_uid}
+           </if>
+           <if test="od_status!=null and od_status!=''">
+               and od_status=#{od_status}
+           </if>
+       </where>
+   </select>
+    
+    
+    <!--取消订单 4 标识 -->
+    <update id="Quxiao">
+        update order_detail set od_status=4 where od_id=#{od_id}
+    </update>
+
+    <!--确认收货 3-->
+    <update id="QueRen">
+        update order_detail set od_status=3 where od_id=#{od_id}
+    </update>
+
+<!--确认收货和取消订单删除 -->
+    <delete id="Gdelete">
+        delete from order_detail where od_id=#{od_id}
+
+    </delete>
 
 
 </mapper>

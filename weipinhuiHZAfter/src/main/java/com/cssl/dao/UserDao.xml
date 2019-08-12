@@ -13,6 +13,10 @@
   <select id="SelectPhone" resultType="users">
 	 select * from users where phone=#{phone}
   </select>
+    
+    <update id="updateusers">
+        update users set password=#{password} where phone=#{phone}
+    </update>
 
 
 

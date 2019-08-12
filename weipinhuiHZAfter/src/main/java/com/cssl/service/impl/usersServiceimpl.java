@@ -17,6 +17,12 @@ public class usersServiceimpl implements usersService {
 
  @Autowired
  private UserDao udao;
+ @Override
+ public int updateusers(users user) {
+  return udao.updateusers(user);
+ }
+
+
 
  @Override
  public users SelectPhone(String phone) {

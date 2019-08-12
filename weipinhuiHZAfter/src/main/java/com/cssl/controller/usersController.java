@@ -30,6 +30,11 @@ public class usersController {
   System.out.println("用户名控制器----"+user.getUsername());
   return usersservice.usersRegist(user);
  }
+@RequestMapping("/upuser")
+@ResponseBody
+ public int Upuser(@RequestBody users user){
+  return usersservice.updateusers(user);
+ }
 
  /**
   * 短信

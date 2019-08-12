@@ -7,6 +7,7 @@ import com.weip.pojo.Goods;
 import com.weip.pojo.ShopCar;
 import com.weip.pojo.Order_detail;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.MailParseException;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -32,6 +33,7 @@ public class GoodsController {
  //手机页面
  @RequestMapping("/shangpingFina")
  @ResponseBody
+
  public Map<String,Object> Finagoodsz(@RequestBody Map<String,Object> map){
   System.out.println("进来了-----------");
   //System.out.println("-----------"+map.get("pageNum"));//分页的值
@@ -57,7 +59,6 @@ public Map<String,Object> addShopCar(@RequestBody int gid){
  System.out.println("--------------"+gid);
   Goods gg=goodsService.goodsByID(gid);//查询出来要添加购物车的ID
  ShopCar sc=new ShopCar();//购物车实体类对象
-
  System.out.println(gg);
  ShopCar SpC=goodsService.SelectCar(gg.getG_id());//根据商品ID查询出来购物车数据
  Map<String,Object> map=new HashMap<>();//返回数据的
@@ -198,15 +199,15 @@ public Map<String,Object> checkedjiajia(@RequestBody int gid){
 @ResponseBody
 public int Orderjiesuan(String[] cartCheckBox){
   System.out.println("进来了-----------");
- System.out.println("参数-------------"+cartCheckBox[0]);
- System.out.println("aaaaaaaaa"+cartCheckBox[1]);
+/* System.out.println("参数-------------"+cartCheckBox[0]);
+ System.out.println("aaaaaaaaa"+cartCheckBox[1]);*/
  int ii=0;
  for (int i=0;i<cartCheckBox.length;i++){
   Order_detail od=new Order_detail();//订单详情表
   ShopCar ss=new ShopCar();//购物袋对象
-  ss.setGooid(Integer.valueOf(cartCheckBox[i]));
+  ss.setGooid(Integer.valueOf(cartCheckBox[i]));//参数放的对象
   ShopCar sszhen=goodsService.dingdanjiesuandage(ss);//每循环一次查询一次对应的gooid
-  System.out.println(sszhen);
+  //System.out.println(sszhen);
   String uuid= UUID.randomUUID().toString().replace("-", "").toUpperCase();
   System.out.println("UUID:--------"+uuid);
   od.setOd_id(uuid);// 订单详情ID
@@ -228,15 +229,35 @@ public int Orderjiesuan(String[] cartCheckBox){
   return ii;
 }
 
+@RequestMapping("/orderdedail")
+@ResponseBody
+public Map<String,Object> dingDan(@RequestBody Map<String,Object> mapz){
+    mapz.put("od_uid",1);
+   Map<String,Object> map=new HashMap<>();
+   map.put("listo",goodsService.orderdetail(mapz));
+   return map;
+}
 
+@RequestMapping("/Quxiao")
+@ResponseBody
+public int Quxiao(@RequestBody String od_id){
+ System.out.println("进来了吗----"+od_id);
+return goodsService.Quxiao(od_id);
+}
 
+@RequestMapping("/Quren")
+@ResponseBody
+public int Quren(@RequestBody String od_id){
+ System.out.println("进来了吗-----------");
+ return goodsService.QueRen(od_id);
+}
 
-
-
-
-
-
-
+@RequestMapping("/Qdelete")
+@ResponseBody
+public int Gdele(@RequestBody String od_id){
+ System.out.println("进来了吗---");
+ return goodsService.Gdelete(od_id);
+}
 
 
 

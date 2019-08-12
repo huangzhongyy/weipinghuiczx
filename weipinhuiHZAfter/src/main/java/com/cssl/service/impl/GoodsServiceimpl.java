@@ -6,6 +6,7 @@ import com.weip.pojo.ShopCar;
 import com.weip.pojo.Goods;
 import com.weip.pojo.Order_detail;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -21,6 +22,26 @@ import java.util.Map;
 public class GoodsServiceimpl implements GoodsService {
  @Autowired
  private GoodsDao goodsDao;
+
+ @Override
+ public int Quxiao(String od_id) {
+  return goodsDao.Quxiao(od_id);
+ }
+
+ @Override
+ public int Gdelete(String od_id) {
+   return goodsDao.Gdelete(od_id);
+ }
+
+ @Override
+ public List<Map<String, Object>> orderdetail(Map<String,Object> map) {
+  return goodsDao.orderdetail(map);
+ }
+
+ @Override
+ public int QueRen(String od_id) {
+    return goodsDao.QueRen(od_id);
+ }
 
  @Override
  public int upOneStock(int gooid) {
@@ -83,6 +104,7 @@ public class GoodsServiceimpl implements GoodsService {
  }
 
  @Override
+ /*@Cacheable(value="Goods")*/
  public List<Goods> Finagoods(Map<String, Object> map) {
   return goodsDao.Finagoods(map);
  }
