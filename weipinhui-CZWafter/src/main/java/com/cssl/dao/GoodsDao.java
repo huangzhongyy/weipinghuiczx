@@ -4,6 +4,7 @@ import com.weip.pojo.Goods;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @program: weipinghuiczx
@@ -33,4 +34,10 @@ public interface GoodsDao {
 
   // 修改一个商品
   public int updateGood(@Param("good") Goods good);
+
+  //根据商品ID查出一年里每个月的销量
+  public List<Map<String,Object>> selectXLBygid(@Param("gid") int gid);
+
+  // 查询今年所有订单的各个商品的销量
+  public List<Map<String,Object>> selectAllCount();
 }

@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @program: weipinghuiczx
@@ -33,9 +34,22 @@ public class GoodsServiceImpl implements GoodsService {
   return gd.selectGoodsBysid(sid,page,rows);
  }
 
+ //根据商品ID查出一年里每个月的销量
  @Override
  public int selectGoodsCount(int sid) {
   return gd.selectGoodsCount(sid);
+ }
+
+
+ // 查询今年所有订单的各个商品的销量
+ @Override
+ public List<Map<String, Object>> selectAllCount() {
+  return gd.selectAllCount();
+ }
+
+ @Override
+ public List<Map<String, Object>> selectXLBygid(int gid) {
+  return gd.selectXLBygid(gid);
  }
 
  // 增加一个商品
