@@ -1,12 +1,15 @@
 package com.weip.pojo;
 
+import java.io.Serializable;
+
 /**
  * @program: weipinghuiczx
  * @Date: 2019/7/31 15:24
  * @Author: Mr.Deng
  * @Description:
  */
-public class ShopCar {//购物车对象
+public class ShopCar implements Serializable
+{//购物车对象
 
 
 
