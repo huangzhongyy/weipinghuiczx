@@ -238,13 +238,14 @@
     <div  class="table-box-inner">
 
         <!-- 表蛋提交th:action="'/orderj?gid='+${z.g_id}"-->
-        <form action="/orderj" method="post" id="ffff">
+        <form action="/tradePay" method="post" id="ffff">
 
 
-        <input id="allCheckBox" type="checkbox" value=""  />全选
+        <input id="allCheckBox"  type="checkbox" value="" style="display: none" />
+
+
         <table th:each="z:${listmap}" class="table orders-table">
             <tbody>
-
 
 
                     <tr  class="J_goods_item
@@ -259,6 +260,7 @@
                             <input  onclick="jiajia(this)" th:value="${z.g_id}" id="gggid" name="cartCheckBox" type="checkbox" class="checkedbox"/>
                         <td/>
 
+                        <input id="ssss" name="ssss"  style="display:none">
 
                         <td class="product-item">
                         <div class="m-product  product-small">
@@ -296,7 +298,7 @@
                     </td>
                     <td class="quantity-item">
                         <!--------aaaaaaaa- "'/jianjian?gid='+${z.g_id}"--->
-                        <a id="wawajian" th:href="'/jianjian?gid='+${z.g_id}" style="font-size: 20px">-</a>
+                        <a id="wawajian" th:href="'/jianjian?gid='+${z.g_id}" style="font-size: 20px;position: relative;left:45px;" >-</a>
                                                 <div class="m-amount J_confirm_box J_cart_amount_confirm_box">
                             
 
@@ -304,7 +306,7 @@
                                     <input name="num" type="text" th:value="${z.number}" value="2" class="J_cart_num" data-min="1" data-max="2" data-id="156592303" data-size_id="1939458214" data-brand-id="3644975" data-supplier-id="3" readonly="readonly">
                                 </div>
                                                     <!--th:href="'/jiajia?gid='+${z.g_id}"aaaaaaaaaaaaaaa ++ -->
-                                               <a th:href="'/jiajia?gid='+${z.g_id}" style="font-size: 20px" name="gid" id="gid"  th:value="${z.g_id}">+</a>
+                                               <a th:href="'/jiajia?gid='+${z.g_id}" style="font-size: 20px;position: relative;left:5px;" name="gid" id="gid"  th:value="${z.g_id}">+</a>
 
                                                                 <div class="ui-tooltips ui-tooltips-handle ui-tooltips-top-arrow amount-tooltips J_cart_item_confirm_tips">
                                     <div class="ui-tooltips-arrow">
@@ -384,11 +386,11 @@
                 <div class="orders-ft  J_supplier_active_sec  J-gifts-container">
 
 
-                    <div class="m-label">
+                    <div class="m-label" style="position: relative;left:850px;">
                         <input type="submit" value="提交"/>
-                        <h1>总价钱</h1><a id="sss"></a>
+
+                        <h1>总价钱</h1><a id="sss" name="sss" ></a>
                         <div class="label-text">
-    
                     </div>
                 
             </div>
@@ -1588,7 +1590,6 @@
 <iframe src="./gouwudaiz_files/crossStorage.html" width="0" height="0" style="display: none"></iframe>
         <script type="text/javascript">
             $(function(){
-                alert("66666666666666");
                 $("#allCheckBox").click(function () {//选中全部
                     var $gid=$("#gid").text();
                     alert($gid);
@@ -1602,8 +1603,10 @@
                 function sum()
                 {
                     $.post("/sumz",function(date){
-                        alert("------------"+date);
+                        alert(date)
                         $("#sss").text(date);
+
+                        $("#ssss").val(date);
                     });
 
                 }

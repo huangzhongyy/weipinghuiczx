@@ -45,4 +45,25 @@ public int Qsms(String phone) {
   return 0;
 }
 
+ @RequestMapping(value = "/ZZsmswj")
+ @ResponseBody
+ public int wjmima(String phone) {
+  //System.out.println("手机啊啊啊啊啊啊啊啊啊啊啊啊"+phone);
+   return userszz.sms(phone);
+ }
+
+
+
+
+@RequestMapping("/Wjmm")
+public String Upxg(users user){
+ System.out.println("进来了-----");
+ System.out.println(user.getPhone()+"----"+user.getPassword());
+if(userszz.Upuser(user)>0){
+  return "login";
+}
+return "regist";
+}
+
+
 }
