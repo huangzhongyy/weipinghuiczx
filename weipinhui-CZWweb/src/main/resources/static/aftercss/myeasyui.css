@@ -1,0 +1,22 @@
+/*dialog整个标题分两部分组成，一个是整个标题头div，另外一个是标题中文字的div*/
+.window{   /*修改dialog标题文字的div，dialog本身也继承window和panel组件*/
+    color:#fff;
+    border-color:#3366CC;
+    background-color: #3366CC;
+    background: -webkit-linear-gradient(top,#3366CC 0,#3366CC 20%);
+    background: -moz-linear-gradient(top,#3366CC 0,#3366CC 20%);
+    background: -o-linear-gradient(top,#3366CC 0,#3366CC 20%);
+    background: linear-gradient(to bottom,#3366CC 0,#3366CC 20%);
+    background-repeat: repeat-x;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#3366CC,endColorstr=#3366CC,GradientType=0);
+}
+.window .window-body{   /*dialog的整个标题头div修改*/
+    border-color: #FFCCCC;
+}
+.panel-header,.panel-header-noborder,.window-header{  /*dialog阴影部分颜色修改*/
+    border-color: #FFCCCC;
+}
+.window-proxy-mask,
+.window-mask {    /*最后一步，将原先的灰色蒙版变的更深更突出dialog的效果，适用于浅色主题*/
+    background: #000000;
+}﻿﻿﻿﻿

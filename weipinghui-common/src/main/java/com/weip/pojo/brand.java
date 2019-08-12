@@ -3,6 +3,8 @@ package com.weip.pojo;
 import lombok.*;
 import lombok.experimental.Accessors;
 
+import java.io.Serializable;
+
 /**
  * @program: weipinghuiczx
  * @Date: 2019/7/11 19:28
@@ -14,7 +16,7 @@ import lombok.experimental.Accessors;
 @NoArgsConstructor
 @AllArgsConstructor
 @Accessors(chain=true)
-public class brand
+public class brand implements Serializable
 {
    private int b_id;//品牌id
    private String b_name;//品牌名称

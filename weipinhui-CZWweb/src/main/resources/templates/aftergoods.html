@@ -1,11 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>后台商品页面</title>
     <link rel="stylesheet" type="text/css" href="easyui/themes/default/easyui.css" id="easyuiTheme">
     <link rel="stylesheet" type="text/css" href="easyui/themes/icon.css">
     <link rel="stylesheet" type="text/css" href="aftercss/style.css">
+  <!--  <link rel="stylesheet" type="text/css" href="aftercss/myeasyui.css">-->
     <script type="text/javascript" src="easyui/jquery.min.js"></script>
     <script type="text/javascript" src="easyui/jquery.easyui.min.js"></script>
     <script type="text/javascript" src="easyui/locale/easyui-lang-zh_CN.js"></script>
@@ -62,10 +63,66 @@
     <a class="btn" href="#" onclick="updategood();">修改</a>
     <a class="btn" href="#" onclick="deletegood();">删除</a>
 </div>
-    <div id="dd" >aasasd</div>
+
+    <!-- dialog  start-->
+    <div id="dd" >
+        <form id="ff" method="post" enctype="multipart/form-data">
+            <table id="tb">
+                <!--  用于修改操作  -->
+                <input type="hidden" name="g_id" />
+                <tr>
+                    <td>商品名称: </td>
+                    <td>
+                        <input  name="g_name"  class="easyui-textbox" data-options="required:true" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>商品描述: </td>
+                    <td>
+                        <input  name="g_description"  class="easyui-textbox" data-options="required:true" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>价 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;格:</td>
+                    <td>
+                        <input type="text" name="g_price"  class="easyui-numberbox" value="" data-options="min:0,precision:2,required:true"></input>
+                    </td>
+                </tr>
+                <tr>
+                    <td>折 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;扣:</td>
+                    <td>
+                        <input type="text" name = "g_discount"  class="easyui-numberbox" value="" data-options="min:0,max:1,precision:2,required:true"></input>
+                    </td>
+                </tr>
+                <tr>
+                    <td>库 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;存:</td>
+                    <td>
+                        <input type="text" name="g_number"  class="easyui-numberbox" value="" data-options="min:0,precision:0,required:true"></input>
+                    </td>
+                </tr>
+                <tr>
+                    <td>图 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;片:</td>
+                    <td>
+                        <input id="tp" name="g_image" class="easyui-filebox" data-options="required:true" style="width:300px">
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td><button type="submit" class="addanniu">操作商品</button></td>
+                </tr>
+            </table>
+        </form>
+    </div>
 
 <script type="text/javascript" >
     $(function () {
+        // 图片上传
+        $('#tp').filebox({
+            buttonText: '选择图片',
+            buttonAlign: 'right',
+            accept:'image/jpg,image.png,image/jpeg'
+        });
+
         // 变成一个对话框
         $('#dd').dialog({
             title: '增加商品',
@@ -73,42 +130,100 @@
             height: 400,
             closed: true, //定义在刚打开页面时是否不显示窗口。
             cache: false,
-            href: 'addGood.html',
             modal: true,
             loadingMessage:'加载中.....'
         });
 
-         // 增加一个商品
-          addgood  = function() {
-              $('#dd').dialog({
-                  title:'增加商品',
-                  href:'addGood.html'
-              });
-             $('#dd').dialog('open');
-         };
+        var ck;  // 标识
 
-         // 修改一个商品
-          updategood = function () {
+        // 增加一个商品
+        addgood  = function() {
+        $('#dd').dialog({
+            title:'增加商品',
+        });
 
-              var onerow = $("#dg").datagrid("getSelected");
-              //没有选中一行
-              if(onerow == null){
-                  $.messager.show({
-                      title:'提示消息',
-                      msg:'请选择想要修改的商品',
-                  });
-              }else {//选中一行，最多只能选中一行
-                  //alert(onerow.g_id);
-                  $('#dd').dialog({
-                      title:'修改商品',
-                      href:'showContent?gid='+onerow.g_id
-                  });
-                  $('#dd').dialog('open');
-              }
-          }
+        $('#dd').dialog('open');
+        $('#ff').form('reset'); // 完了之后 预防点右上角X
+            // 表单提交
+            $('#ff').form({
+                url:'addRowGood',
+                onSubmit: function(){
+                    var isValid = $(this).form('validate'); //表单验证所有正确为true
+                    if(!isValid){
+                        alert("信息不够完善a");
+                    }
+                    return isValid;
+                },
+
+                success:function(data){
+                    $.messager.show({
+                        title:'提示消息',
+                        msg:data,
+                        timeout:3000
+                    });
+                    $('#ff').form('reset'); // 完了之后 重置一下表单
+                    $("#dg").datagrid("reload"); // 重新加载一下
+                }
+
+
+            });
+    };
+
+        // 修改一个商品
+        updategood = function () {
+            ck='updategood'.replace(/\s/g, "");
+            var onerow = $("#dg").datagrid("getSelected");
+            //没有选中一行
+            if(onerow == null){
+                $.messager.show({
+                    title:'提示消息',
+                    msg:'请选择想要修改的商品',
+                });
+            }else {//选中一行，最多只能选中一行
+                $('#dd').dialog({
+                    title:'修改商品',
+                });
+                $('#dd').dialog('open');
+
+                // load选中那一行的数据
+                $('#ff').form('load',{
+                    g_id : onerow.g_id,
+                    g_name:onerow.g_name,
+                    g_description:onerow.g_description,
+                    g_price:onerow.g_price,
+                    g_discount:onerow.g_discount,
+                    g_number:onerow.g_number
+
+                });
+                // 表单提交
+                $('#ff').form({
+                    url:'updategood',
+                    onSubmit: function(){
+                        var isValid = $(this).form('validate'); //表单验证所有正确为true
+                        if(!isValid){
+                            alert("信息不够完善");
+                        }
+                        return isValid;
+                    },
+
+                    success:function(data){
+                        $.messager.show({
+                            title:'提示消息',
+                            msg:data,
+                            timeout:3000
+                        });
+                        $('#ff').form('reset'); // 完了之后 重置一下表单
+                        $('#dd').dialog('close');
+                        $("#dg").datagrid("reload"); // 重新加载一下
+                    }
+
+
+                });
+            }
+        }
 
         //删除调用的方法
-         deletegood  = function() {
+        deletegood  = function() {
             var onerow = $("#dg").datagrid("getSelected");
             //没有选中一行
             if(onerow == null){
@@ -121,22 +236,30 @@
                 //确定删除吗
                 var r = confirm("确定删除吗？");
                 if(r == true){
-                    // 退出操作;
+                    // 删除操作;
                     $.post("destroyRowgood",{"gid":onerow.g_id},function (data) {
                         $.messager.show({
                             title:'提示消息',
                             msg:data,
-                            timeout:3000
+                            timeout:3000,
+                            style:{
+
+                                left:1, // 与左边界的距离
+                                top:document.body.clientHeight-400 // 与顶部的距离
+                            }
                         });
-                        $("#dg").datagrid("reload"); // 重新加载一下
+                        $("#dg").datagrid("reload"); // 删除完毕后重新加载一下
                     });
                 }
 
 
             }
         }
+
+
     });
 </script>
+<!-- dialog  end-->
 
 <table id="dg" style="margin: 10px 0px;"></table>
 
@@ -204,6 +327,7 @@
         });
     });
 </script>
+
 
 </body>
 </html>

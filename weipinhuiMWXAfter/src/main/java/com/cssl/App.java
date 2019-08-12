@@ -12,6 +12,7 @@ import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
  * @Author: Mr.Deng
  * @Description:
  */
+@MapperScan("com.cssl.dao")
 @SpringBootApplication
 @EnableEurekaClient
 public class App

@@ -22,13 +22,13 @@ public class usersController
     @Resource
     private usersService service;
 
-    @RequestMapping("/after/login/{username}/{password}")
+    @RequestMapping("/after/login/{username}")
     @ResponseBody
-    public users Login(@PathVariable("username") String username, @PathVariable("password") String password)
+    public users Login(@PathVariable("username") String username)
     {
        System.out.println("after.....");
-       System.out.println("uname:"+username+"         pwd:"+password);
-       users user=service.login(username,password);
+       System.out.println("uname:"+username);
+       users user=service.login(username);
        return user;
     }
 

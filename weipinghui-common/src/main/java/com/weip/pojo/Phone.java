@@ -9,8 +9,8 @@ import lombok.experimental.Accessors;
 import java.io.Serializable;
 
 /**
- * @program: weipinghuiczx
- * @Date: 2019/7/30 16:37
+ * @program: vip
+ * @Date: 2019/8/12 8:42
  * @Author: Mr.Deng
  * @Description:
  */
@@ -19,10 +19,10 @@ import java.io.Serializable;
 @NoArgsConstructor
 @AllArgsConstructor
 @Accessors(chain=true)
-public class Goods_details implements Serializable
+public class Phone implements Serializable
 {
- private int flat_card_id;//id
- private String the_fuselage_memory;
- private String the_screen_size;
- private int goods_id;//外键对应手机的ID
+ private int p_id;
+ private String[] color;
+ private int[] memory;
+ private int[] run_memory;
 }

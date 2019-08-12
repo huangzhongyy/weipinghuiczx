@@ -6,12 +6,15 @@ spring:
     encoding: UTF-8
     #开发时关闭缓存,不然没法看到实时页面
     cache: false
-    prefix: classpath:/static/
+    prefix: classpath:/templates/
     suffix: .html
 
   #spring:
   application:
     name: weipinhuiMWXweb
+
+  main:
+    allow-bean-definition-overriding: true
 
   mvc:
     static-path-pattern: /**
@@ -19,9 +22,14 @@ spring:
   resources:
     static-locations: classpath:/templates/,classpath:/META-INF/resources/,classpath:/resources/,classpath:/static/,classpath:/public/
 
+  data:
+    mongodb:
+      uri: mongodb://192.168.44.129:27017/products
+     #uri: mongodb://testrw:testrw@localhost:27017/test
+
   redis:
     database: 0
-    host: 192.168.44.128
+    host: 192.168.44.129
     port: 6379
     password: 123456
     timeout: 10s

@@ -12,7 +12,15 @@
 
     <!-- 商家对应的商品 -->
      <select id="selectGoodsBysid" resultType="goods" >
-         SELECT * FROM goods WHERE g_sid = #{sid} limit #{page},#{rows}
+         SELECT * FROM goods
+         <where>
+			 <if test="sid !=-1">
+				 g_sid = #{sid}
+			 </if>
+			 <if test="page !=-1 and rows != -1">
+				 limit #{page},#{rows}
+			 </if>
+		 </where>
      </select>
 
     <!--  所有商品 ，分页-->

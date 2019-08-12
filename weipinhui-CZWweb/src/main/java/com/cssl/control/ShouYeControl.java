@@ -1,22 +1,18 @@
 package com.cssl.control;
 
 import com.cssl.Service.ShouYeService;
-import com.weip.pojo.goods;
+import com.weip.pojo.Goods;
 import com.weip.pojo.shanjia;
 import com.weip.pojo.twotype;
 
 import org.springframework.cloud.context.config.annotation.RefreshScope;
-import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.context.ServletContextAware;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.ModelAndView;
-import org.thymeleaf.expression.Lists;
 
 
 import javax.annotation.Resource;
@@ -24,9 +20,18 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.*;
+import com.qcloud.cos.COSClient;
+import com.qcloud.cos.ClientConfig;
+import com.qcloud.cos.auth.BasicCOSCredentials;
+import com.qcloud.cos.auth.COSCredentials;
+import com.qcloud.cos.model.PutObjectRequest;
+import com.qcloud.cos.model.PutObjectResult;
+import com.qcloud.cos.region.Region;
+import org.springframework.beans.factory.annotation.Value;
+
+
 
 /**
  * @program: weipinghuiczx
@@ -42,6 +47,18 @@ public class ShouYeControl implements ServletContextAware{
 
     @Resource
     private ShouYeService sys;
+    @Value("${spring.tengxun.accessKey}")
+    private String accessKey;
+    @Value("${spring.tengxun.secretKey}")
+    private String secretKey;
+    @Value("${spring.tengxun.bucket}")
+    private String bucket;
+    @Value("${spring.tengxun.bucketName}")
+    private String bucketName;
+    @Value("${spring.tengxun.path}")
+    private String path;
+    @Value("${spring.tengxun.qianzhui}")
+    private String qianzui;
 
 
    @Override
@@ -64,14 +81,17 @@ public class ShouYeControl implements ServletContextAware{
       model.addAttribute("msg","帐户名或密码错误,请重新登录");
       return "sjLogin";
     }else{ // 登陆成功
+      //System.out.println("sessionId"+session.getId());
       System.out.println(newSJ+"************");
       session.setAttribute("sj",newSJ);
 
-      System.out.println(      session.getAttribute("sj"));
+      System.out.println(session.getAttribute("sj"));
       return "afterindex";
     }
   }
- /**
+
+
+  /**
   * 前台首页三级分类
   * @param oneid
   * @return
@@ -137,6 +157,8 @@ public class ShouYeControl implements ServletContextAware{
   @RequestMapping("/addRowGood")
   @ResponseBody
   public String addGood(@RequestParam("g_image") MultipartFile file, HttpServletRequest request) throws IOException{
+
+   System.out.println("进来了增加。。。。");
        // 取出要添加商品的信息
 
        int sid = 1; //到时候从session里面去取
@@ -150,23 +172,45 @@ public class ShouYeControl implements ServletContextAware{
        if (file.isEmpty()) {
           return "图片都没有 --!";
        }
-       List<String> types= Arrays.asList("image/jpeg","image/jpg","image/gif","image/png");//限制上传类型
-       String filePath = "B:\\idea\\weipinghuiczx\\weipinhui-CZWweb\\src\\main\\resources\\upload\\";//项目中upload的路径
-       //System.out.println(filePath);
 
-       String newName = UUID.randomUUID()+file.getOriginalFilename(); // 新名字，避免重复
-       String filetype = file.getContentType(); //文件的真实类型，不是后缀名
-       if(types.contains(filetype)){
-        File dest = new File(filePath + newName);
-        if (!dest.getParentFile().exists()) {
-         //假如文件不存在即重新创建新的文件已防止异常发生
-         dest.getParentFile().mkdirs();
-        }
-        file.transferTo(dest);  // 上传成功
-       }
+   // 1 初始化用户身份信息(secretId, secretKey)
+   COSCredentials cred = new BasicCOSCredentials(accessKey, secretKey);
+   // 2 设置bucket的区域, COS地域的简称请参照 https://cloud.tencent.com/document/product/436/6224
+   ClientConfig clientConfig = new ClientConfig(new Region(bucket));
+   // 3 生成cos客户端
+   COSClient cosclient = new COSClient(cred, clientConfig);
+   // bucket的命名规则为{name}-{appid} ，此处填写的存储桶名称必须为此格式
+   String bucketName = this.bucketName;
+   // 简单文件上传, 最大支持 5 GB, 适用于小文件上传, 建议 20 M 以下的文件使用该接口
+   // 大文件上传请参照 API 文档高级 API 上传
+   File localFile = null;
 
+   List<String> types= Arrays.asList("image/jpeg","image/jpg","image/gif","image/png");//限制上传类型
+   String oldName = file.getOriginalFilename(); // 旧的文件名字
+   String hz = oldName.substring(oldName.lastIndexOf('.')); // 从点的那里开始截取后缀
+   String newName = UUID.randomUUID()+hz; // 新名字，避免重复
+   String filetype = file.getContentType(); //文件的真实类型，不是后缀名
+   try {
+    localFile = File.createTempFile("temp",null);
+    file.transferTo(localFile);
+
+
+    if(types.contains(filetype)) {
+     // 指定要上传到 COS 上的路径
+     String key = "/" + this.qianzui + "/" + newName;
+     PutObjectRequest putObjectRequest = new PutObjectRequest(bucketName, key, localFile);
+     PutObjectResult putObjectResult = cosclient.putObject(putObjectRequest); // 完成上传
+    }
+   } catch (IOException e) {
+    e.printStackTrace();
+   }finally {
+    // 关闭客户端(关闭后台线程)
+    cosclient.shutdown();
+   }
+
+   String sqlimage = path+"/"+qianzui+"/"+newName;
    // 封装成一个商品对象
-   goods good = new goods(gname,gdesc,gprice,gdiscount,gnumber,newName,341,sid);
+   Goods good = new Goods(gname,gdesc,gprice,gdiscount,gnumber,sqlimage,341,sid);
 
    // 把数据保存到数据库
         return sys.addgood(good);
@@ -192,7 +236,7 @@ public class ShouYeControl implements ServletContextAware{
    @RequestMapping("showContent")
    public String showContent(Model mm,int gid){
      mm.addAttribute("good",sys.findGoodBygid(gid));
-     return "updateGood";
+     return "aftergoods";
    }
 
  /**
@@ -202,6 +246,7 @@ public class ShouYeControl implements ServletContextAware{
    @RequestMapping("/updategood")
    @ResponseBody
    public String updateGood(@RequestParam("g_image") MultipartFile file, HttpServletRequest request) throws IOException{
+    System.out.println("进来了修改。。。。");
     // 取出要添加商品的信息
     int sid = 1;  // 商家ID
     int gid = Integer.parseInt(request.getParameter("g_id"));
@@ -216,21 +261,45 @@ public class ShouYeControl implements ServletContextAware{
      return "图片都没有 --!";
     }
 
+    // 1 初始化用户身份信息(secretId, secretKey)
+    COSCredentials cred = new BasicCOSCredentials(accessKey, secretKey);
+    // 2 设置bucket的区域, COS地域的简称请参照 https://cloud.tencent.com/document/product/436/6224
+    ClientConfig clientConfig = new ClientConfig(new Region(bucket));
+    // 3 生成cos客户端
+    COSClient cosclient = new COSClient(cred, clientConfig);
+    // bucket的命名规则为{name}-{appid} ，此处填写的存储桶名称必须为此格式
+    String bucketName = this.bucketName;
+    // 简单文件上传, 最大支持 5 GB, 适用于小文件上传, 建议 20 M 以下的文件使用该接口
+    // 大文件上传请参照 API 文档高级 API 上传
+    File localFile = null;
+
     List<String> types= Arrays.asList("image/jpeg","image/jpg","image/gif","image/png");//限制上传类型
-    String filePath = "B:\\idea\\weipinghuiczx\\weipinhui-CZWweb\\src\\main\\resources\\upload\\";//项目中upload的路径
-    String newName = UUID.randomUUID()+file.getOriginalFilename(); // 新名字，避免重复
-    String filetype = file.getContentType(); //文件的真实类型，不是后缀名
-    if(types.contains(filetype)){
-     File dest = new File(filePath + newName);
-     if (!dest.getParentFile().exists()) {
-      //假如文件不存在即重新创建新的文件已防止异常发生
-      dest.getParentFile().mkdirs();
+
+    String oldName = file.getOriginalFilename();                 // 旧的文件名字
+    String hz = oldName.substring(oldName.lastIndexOf('.')); // 从点的那里开始截取后缀
+    String newName = UUID.randomUUID()+hz;                       // 新名字，避免重复
+
+    try {
+     localFile = File.createTempFile("temp",null);
+     file.transferTo(localFile);
+     String filetype = file.getContentType();                    //文件的真实类型，不是后缀名
+     if(types.contains(filetype)) {
+      // 指定要上传到 COS 上的路径
+      String key = "/" + this.qianzui + "/" + newName;
+      PutObjectRequest putObjectRequest = new PutObjectRequest(bucketName, key, localFile);
+      PutObjectResult putObjectResult = cosclient.putObject(putObjectRequest); // 完成上传
      }
-     file.transferTo(dest);  // 上传成功
+    } catch (IOException e) {
+     e.printStackTrace();
+    }finally {
+     // 关闭客户端(关闭后台线程)
+     cosclient.shutdown();
     }
 
+    String sqlImage = path+"/"+qianzui+"/"+newName;
+
     // 封装成一个商品对象
-    goods good = new goods(gid,gname,gdesc,gprice,gdiscount,gnumber,newName,341,sid);
+    Goods good = new Goods(gid,gname,gdesc,gprice,gdiscount,gnumber,sqlImage,341,sid);
 
     // 把数据保存到数据库
     return sys.updateGood(good);

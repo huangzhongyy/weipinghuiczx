@@ -2,8 +2,9 @@ package com.cssl.serviceimpl;
 
 import com.cssl.dao.GoodsDao;
 import com.cssl.service.GoodsService;
-import com.weip.pojo.goods;
+import com.weip.pojo.Goods;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -27,7 +28,8 @@ public class GoodsServiceImpl implements GoodsService {
 
  //商家对应的商品
  @Override
- public List<goods> selectGoodsBysid(int sid,int page,int rows) {
+ /*@Cacheable(value = "Goods",key = "#sid")*/
+ public List<Goods> selectGoodsBysid(int sid, int page, int rows) {
   return gd.selectGoodsBysid(sid,page,rows);
  }
 
@@ -38,7 +40,7 @@ public class GoodsServiceImpl implements GoodsService {
 
  // 增加一个商品
  @Override
- public int addgood(@Param("good") goods good){
+ public int addgood(@Param("good") Goods good){
   return gd.addgood(good);
  }
 
@@ -50,13 +52,13 @@ public class GoodsServiceImpl implements GoodsService {
 
  // 通过id找商品
  @Override
- public goods selectGoodBygid(int gid) {
+ public Goods selectGoodBygid(int gid) {
   return gd.selectGoodBygid(gid);
  }
 
  // 修改商品
  @Override
- public int updateGood(goods good) {
+ public int updateGood(Goods good) {
   return gd.updateGood(good);
  }
 }

@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 
+import java.io.Serializable;
 import java.util.Date;
 
 
@@ -20,7 +21,7 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 @Accessors(chain=true)
-public class Order_detail
+public class Order_detail implements Serializable
 {
    private String od_id;//订单详情ID
    private int od_uid;//用户ID
