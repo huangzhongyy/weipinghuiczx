@@ -5,7 +5,10 @@
 <mapper namespace="com.cssl.dao.usersDao">
 
     <select id="login" resultType="users">
-        SELECT * FROM users WHERE username=#{username} AND PASSWORD=#{password}
+        SELECT u.*,r.*,p.* FROM users u
+              INNER JOIN roles r ON u.rid=r.rid
+              LEFT JOIN permission p ON r.r_pid=p.pid
+              where username=#{username}
     </select>
 
     <select id="findAllusers" resultType="users">

@@ -31,17 +31,25 @@ public interface GoodsDao {
 
  public int ShopCardelete(int gid);//删除订单
 
+ public double ShopCarSum();//总金额
 
+ public int ShopCarBiaoshiupdate(ShopCar ss);//修改标识
 
- public double ShopCarSum();
-
- public int ShopCarBiaoshiupdate(ShopCar ss);
-
- public ShopCar dingdanjiesuandage(ShopCar ss);
+ public ShopCar dingdanjiesuandage(ShopCar ss);//订单结算单个对象查询
 
  public int dingdandelete(ShopCar ss);//结算成功删除订单
 
  public int orderdetailinsert(Order_detail od);//新增订单详情
+
+ public List<Map<String,Object>> orderdetail(Map<String,Object> map);//订单管理
+
+ public int Quxiao(String od_id);//取消订单
+
+ public int QueRen(String od_id);//确认收货
+
+
+ public int Gdelete(String od_id);//删除
+
 
 
 

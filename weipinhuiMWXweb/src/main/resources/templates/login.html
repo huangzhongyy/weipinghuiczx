@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh">
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
 <head>
     <script type="text/javascript" async="" src="../static/weipinhui_login_files/1479787994830_js_core.js"></script>
     <meta charset="UTF-8">
@@ -115,7 +115,7 @@
                 </div>
                 <div class="f-left">
                     <div class="ui-checkbox">
-                        <input type="checkbox" id="J_remember_username" name="remUser" class="ui-checkbox-normal" checked="checked">
+                        <input type="checkbox" id="J_remember_username" name="remUser" class="ui-checkbox-normal">
                         <label for="J_remember_username" class="ui-checkbox-simulation"></label>
                     </div>
                     <!--   记住用户名    ********* 使用Application 的list-->
@@ -153,49 +153,11 @@
 <script type="text/javascript">
     $(function()
     {
-        var username=$(".ui-form-item-group #J_login_name").val();
-        alert("username:"+username);
-        var cookieName=$.cookie(username);
-        if(cookieName=="[object Object]")
-        {
-            cookieName="";
-        }
-        alert("ckname:"+cookieName);
-        if(cookieName!=undefined || cookieName!="")
-        {
-            $(".ui-form-item-group #J_login_name").val(cookieName);
-           /* $.post("/web/token",function (data)
-            {
-                var array="";
-                for(var i=0;i<data.length;i++)
-                {
-                    array=$.cookie(data[i].username);
-                    if(array!="" || array!=undefined)
-                    {
-                        $("#save_name").append(
-                            "<li class=\"ui-input  u-input\"><a class=\"ss\" id="+array+">"+array+"</a><span class=\"dd\">×</span></li>"
-                        );
-                    }
-                }
-            },"json");*/
-        }
+        var $ckname=0;
 
-        //记住username
-        function RememberName(username)
+        $("#J_remember_username").click(function ()
         {
-            var $ckname=$("#J_remember_username").attr("checked");
-            if($ckname=="checked")
-            {
-                alert("username:"+username);
-                $.cookie(username, username, {expires: 1,path:'/'});//0.0014==2.016fz   0.0002
-            }
-        }
-
-        $("#delcookie").click(function ()
-        {
-            $.cookie("mwx","",{path:'/'});
-            $.cookie("hz","",{path:'/'});
-            $.cookie("czw","",{path:'/'});
+            $ckname=1;
         });
 
         //验证username是否为空
@@ -243,21 +205,21 @@
 
        $("#login").click(function ()
        {
+           alert($ckname);
             var $username=$("#J_login_name").val();
             var $password=$("#J_login_pwd").val();
             if($username!="" && $password!="")
             {
                 $.ajax({
                     url:"/web/login",
-                    data:{"username":$username,"password":$password},
+                    data:{"username":$username,"password":$password,"isRemember":$ckname},
                     type:"POST",
                     dataType:"TEXT",
                     success:function(data)
                     {
                         if(data=="true")
                         {
-                            RememberName($username);
-                            window.location.href="index.html";
+                            window.location.href="/finduser?username="+$username;
                         }
                         else
                         {
@@ -286,7 +248,6 @@
 
                 <div class="c-login-panel-footer">
 <div class="c-login-third  f-clearfix  J-login-third">
-<input type="button" value="注销cookie" id="delcookie">
  <!--免费注册-->
     <div class="f-right">
         <a  target="_blank" rel="noopener" href="regist.html" class="go_regist_move">免费注册</a>
@@ -296,7 +257,6 @@
         <div class="c-login-third-main">
 
         </div>
-
 
     </div>
 </div>

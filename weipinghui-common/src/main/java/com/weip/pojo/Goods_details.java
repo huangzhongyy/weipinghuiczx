@@ -6,6 +6,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 
+import java.io.Serializable;
+
 /**
  * @program: weipinghuiczx
  * @Date: 2019/7/30 16:37
@@ -17,7 +19,8 @@ import lombok.experimental.Accessors;
 @NoArgsConstructor
 @AllArgsConstructor
 @Accessors(chain=true)
-public class Goods_details {
+public class Goods_details implements Serializable
+{
  private int flat_card_id;//id
  private String the_fuselage_memory;
  private String the_screen_size;

@@ -27,7 +27,7 @@ public class GoodsController {
  @RequestMapping("finall")
  public String Finagoodsd(String g_name,String the_screen_size,String the_fuselage_memory, Model model, Map<String,Object> map, @RequestParam(name="pageNum",defaultValue = "1") String pageNum){
   System.out.println("进来了吗a---");
-  System.out.println("-----------------"+pageNum);
+  //System.out.println("-----------------"+pageNum);
   //System.out.println("----------------"+the_fuselage_memory);
   map.put("pageNum",pageNum);//分页
   map.put("the_fuselage_memory",the_fuselage_memory);//内存
@@ -95,16 +95,54 @@ public double sum(){
 
 
  @RequestMapping("/orderj")
-
  public String orderjiesuan(@RequestParam(value = "cartCheckBox",required = false) String[] cartCheckBox){
   System.out.println("---------------");
-  System.out.println(cartCheckBox[0]);
-  System.out.println(cartCheckBox[1]);
+ /* System.out.println(cartCheckBox[0]);
+  System.out.println(cartCheckBox[1]);*/
    if(goodsService.Orderjiesuan(cartCheckBox)>0){
     return "login";
   }
  return "regist";
  }
+
+@RequestMapping("/orderxq")
+ public String orderGuanli(Model model,Map<String,Object> mapz, String od_status){
+ System.out.println("----"+od_status);
+ mapz.put("od_status",od_status);//内存
+ model.addAttribute("listor",goodsService.dingDan(mapz).get("listo"));
+  return "dingdan";
+ }
+
+ //取消订单
+@RequestMapping("/Quxiao")
+ public String  Quxiao(Model model,String od_id){
+  if(goodsService.Quxiao(od_id)>0){
+  return "forward:/orderxq";
+  }
+   return "login";
+ }
+
+
+ //确认收货
+@RequestMapping("/Quren")
+ public String Quren(Model model,String od_id){
+
+  if(goodsService.Quren(od_id)>0){
+ return "forward:/orderxq";
+  }
+  return "login";
+ }
+
+@RequestMapping("/Qdelete")
+public String Qdelez(Model model,String od_id){
+ System.out.println("删除-----"+od_id);
+ if(goodsService.Gdele(od_id)>0){
+  return "forward:/orderxq";
+ }
+  return "login";
+}
+
+
 
 
 }

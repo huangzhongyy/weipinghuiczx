@@ -15,7 +15,7 @@ import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 @MapperScan("com.cssl.dao")//扫描接口
 @SpringBootApplication
 @EnableEurekaClient//客户端
-//@EnableCaching//开启redis
+/*@EnableCaching//开启redis*/
 public class weipinghuiHZAfterApp {
  public static void main(String[] args) {
   SpringApplication.run(weipinghuiHZAfterApp.class,args);

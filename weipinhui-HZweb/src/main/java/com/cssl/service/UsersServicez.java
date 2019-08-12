@@ -18,6 +18,9 @@ import java.util.Map;
 @FeignClient(value="WEIPINHUIHZAFTER")//通过微服务名访问
 public interface UsersServicez {
 
+ @RequestMapping("/upuser")
+ public int Upuser(users user);
+
  //前端注册
  @RequestMapping("/regist")
  public int Regist(users user);
@@ -55,5 +58,21 @@ public interface UsersServicez {
 //订单结算
 @RequestMapping("/orderj")
  public int Orderjiesuan(@RequestParam("cartCheckBox") String[] cartCheckBox);
+
+//订单管理
+@RequestMapping("/orderdedail")
+ public Map<String,Object> dingDan(Map<String,Object> mapz);
+//取消订单
+ @RequestMapping("/Quxiao")
+ public int Quxiao(String od_id);
+
+ //确认订单
+@RequestMapping("/Quren")
+ public int Quren(String od_id);
+
+//删除订单
+ @RequestMapping("/Qdelete")
+ public int Gdele(String od_id);
+
 
 }

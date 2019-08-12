@@ -41,4 +41,15 @@ public interface GoodsService {
 
  public int dingdandelete(ShopCar ss);
 
+
+ public List<Map<String,Object>> orderdetail(Map<String,Object> map);//订单管理
+
+ public int Quxiao(String od_id);//取消订单
+
+ public int QueRen(String od_id);//确认收货
+
+ public int Gdelete(String od_id);//删除
+
+
+
 }

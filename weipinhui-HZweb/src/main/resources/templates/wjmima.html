@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+<head>
+    <script type="text/javascript" async="" src="regist_files/1479787994830_js_core.js"></script>
+    <title>忘记密码</title>
+
+    <meta charset="UTF-8">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="renderer" content="webkit">
+
+    <link rel="dns-prefetch" href="https://member-ssl.vipstatic.com/">
+    <link href="regist_files/common-hash-44b3cc4d.css" type="text/css" rel="stylesheet">
+    <link href="regist_files/login-hash-df33b44e.css" type="text/css" rel="stylesheet">
+
+
+    <script type="text/javascript" src="js/jquery-1.8.3.min.js"></script>
+
+    <script src="regist_files/core3.js" type="text/javascript"></script>
+    <script src="regist_files/core-hash-07ce7ff1.js" type="text/javascript"></script>
+    <script type="text/javascript" charset="utf-8" async="" src="regist_files/vfp-7-f64856b5.js"></script>
+</head>
+<body class="regSingle  J-container" _vip_tracker="_tracker_1562037680379">
+<div class="c-header" passport_mars_sead_hover="">
+    <div class="c-header-inner">
+        <!--    LOGO  ******-->
+        <div class="c-logo">
+            <a class="c-logo-link" id="for-cascade-login-link" href="https://www.vip.com/?ff=125|2|1|14">唯品会</a>
+        </div>
+
+        <div class="c-service"></div>
+    </div>
+</div>
+<div class="c-body  J-ads" data-adsid="ADSJ867S" data-bg="true"
+     style="background-image: url(&quot;https://a.vpimg2.com/upload/flow/2019/01/29/88/15487540172274.jpg&quot;);">
+    <div class="c-content  f-clearfix">
+        <div class="c-register  f-right">
+            <div class="c-register-header">
+                <div class="c-register-switch-login" passport_mars_sead_hover="">
+                    已注册可<!--
+                     --><a href="login.html" id="J_normal_loginlink"
+                           class="u-text-highlight">直接登录</a>
+                </div>
+                <h3 class="c-register-title">修改密码</h3>
+            </div>
+            <div class="c-register-body">
+                <input type="hidden" name="vipc" value="">
+                <div id="reg-form-wrapper">
+                    <div class="ui-tips-big ui-tips1 c-register-top-tips hidden">
+                        <i class="vipFont if-sigh"></i>
+                        <   a href="javascript:;" role="button" class="close">×</a>
+                        <p class="info"><i class="vipFont if-sigh"></i><span class="info-msg"></span></p>
+                    </div>
+
+                    <!--    form表单  -->
+                    <form id="jsz" action="Wjmm" method="post">
+
+
+                     <div class="control-group  has-form-item-icon  clearfix">
+                            <div class="ui-form-item-group">
+                                <input type="text" onblur="sjhmp()" class="ui-input ipt-phone" id="phone"  name="phone"
+                                       placeholder="请输入手机号码" passport_mars_sead_hover=""
+                                      ><span id="sjhm" style="color: #dd1717"></span>
+                            </div>
+                            <div class="u-input-tip"><span class="text"></span></div>
+                        </div>
+
+                        <div class="control-group" id="J_verify_code_mobile"></div>
+
+                        <div class="control-group  has-form-item-icon  clearfix">
+                            <div class="ui-form-item-group adjust-tip-icon">
+
+                                <input type="text" id="pvcode" class="ui-input ipt-verify-code" name="pvcode"
+                                       placeholder="请输入验证码">
+                                <!--  验证码   ****-->
+
+       <a class="ui-input"  id="sms" onclick="getCode()">获取验证码</a>
+
+                                <span id="qyzm" name="qyzm" style="display: none"></span>
+
+                            </div>
+                            <div class="u-input-tip"><span class="text"></span></div>
+                        </div>
+                    <!-- 密码-->
+                        <div class="control-group  has-form-item-icon  clearfix">
+                            <div class="ui-form-item-group">
+                                <input type="password" class="ui-input" id="password" name="password" maxlength="20"
+                                       placeholder="密码字母和数字不能小于6位,大于18位" passport_mars_sead_hover=""
+                                      ><span id="dlmm" style="color: #dd1717"></span>
+                                <span class="u-input-warning vipFont if-wrong"></span>
+                                <span class="u-input-success vipFont if-success"></span>
+                                <span class="c-icon  c-icon-password  c-icon-form"></span>
+                            </div>
+                            <div class="u-input-tip">
+                <span class="strength-indicator">
+                    <span class="indicator-item-bg">
+                        <span class="indicator-item"></span>
+                    </span>
+
+                </span><!--
+             --><span class="text password-tip"></span>
+                            </div>
+                        </div>
+
+                        <div class="control-group  has-form-item-icon  clearfix">
+                            <div class="ui-form-item-group">
+                                <input type="password" class="ui-input confirm-pwd" id="rePassWord"
+                                       name="confirmPassword" maxlength="20" placeholder="请再次输入上面的密码"
+                                       ><span id="qrmm" style="color: #dd1717"></span>
+                                <span class="u-input-warning vipFont if-wrong"></span>
+                                <span class="u-input-success vipFont if-success"></span>
+                                <span class="c-icon  c-icon-password  c-icon-form"></span>
+                            </div>
+                            <div class="u-input-tip"><span class="text"></span></div>
+                        </div>
+
+                        <div class="control-group mb30 clearfix">
+
+
+                                <input class="ui-btn-large ui-btn-primary ui-btn-loading reg-form-btn form-submit" type="submit" value="修改密码">
+
+
+                        </div>
+
+
+                    </form>
+
+                </div>
+                <script type="text/javascript">
+                    var isThirdLogin = false;
+                </script>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="c-footer">
+    <p class="c-copyright">Copyright 2008-2019 vip.com，All Rights Reserved ICP证：粤 B2-20080329</p>
+</div>
+
+
+<noscript><img src="//mar.vip.com/n" height="1" width="1" border="0" alt=""/></noscript>
+
+<script type="text/javascript">
+
+    //根据手机号码发送短信
+    function zsms()
+    {
+        var $phone=$("#phone").val();
+            alert($phone);
+            $.post("/ZZsmswj",{"phone":$phone},function(date){
+                alert("------------"+date);
+                $("#qyzm").text(date);
+            });
+
+    }
+
+    //手机短信验证
+    function getCode() {
+        var $phone=$("#phone").val();
+        if($phone==null||$phone==""){
+            alert("请先输入手机号码");
+        }else{
+            var reg=/^1(?:3\d|4[4-9]|5[0-35-9]|6[67]|7[013-8]|8\d|9\d)\d{8}$/;
+            if(reg.test($phone)){
+                var time = localStorage.retime;
+                var t = new Date().getTime()/1000;
+                if (time===undefined || t-time>=60) {
+                    localStorage.retime = t;
+                    return zsms();
+                } else {
+                    alert("短信验证码60秒只能点击一次。\n在"+Math.ceil(60-(t-time))+"秒之后可以再次点击。");
+                }
+            }else{
+                alert("格式错误");
+            }
+
+        }
+    }
+
+
+    //判断短信验证码
+    function YanZhen() {
+    var $qyzmz=$("#qyzm").text();//后台传到span上面的验证码
+    alert("后台验证码"+$qyzmz);
+    var $yzm=$("#pvcode").val();
+    alert("输入的验证码"+$yzm);
+    if($yzm==null||$yzm==""){
+        alert("验证码不能为空");
+        return false;
+    }else{
+        if($qyzmz==$yzm){
+            alert("相同");
+            return true;
+        }else{
+            alert("输入的不相同");
+            return false;
+        }
+    }
+    return true;
+    }
+
+
+
+    function sjhmp(){//判断手机号码
+        var reg=/^1(?:3\d|4[4-9]|5[0-35-9]|6[67]|7[013-8]|8\d|9\d)\d{8}$/;
+        var $sj=$("#phone").val();
+        if(reg.test($sj)){
+            $("#sjhm").css({"display":"none"});
+        }else{
+            $("#sjhm").text("手机号码格式输入错误!!").css({"display":"inline"});
+            return false;
+        }
+        return true;
+    };
+
+    function MiMa(){//判断密码
+        var reg=/^[a-z0-9_-]{6,18}$/;
+        var $mima=$("#password").val();
+        if($mima==null||$mima==""){
+            $("#dlmm").text("密码不能为空").css({"display":"inline"});
+            return false;
+        }else{
+            if(reg.test($mima)){
+                $("#dlmm").css({"display":"none"});
+            }else{
+                $("#dlmm").text("密码字母和数字不能小于6位,大于18位").css({"display":"inline"});
+                return false;
+            }
+        }
+        return true;
+    };
+
+
+    function qrmm(){//确认密码
+        var $mima=$("#password").val();//第一个密码
+        var $qrmima=$("#rePassWord").val();
+        if($mima==$qrmima){
+            $("#qrmm").css({"display":"none"});
+        }else{
+            $("#qrmm").text("2次输入的密码不一致").css({"display":"inline"});
+            return false;
+        }
+        return true;
+    };
+
+    $(function () {
+        $("#jsz").submit(function () {
+            return sjhmp()&&YanZhen()&&MiMa()&&qrmm();
+        });
+
+
+    })
+</script>
+</body>
+</html>

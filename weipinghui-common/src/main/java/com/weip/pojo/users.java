@@ -28,4 +28,8 @@ public class users implements Serializable
    private String phone;//电话号码
    private String address;//收货地址
    private String utype;//用户类型
+   private int rid;//角色id
+   private String rname;//角色名
+   private int pid; //权限id
+   private String pname;  //权限名称
 }

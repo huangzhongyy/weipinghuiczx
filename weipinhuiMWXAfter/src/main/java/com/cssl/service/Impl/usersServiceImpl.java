@@ -23,9 +23,9 @@ public class usersServiceImpl implements usersService
    private usersDao udao;
 
    @Override
-   public users login(String name, String pwd)
+   public users login(String name)
    {
-      return udao.login(name,pwd);
+      return udao.login(name);
    }
 
    @Override

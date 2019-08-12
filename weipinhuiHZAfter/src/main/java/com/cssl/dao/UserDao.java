@@ -16,4 +16,8 @@ public interface UserDao {
 
  public users SelectPhone(String phone);//查询手机号码
 
+ public int updateusers(users user);//修改密码
+
+
+
 }
