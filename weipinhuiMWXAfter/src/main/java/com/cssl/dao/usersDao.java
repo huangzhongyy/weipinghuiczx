@@ -16,7 +16,7 @@ import java.util.List;
 public interface usersDao
 {
    //登录
-   public users login(@Param("username") String name, @Param("password") String pwd);
+   public users login(@Param("username") String name);
 
    //查询所有用户
    public List<users> findAllusers();

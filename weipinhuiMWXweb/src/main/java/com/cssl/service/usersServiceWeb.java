@@ -17,8 +17,8 @@ import java.util.List;
 @FeignClient("weipinhuiMWXAfter")
 public interface usersServiceWeb
 {
-   @RequestMapping("/after/login/{username}/{password}")
-   public users login(@PathVariable("username") String username,@PathVariable("password") String password);
+   @RequestMapping("/after/login/{username}")
+   public users login(@PathVariable("username") String username);
 
    @RequestMapping("/after/token")
    public List<users> findAllusers();
