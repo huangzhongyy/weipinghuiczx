@@ -123,31 +123,6 @@
             accept:'image/jpg,image.png,image/jpeg'
         });
 
-        var ck ;  // 标识 赋值会出错误
-        // 表单提交
-        $('#ff').form({
-
-            url: ck=="add"?'addRowGood':'updategood',
-            onSubmit: function(){
-                var isValid = $(this).form('validate'); //表单验证所有正确为true
-                if(!isValid){
-                    alert("信息不够完善");
-                }
-                return isValid;
-            },
-            success:function(data){
-                $.messager.show({
-                    title:'提示消息',
-                    msg:data,
-                    timeout:3000
-                });
-
-                $('#ff').form('reset'); // 完了之后 重置一下表单
-                $("#dg").datagrid("reload"); // 重新加载一下
-            }
-        });
-
-
         // 变成一个对话框
         $('#dd').dialog({
             title: '增加商品',
@@ -159,18 +134,44 @@
             loadingMessage:'加载中.....'
         });
 
+        var ck;  // 标识
+
         // 增加一个商品
         addgood  = function() {
-            ck = "add";
-            $('#dd').dialog({
-                title:'增加商品',
+        $('#dd').dialog({
+            title:'增加商品',
+        });
+
+        $('#dd').dialog('open');
+        $('#ff').form('reset'); // 完了之后 预防点右上角X
+            // 表单提交
+            $('#ff').form({
+                url:'addRowGood',
+                onSubmit: function(){
+                    var isValid = $(this).form('validate'); //表单验证所有正确为true
+                    if(!isValid){
+                        alert("信息不够完善a");
+                    }
+                    return isValid;
+                },
+
+                success:function(data){
+                    $.messager.show({
+                        title:'提示消息',
+                        msg:data,
+                        timeout:3000
+                    });
+                    $('#ff').form('reset'); // 完了之后 重置一下表单
+                    $("#dg").datagrid("reload"); // 重新加载一下
+                }
+
+
             });
-            $('#dd').dialog('open');
-        };
+    };
 
         // 修改一个商品
         updategood = function () {
-            ck = "update";
+            ck='updategood'.replace(/\s/g, "");
             var onerow = $("#dg").datagrid("getSelected");
             //没有选中一行
             if(onerow == null){
@@ -192,6 +193,30 @@
                     g_price:onerow.g_price,
                     g_discount:onerow.g_discount,
                     g_number:onerow.g_number
+
+                });
+                // 表单提交
+                $('#ff').form({
+                    url:'updategood',
+                    onSubmit: function(){
+                        var isValid = $(this).form('validate'); //表单验证所有正确为true
+                        if(!isValid){
+                            alert("信息不够完善");
+                        }
+                        return isValid;
+                    },
+
+                    success:function(data){
+                        $.messager.show({
+                            title:'提示消息',
+                            msg:data,
+                            timeout:3000
+                        });
+                        $('#ff').form('reset'); // 完了之后 重置一下表单
+                        $('#dd').dialog('close');
+                        $("#dg").datagrid("reload"); // 重新加载一下
+                    }
+
 
                 });
             }
@@ -230,14 +255,11 @@
 
             }
         }
-    });
-</script>
-<!-- dialog  end-->
-<script type="text/javascript" >
-    $(function () {
+
 
     });
 </script>
+<!-- dialog  end-->
 
 <table id="dg" style="margin: 10px 0px;"></table>
 

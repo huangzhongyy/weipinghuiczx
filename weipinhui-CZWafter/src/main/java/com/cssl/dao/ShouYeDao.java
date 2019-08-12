@@ -1,6 +1,5 @@
 package com.cssl.dao;
 
-import com.weip.pojo.goods;
 import com.weip.pojo.onetype;
 import com.weip.pojo.threetype;
 import com.weip.pojo.twotype;

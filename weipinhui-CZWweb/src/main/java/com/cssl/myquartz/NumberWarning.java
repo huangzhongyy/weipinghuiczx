@@ -3,8 +3,7 @@ package com.cssl.myquartz;
 import com.alibaba.fastjson.*;
 import com.cssl.Service.ShouYeService;
 import com.cssl.websocket.MyWebSocket;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.weip.pojo.goods;
+import com.weip.pojo.Goods;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 import org.springframework.scheduling.quartz.QuartzJobBean;
@@ -12,7 +11,6 @@ import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
 import java.io.IOException;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -38,12 +36,12 @@ public class NumberWarning extends QuartzJobBean {
 
    String  json = JSON.toJSONString(map.get("rows"));  // 转成JSON字符串
 
-   List<goods> list = JSON.parseArray(json, goods.class);  // 再转成list对象
+   List<Goods> list = JSON.parseArray(json, Goods.class);  // 再转成list对象
 
 
 
 
-   for(goods good : list){
+   for(Goods good : list){
      if(good.getG_number()<5){ // 如果库存少于5的话就推送
       String msg = "您的ID号为"+good.getG_id()+"价格:"+good.getG_price()+"元的商品库存只有"+good.getG_number()+"件了 ! !,请保证货物充足";
       System.out.println(msg);

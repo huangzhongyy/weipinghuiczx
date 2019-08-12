@@ -23,7 +23,6 @@ public class ShangJiaServiceImpl implements ShangJIaService {
  private ShangJiaDao sjd;
 
  @Override
- @Cacheable(value = "sj",key = "#sj")
  public shanjia login(shanjia sj) {
   return sjd.login(sj);
  }

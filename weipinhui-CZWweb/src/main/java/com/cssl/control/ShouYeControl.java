@@ -1,22 +1,18 @@
 package com.cssl.control;
 
 import com.cssl.Service.ShouYeService;
-import com.weip.pojo.goods;
+import com.weip.pojo.Goods;
 import com.weip.pojo.shanjia;
 import com.weip.pojo.twotype;
 
 import org.springframework.cloud.context.config.annotation.RefreshScope;
-import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.context.ServletContextAware;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.ModelAndView;
-import org.thymeleaf.expression.Lists;
 
 
 import javax.annotation.Resource;
@@ -24,7 +20,6 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.*;
 import com.qcloud.cos.COSClient;
@@ -86,7 +81,7 @@ public class ShouYeControl implements ServletContextAware{
       model.addAttribute("msg","帐户名或密码错误,请重新登录");
       return "sjLogin";
     }else{ // 登陆成功
-      System.out.println("sessionId"+session.getId());
+      //System.out.println("sessionId"+session.getId());
       System.out.println(newSJ+"************");
       session.setAttribute("sj",newSJ);
 
@@ -162,6 +157,8 @@ public class ShouYeControl implements ServletContextAware{
   @RequestMapping("/addRowGood")
   @ResponseBody
   public String addGood(@RequestParam("g_image") MultipartFile file, HttpServletRequest request) throws IOException{
+
+   System.out.println("进来了增加。。。。");
        // 取出要添加商品的信息
 
        int sid = 1; //到时候从session里面去取
@@ -213,7 +210,7 @@ public class ShouYeControl implements ServletContextAware{
 
    String sqlimage = path+"/"+qianzui+"/"+newName;
    // 封装成一个商品对象
-   goods good = new goods(gname,gdesc,gprice,gdiscount,gnumber,sqlimage,341,sid);
+   Goods good = new Goods(gname,gdesc,gprice,gdiscount,gnumber,sqlimage,341,sid);
 
    // 把数据保存到数据库
         return sys.addgood(good);
@@ -249,6 +246,7 @@ public class ShouYeControl implements ServletContextAware{
    @RequestMapping("/updategood")
    @ResponseBody
    public String updateGood(@RequestParam("g_image") MultipartFile file, HttpServletRequest request) throws IOException{
+    System.out.println("进来了修改。。。。");
     // 取出要添加商品的信息
     int sid = 1;  // 商家ID
     int gid = Integer.parseInt(request.getParameter("g_id"));
@@ -301,7 +299,7 @@ public class ShouYeControl implements ServletContextAware{
     String sqlImage = path+"/"+qianzui+"/"+newName;
 
     // 封装成一个商品对象
-    goods good = new goods(gid,gname,gdesc,gprice,gdiscount,gnumber,sqlImage,341,sid);
+    Goods good = new Goods(gid,gname,gdesc,gprice,gdiscount,gnumber,sqlImage,341,sid);
 
     // 把数据保存到数据库
     return sys.updateGood(good);

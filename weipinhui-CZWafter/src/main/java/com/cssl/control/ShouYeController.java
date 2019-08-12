@@ -4,23 +4,17 @@ import com.cssl.service.GoodsService;
 import com.cssl.service.Order_detailService;
 import com.cssl.service.ShangJIaService;
 import com.cssl.service.ShouYeService;
-import com.weip.pojo.goods;
-import com.weip.pojo.onetype;
+import com.weip.pojo.Goods;
 import com.weip.pojo.shanjia;
 import com.weip.pojo.twotype;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
-import java.lang.reflect.Array;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -125,7 +119,7 @@ public class ShouYeController {
   */
   @RequestMapping("/after/addgood")
   @ResponseBody
-  public String addgood(@RequestBody goods good){  // 接收对象要用requestBody吧
+  public String addgood(@RequestBody Goods good){  // 接收对象要用requestBody吧
    System.out.println(good.getG_name()+"****");
      int num =   gs.addgood(good);
      if(num > 0){
@@ -153,7 +147,7 @@ public class ShouYeController {
   */
  @RequestMapping("/after/findGoodBygid")
  @ResponseBody
- public goods findGoodBygid(int gid){
+ public Goods findGoodBygid(int gid){
   return gs.selectGoodBygid(gid);
  }
 
@@ -164,7 +158,7 @@ public class ShouYeController {
   */
  @RequestMapping("/after/updategood")
  @ResponseBody
-  public String updateGood(@RequestBody goods good){
+  public String updateGood(@RequestBody Goods good){
   int num = gs.updateGood(good);
   if(num>0){
    return  "修改成功";
