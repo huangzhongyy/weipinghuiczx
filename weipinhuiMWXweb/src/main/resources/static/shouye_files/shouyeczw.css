@@ -1,0 +1,73 @@
+
+
+#spfeilei {
+    position: absolute;
+    top: 170px;
+    left:174px;
+    z-index: 9999;
+}
+
+#feiLeiTable {
+    position: relative;
+    padding: 0px 0px;
+}
+
+#onetype{
+    background-color:#F10180 ;
+    width: 158px;
+
+
+}
+
+
+
+#onetype li {
+
+    color: white;
+    height: 40px;
+    line-height: 35px;
+    font-size: 16px;
+    text-align: center;
+    border: 1px blanchedalmond solid;
+}
+#onetype li:hover {
+    background-color: white;
+    color: #F10180;
+}
+
+#twoandthree {
+    position: absolute;
+    left:158px;
+    top : 0px;
+    background-color: white;
+    height:459px;
+
+
+
+}
+#ttt{
+    width:800px;
+    background-color: white;
+    /*border: 1px black solid;*/
+    padding-left: 20px;
+}
+#ttt dt{
+    color: #000;
+    font-size: 14px;
+    font-weight: bolder;
+    display: inline-block;
+    width:100px;
+    margin: 8px 2px;
+    text-align: left;
+}
+
+#ttt dd{
+    color: #999999;
+    font-size: 12px;
+    display: inline-block;
+    margin: 5px 5px;
+
+}
+
+/*
+.index-nav-sort{_display:none;position:absolute;width:78px;left:50%;margin-left:-612px;top:120px;background:#fff;z-index:100}*/
