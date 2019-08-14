@@ -11,6 +11,7 @@ import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
@@ -166,6 +167,29 @@ public class ShouYeController {
   return "修改失败";
  }
 
+ /**
+  * 单个商品当年对应的每个月的销量
+  * @param
+  * @return
+  */
+ @RequestMapping("/after/xiaoliang")
+ @ResponseBody
+ public List<Map<String,Object>> selectXL(Integer gid){
+  return gs.selectXLBygid(gid);
+ }
+
+
+ /**
+  *   查询今年所有订单的各个商品的销量
+  * @param
+  * @return
+  */
+
+  @RequestMapping("/after/allCount")
+  @ResponseBody
+  public List<Map<String,Object>> selectAllCount(int sid){
+   return gs.selectAllCount(sid);
+  }
 
 
 
@@ -175,13 +199,7 @@ public class ShouYeController {
 
 
 
-
-
-
-
-
-
- @RequestMapping("/after/test")
+     @RequestMapping("/after/test")
      @ResponseBody
      public String test(HttpSession session){
      String user = (String) session.getAttribute("user");

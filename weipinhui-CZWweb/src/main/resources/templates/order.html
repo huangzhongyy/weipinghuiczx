@@ -11,9 +11,9 @@
     <title>订单页面</title>
     <style>
         .goodimg{
-            height:80px;
-            width:80px;
-            margin: 8px 5px 5px 5px;
+            height:70px;
+            width:70px;
+            margin: 8px 5px 3px 5px;
             display: inline-block;
             border-radius: 5px;
         }
@@ -22,7 +22,7 @@
             background-color: #4CAF50; /* Green */
             border: none;
             color: white;
-            padding: 15px 32px;
+            padding: 15px 25px;
             text-align: center;
             text-decoration: none;
             display: inline-block;
@@ -79,10 +79,20 @@
                     },*/
                     frozenColumns:[[
 
-                        {field:'od_id',title:'订单编号',width:250,align:'center'}
+                        {field:'od_id',title:'订单编号',width:220,align:'center'}
                     ]],
                     columns:[[
                         {field:'od_uname',title:'用户姓名',width:100,align:'center'},
+                        {field:'od_address',title:'收货地址',width:120,align:'center',
+                          formatter:function (val,row) {
+                              if (val.length>4) {
+                                  return '<span title="' + val + '">' + val.substring(0,4) + '···</span>';
+                              }
+                              else {
+                                  return val;
+                              }
+                          }
+                        },
                         {field:'g_name',title:'商品名',width:180,align:'center'},
                         {field:'g_image',title:'图片',width:150,align:'center',
                             formatter: function(value,row,index){
@@ -90,12 +100,12 @@
                             }
                         },
                         {field:'od_quantity',title:'数量',width:60,align:'center'},
-                        {field:"g_price",title:'价格',width:100,align:'right',
+                        {field:"g_price",title:'价格',width:100,align:'right',halign:'center',
                             formatter:function(v){
                                 return parseFloat(v).toFixed(2)
                             }
                         },
-                        {field:'od_summoney',title:'总价',width:100,align:'right',
+                        {field:'od_summoney',title:'总价',width:100,align:'right',halign:'center',
                             formatter:function(v){
                                 return parseFloat(v).toFixed(2)
                             }
@@ -131,7 +141,7 @@
 
             $('#ss').searchbox({
                 searcher:function(value){
-                    alert(value );
+                    //alert(value );
                     querydata(1,1,4,value);
 
                 },
@@ -149,7 +159,7 @@
             $(document).on("click",".button1",function(){
                 var $fh = $(this);
                 var $od_id = $fh.attr('data');
-                alert($od_id);
+                //alert($od_id);
                 $.post("updatestatus",{"status":2,"od_id":$od_id},function (data) {
                     //alert(data);
                     if(data == "成功了"){

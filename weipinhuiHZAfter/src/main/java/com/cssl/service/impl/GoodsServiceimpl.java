@@ -24,6 +24,11 @@ public class GoodsServiceimpl implements GoodsService {
  private GoodsDao goodsDao;
 
  @Override
+ public int jianshao(int number, int gooid) {
+  return goodsDao.jianshao(number,gooid);
+ }
+
+ @Override
  public int Quxiao(String od_id) {
   return goodsDao.Quxiao(od_id);
  }
@@ -33,7 +38,14 @@ public class GoodsServiceimpl implements GoodsService {
    return goodsDao.Gdelete(od_id);
  }
 
+
  @Override
+ public List<Goods> Finagoodsdesc(Map<String, Object> map) {
+  return goodsDao.Finagoodsdesc(map);
+ }
+
+ @Override
+ //@Cacheable(value="Goods")
  public List<Map<String, Object>> orderdetail(Map<String,Object> map) {
   return goodsDao.orderdetail(map);
  }
@@ -104,7 +116,7 @@ public class GoodsServiceimpl implements GoodsService {
  }
 
  @Override
- /*@Cacheable(value="Goods")*/
+
  public List<Goods> Finagoods(Map<String, Object> map) {
   return goodsDao.Finagoods(map);
  }

@@ -9,7 +9,7 @@
        the_fuselage_memory=#{the_fuselage_memory}
    </if>
     </sql>-->
-
+   <!--手机页面分页升序-->
     <select id="Finagoods" resultType="goods">
         select g_id,g_name,g_description,g_price,g_discount,g_number,g_image,g_tid
         from goods g
@@ -24,9 +24,34 @@
             <if test="the_screen_size!=null and the_screen_size!=''">
                 and the_screen_size=#{the_screen_size}
             </if>
+            <if test="pricez1!=null and pricez2!=null">
+                and g_price BETWEEN #{pricez1} and #{pricez2}
+            </if>
         </where>
-
+        order by g_price ASC
     </select>
+
+    <!--手机页面分页降序-->
+    <select id="Finagoodsdesc" resultType="goods">
+        select g_id,g_name,g_description,g_price,g_discount,g_number,g_image,g_tid
+        from goods g
+        inner join   goods_details o on  g.g_id=o.goods_id
+        <where>
+            <if test="g_name!=null and g_name!=''">
+                g_name=#{g_name}
+            </if>
+            <if test="the_fuselage_memory!=null and the_fuselage_memory!=''">
+                and the_fuselage_memory=#{the_fuselage_memory}
+            </if>
+            <if test="the_screen_size!=null and the_screen_size!=''">
+                and the_screen_size=#{the_screen_size}
+            </if>
+        </where>
+        order by g_price DESC
+    </select>
+
+
+
 <!-- 根据ID查询对象的商品-->
     <select id="goodsByID" resultType="Goods">
         select * from goods where g_id=#{gid}
@@ -51,6 +76,8 @@
     <update id="ShopCarupdate">
         update shopcar set `number`=#{number},xiaoJi=#{xiaoJi}  where gooid=#{gooid}
     </update>
+
+
 
     <!--加数量-->
     <update id="upOneStock">
@@ -100,6 +127,7 @@ delete from shopcar where gooid=#{gooid}
                and od_status=#{od_status}
            </if>
        </where>
+       order by od_date desc
    </select>
     
     
@@ -116,8 +144,12 @@ delete from shopcar where gooid=#{gooid}
 <!--确认收货和取消订单删除 -->
     <delete id="Gdelete">
         delete from order_detail where od_id=#{od_id}
-
     </delete>
+    
+    
+    <update id="jianshao">
+   update goods set g_number=g_number-#{number} where g_id=#{gooid}
+    </update>
 
 
 </mapper>

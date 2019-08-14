@@ -28,7 +28,33 @@
         select count(*) from goods where g_sid = #{sid}
     </select>
 
+	<!-- 根据商品ID查出一年里每个月的销量 -->
+	<select id="selectXLBygid" resultType="map" >
+		SELECT CONCAT(YEAR(click_date),'-',MONTH(click_date)) AS m,IFNULL(b.con,0) AS c FROM(SELECT  STR_TO_DATE(CONCAT(YEAR(CURDATE()),'-',1,'-',1) , '%Y-%m-%d') AS click_date UNION ALL
+		SELECT  DATE_ADD(STR_TO_DATE(CONCAT(YEAR(CURDATE()),'-',1,'-',1) , '%Y-%m-%d'),INTERVAL 1 MONTH) AS click_date UNION ALL
+		SELECT  DATE_ADD(STR_TO_DATE(CONCAT(YEAR(CURDATE()),'-',1,'-',1) , '%Y-%m-%d'),INTERVAL 2 MONTH) AS click_date UNION ALL
+		SELECT  DATE_ADD(STR_TO_DATE(CONCAT(YEAR(CURDATE()),'-',1,'-',1) , '%Y-%m-%d'),INTERVAL 3 MONTH) AS click_date UNION ALL
+		SELECT  DATE_ADD(STR_TO_DATE(CONCAT(YEAR(CURDATE()),'-',1,'-',1) , '%Y-%m-%d'),INTERVAL 4 MONTH) AS click_date UNION ALL
+		SELECT  DATE_ADD(STR_TO_DATE(CONCAT(YEAR(CURDATE()),'-',1,'-',1) , '%Y-%m-%d'),INTERVAL 5 MONTH) AS click_date UNION ALL
+		SELECT  DATE_ADD(STR_TO_DATE(CONCAT(YEAR(CURDATE()),'-',1,'-',1) , '%Y-%m-%d'),INTERVAL 6 MONTH) AS click_date UNION ALL
+		SELECT  DATE_ADD(STR_TO_DATE(CONCAT(YEAR(CURDATE()),'-',1,'-',1) , '%Y-%m-%d'),INTERVAL 7 MONTH) AS click_date UNION ALL
+		SELECT  DATE_ADD(STR_TO_DATE(CONCAT(YEAR(CURDATE()),'-',1,'-',1) , '%Y-%m-%d'),INTERVAL 8 MONTH) AS click_date UNION ALL
+		SELECT  DATE_ADD(STR_TO_DATE(CONCAT(YEAR(CURDATE()),'-',1,'-',1) , '%Y-%m-%d'),INTERVAL 9 MONTH) AS click_date UNION ALL
+		SELECT  DATE_ADD(STR_TO_DATE(CONCAT(YEAR(CURDATE()),'-',1,'-',1) , '%Y-%m-%d'),INTERVAL 10 MONTH) AS click_date UNION ALL
+		SELECT  DATE_ADD(STR_TO_DATE(CONCAT(YEAR(CURDATE()),'-',1,'-',1) , '%Y-%m-%d'),INTERVAL 11 MONTH) AS click_date) a LEFT JOIN
+		(SELECT COUNT(*) AS con , CONCAT(YEAR(od_date),'-',MONTH(od_date)) AS mon FROM `order_detail` WHERE  od_gid = #{gid} GROUP BY mon) b
+		ON CONCAT(YEAR(click_date),'-',MONTH(click_date))=b.mon
+	</select>
 
+	<!-- 查询今年所有订单的各个商品的销量 -->
+    <select id="selectAllCount" resultType="map" >
+
+		SELECT g.g_name AS gname,COUNT(g.g_name) AS gcount FROM order_detail o
+		INNER JOIN goods g ON o.od_gid=g.g_id
+		WHERE DATE_FORMAT(o.od_date,'%Y') = DATE_FORMAT(SYSDATE(),'%Y') AND g_sid = #{sid}
+		GROUP BY g_name
+
+	</select>
     <!--  根据g_id查整个商品信息  -->
 	<select id="selectGoodBygid" resultType="goods" >
        select * from goods where g_id = #{gid}

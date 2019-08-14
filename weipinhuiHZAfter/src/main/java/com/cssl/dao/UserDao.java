@@ -19,5 +19,8 @@ public interface UserDao {
  public int updateusers(users user);//修改密码
 
 
+ public users registYanzen(String  username);
+
+
 
 }

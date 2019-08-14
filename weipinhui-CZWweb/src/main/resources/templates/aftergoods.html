@@ -11,6 +11,7 @@
     <script type="text/javascript" src="easyui/jquery.easyui.min.js"></script>
     <script type="text/javascript" src="easyui/locale/easyui-lang-zh_CN.js"></script>
     <script type="text/javascript" src="easyui/jquery.edatagrid.js" ></script>
+    <script src="echarts/min/echarts.min.js" ></script>
     <style>
         #tb{
             margin-top: 20px;
@@ -114,6 +115,7 @@
         </form>
     </div>
 
+
 <script type="text/javascript" >
     $(function () {
         // 图片上传
@@ -128,7 +130,7 @@
             title: '增加商品',
             width: 420,
             height: 400,
-            closed: true, //定义在刚打开页面时是否不显示窗口。
+            closed: true, //定义在刚打开页面窗口是不是关闭的。
             cache: false,
             modal: true,
             loadingMessage:'加载中.....'
@@ -150,7 +152,7 @@
                 onSubmit: function(){
                     var isValid = $(this).form('validate'); //表单验证所有正确为true
                     if(!isValid){
-                        alert("信息不够完善a");
+                        alert("信息不够完善");
                     }
                     return isValid;
                 },
@@ -214,6 +216,7 @@
                         });
                         $('#ff').form('reset'); // 完了之后 重置一下表单
                         $('#dd').dialog('close');
+                        $("#dg").datagrid("clearSelections");//不要再选中原来的那一行了
                         $("#dg").datagrid("reload"); // 重新加载一下
                     }
 
@@ -241,13 +244,14 @@
                         $.messager.show({
                             title:'提示消息',
                             msg:data,
-                            timeout:3000,
-                            style:{
+                            timeout:3000
+                            /*style:{
 
                                 left:1, // 与左边界的距离
                                 top:document.body.clientHeight-400 // 与顶部的距离
-                            }
+                            }*/
                         });
+                        $("#dg").datagrid("clearSelections");//不要再选中原来的那一行了
                         $("#dg").datagrid("reload"); // 删除完毕后重新加载一下
                     });
                 }
@@ -261,6 +265,78 @@
 </script>
 <!-- dialog  end-->
 
+
+<!--  dialog start-->
+ <div id="tutu" style="padding: 20px 20px 0px 20px">
+     <div id="one" style="width: 600px;height:500px;"style="margin: 20px"></div>
+
+ </div>
+<script type="text/javascript" >
+  $(function () {
+      // tutu变成一个对话框
+      $('#tutu').dialog({
+          title: '销量折线图',
+          width: 650,
+          height: 580,
+          closed: true, //定义在刚打开页面窗口是不是关闭的。
+          cache: false,
+          modal: true,
+          loadingMessage:'加载中.....'
+      });
+
+      // 基于准备好的dom，初始化echarts实例
+      var mychart = echarts.init(document.getElementById('one'));
+
+      var option = {
+          title:{
+              text:'销量图'
+          },
+          tooltip:{},
+          legend:{
+              data:['销量']
+          },
+          xAxis:{
+                data:["1月","2月","3月","4月","5月","6月","7月","8月","9月","10月","11月","12月"]
+               // data:[1,2,3,4,5,6,7,8,9,10,11,12]
+          },
+          yAxis:{},
+          series:[{
+              name:'销量',
+              type:'line',  // 做的图的类型  bar为柱状图  line为折现图
+              data:[]
+          }]
+      }
+
+      mychart.setOption(option);
+
+      // 加载数据
+      tu = function (gid,dsc) {
+          $.post("xiaoliang",{"gid":gid},function (data) {
+             // alert(data);
+              mychart.setOption({
+                  title:{
+                      text:dsc
+                  },
+                  series: [{
+                      // 根据名字对应到相应的系列
+                      name: '销量',
+                      data: data
+                  }]
+              });
+          });
+      }
+
+
+      //等ajax加载完后还会进行渲染
+      $(document).on("click","a#aCount",function(){
+          $gid = $(this).text().trim();
+          $dsc = $(this).attr('data');
+          $("#tutu").dialog('open');
+          tu($gid,$dsc);
+      });
+  });
+</script>
+<!--  dialog end-->
 <table id="dg" style="margin: 10px 0px;"></table>
 
 
@@ -289,7 +365,11 @@
                 idField:'g_id',//绑定主键这个是必须的，不绑定删除不了
                 columns:[[
                     //列的绑定
-                    {field:'g_id',title:'商品ID',width:50,align:'center'},
+                    {field:'g_id',title:'商品ID',width:50,align:'center',
+                      formatter:function (v,row,index) {
+                          return "<a href='#' id='aCount' data="+row.g_description+">"+v+"</a>";
+                      }
+                    },
                     {field:'g_name',title:'商品名字',width:100,align:'center',editor:{type:'validatebox',options:{required:true}}},
                     {field:'g_description',title:'商品描述',width:130,align:'center',editor:{type:'validatebox',options:{required:true}}} ,
                     {field:'g_price',title:'价格',width:80,align:'center',editor:{type:'validatebox',options:{required:true}},
@@ -325,7 +405,11 @@
             //layout:['first','prev','links','next','last','manual'],
             //links:3
         });
-    });
+
+
+
+
+        });
 </script>
 
 

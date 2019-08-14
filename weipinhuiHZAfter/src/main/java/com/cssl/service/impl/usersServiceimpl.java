@@ -35,4 +35,10 @@ public class usersServiceimpl implements usersService {
   System.out.println("注册业务层----------");
   return udao.usersRegist(users);
  }
+
+ @Override
+ public users registYanzen(String username) {
+  return udao.registYanzen(username);
+ }
+
 }

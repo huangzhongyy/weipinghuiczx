@@ -10,7 +10,7 @@ import org.springframework.context.annotation.Configuration;
  * @Author: Mr.Deng
  * @Description:
  */
-//@Configuration
+@Configuration
 public class QuartzConfig {
 
  // 创建任务
@@ -26,7 +26,7 @@ public class QuartzConfig {
  @Bean
  public Trigger uploadTaskTrigger() {
   // 定义规则
-  CronScheduleBuilder scheduleBuilder = CronScheduleBuilder.cronSchedule("30 1/1 * * * ? *");
+  CronScheduleBuilder scheduleBuilder = CronScheduleBuilder.cronSchedule("30 1/15 * * * ? *");
   return TriggerBuilder.newTrigger().forJob(uploadTaskDetail())
    .withIdentity("NumberWarning")
    .withSchedule(scheduleBuilder)

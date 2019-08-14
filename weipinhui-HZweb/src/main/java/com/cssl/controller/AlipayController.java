@@ -19,6 +19,7 @@ import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.UUID;
 
 /**
  * 利用蚂蚁金服官方的jdk
@@ -39,7 +40,10 @@ public class AlipayController {
 	@PostMapping("/tradePay")
 	public void tradePay(@RequestParam(value = "cartCheckBox",required = false) String[] cartCheckBox, HttpSession session,HttpServletResponse response,String ssss) throws Exception {
 		System.out.println(ssss.substring(0,ssss.indexOf(',')));
-		goodsService.Orderjiesuan(cartCheckBox);
+
+		session.setAttribute("cartCheckBox",cartCheckBox);
+
+
 
 		//获得初始化的AlipayClient
 	  	AlipayClient alipayClient = new DefaultAlipayClient(
@@ -55,9 +59,10 @@ public class AlipayController {
 		AlipayTradePagePayRequest alipayRequest = new AlipayTradePagePayRequest();
 		alipayRequest.setReturnUrl(AlipayConfig.return_url);
 		alipayRequest.setNotifyUrl(AlipayConfig.notify_url);
-	
+		String uuid= UUID.randomUUID().toString().replace("-", "").toUpperCase();
+
 		//商户订单号，商户网站订单系统中唯一订单号，必填
-		String out_trade_no = "333322322223422";
+		String out_trade_no = uuid;
 		//付款金额，必填
 		String total_amount = ssss.substring(0,ssss.indexOf(','));
 		//订单名称，必填
@@ -95,10 +100,8 @@ public class AlipayController {
 		*/
 	@RequestMapping("/notify_url")
 	public void notifyUrl(HttpServletRequest request,HttpServletResponse response,HttpSession session) throws Exception {
-
-
-
 		//获取支付宝POST过来反馈信息
+		System.out.println("/notify_url");
 		Map<String,String> params = new HashMap<String,String>();
 		Map<String,String[]> requestParams = request.getParameterMap();
 		for (Iterator<String> iter = requestParams.keySet().iterator(); iter.hasNext();) {
@@ -144,17 +147,12 @@ public class AlipayController {
 				//退款日期超过可退款期限后（如三个月可退款），支付宝系统发送该交易状态通知
 				out.println("index");
 			}else if (trade_status.equals("TRADE_SUCCESS")){
-				//判断该笔订单是否在商户网站中已经做过处理
-				//如果没有做过处理，根据订单号（out_trade_no）在商户网站的订单系统中查到该笔订单的详细，并执行商户的业务程序
-				//如果有做过处理，不执行商户的业务程序
-				//注意：
-				//付款完成后，支付宝系统发送该交易状态通知
+
 				out.println("success");
 			}
 
-
 		}else {//验证失败
-			out.println("fail");
+			out.println("error");
 			//调试用，写文本函数记录程序运行情况是否正常
 			//String sWord = AlipaySignature.getSignCheckContentV1(params);
 			//AlipayConfig.logResult(sWord);
@@ -170,7 +168,7 @@ public class AlipayController {
 		*/
 
 	@RequestMapping("/return_url")
-	public String returnUrl(HttpServletRequest request,HttpServletResponse response) throws Exception {
+	public String returnUrl(HttpServletRequest request,HttpServletResponse response,HttpSession session) throws Exception {
 		System.out.println("=========return_url");
 		//获取支付宝GET过来反馈信息
 		Map<String,String> params = new HashMap<String,String>();
@@ -192,10 +190,11 @@ public class AlipayController {
 		System.out.println("signVerified:"+signVerified);
 		//——请在这里编写您的程序（以下代码仅作参考）——
 		if(signVerified) {
-
+			System.out.println("-------------成功了-------");
+			String [] cartCheckBox=(String[]) session.getAttribute("cartCheckBox");
+			goodsService.Orderjiesuan(cartCheckBox);
 			return "success";
 		}else {
-
 			return "index";
 		}
 

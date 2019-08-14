@@ -72,21 +72,52 @@ public class ShouYeControl implements ServletContextAware{
   */
   @RequestMapping("/login")
   public String login(String s_name,String s_pwd,Model model,HttpSession session){
+
+   boolean ck = true; // 标识
+
    shanjia sj = new shanjia();
    sj.setS_name(s_name);
    sj.setS_pwd(s_pwd);
 
    shanjia newSJ = sys.afterLogin(sj);
     if(newSJ == null){ // 没有这条数据
+
       model.addAttribute("msg","帐户名或密码错误,请重新登录");
       return "sjLogin";
-    }else{ // 登陆成功
-      //System.out.println("sessionId"+session.getId());
-      System.out.println(newSJ+"************");
-      session.setAttribute("sj",newSJ);
 
-      System.out.println(session.getAttribute("sj"));
-      return "afterindex";
+    }else{ //有这个用户 查看是否在别处登录
+
+        List<shanjia> list = (List<shanjia>)application.getAttribute("sjs");
+         if(list!=null){ // 不等于空 就是有用户在线 进行判断
+            for (shanjia s : list){
+             if(s.getS_id() == newSJ.getS_id()){ // 已经在线了
+              model.addAttribute("msg","您已经在别的地方登录过了");
+              return "sjLogin";
+             }
+            }
+            // 循环出来 没有找到相同的用户
+            // 登陆成功
+            System.out.println("sessionId"+session.getId());
+            System.out.println(newSJ.getS_id()+"登录商家ID");
+            session.setAttribute("sj",newSJ);
+            list.add(newSJ); // 又加到application里面去
+            application.setAttribute("sjs",list);
+            return "afterindex";
+
+         }else{
+          // 登陆成功
+          System.out.println("sessionId"+session.getId());
+          System.out.println(newSJ.getS_id()+"第一次登录商家ID");
+          session.setAttribute("sj",newSJ);
+
+          List<shanjia> list1 = new ArrayList<>();
+          list1.add(newSJ); // 又加到application里面去
+          application.setAttribute("sjs",list1);
+          return "afterindex";
+         }
+
+
+
     }
   }
 
@@ -306,10 +337,45 @@ public class ShouYeControl implements ServletContextAware{
 
    }
 
+ /**
+  * 当个商品的当年每个月销量
+  *
+  * @return
+  */
+  @RequestMapping("/xiaoliang")
+  @ResponseBody
+  public List<Integer> selectXLBygid(Integer gid){
+   System.out.println("进来了。。哦啊啊是");
+   System.out.println(gid+"111");
+   List<Integer> list = new ArrayList<>();
+   List<Map<String,Object>> list1 = sys.selectXLbygid(gid);
+   System.out.println(list1);
+   for (Map<String,Object> map : list1){
+     int number = Integer.parseInt(map.get("c").toString());
+     list.add(number);
+   }
+   return list;
+  }
 
-
-
-
+ /**
+  *   查询今年所有订单的各个商品的销量
+  */
+ @RequestMapping("/allCount")
+ @ResponseBody
+ public List<Map<String,Object>> selectAllCount(int sid,Model m){
+  List<String> listName = new ArrayList<>();
+  List<Integer> listCount = new ArrayList<>();
+  List<Map<String,Object>> list = sys.selectAllCount(sid);
+  for(Map<String,Object> map : list){
+     listName.add(map.get("gname").toString());
+     int number = Integer.parseInt(map.get("gcount").toString());
+     listCount.add(number);
+  }
+   m.addAttribute("listName",listName);
+   m.addAttribute("listCount",listCount);
+   //return "bing";
+   return list;
+ }
 
 
  @RequestMapping("/testa")
