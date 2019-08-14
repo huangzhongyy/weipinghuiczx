@@ -67,9 +67,15 @@ public class usersController {
  @RequestMapping("/pp")
  @ResponseBody
  public users YzPhone(@RequestBody String phone){
-
   return usersservice.SelectPhone(phone);
  }
+
+@RequestMapping("/yzm")
+ @ResponseBody
+ public users YzName(@RequestBody String username){
+  return usersservice.registYanzen(username);
+ }
+
 
 
 }
