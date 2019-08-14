@@ -3,6 +3,7 @@ package com.cssl.dao;
 import com.weip.pojo.Goods;
 import com.weip.pojo.ShopCar;
 import com.weip.pojo.Order_detail;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 import java.util.Map;
@@ -15,7 +16,9 @@ import java.util.Map;
  */
 public interface GoodsDao {
 
- public List<Goods> Finagoods(Map<String,Object> map);//手机页面显示
+ public List<Goods> Finagoods(Map<String,Object> map);//手机页面显示升序
+
+ public List<Goods> Finagoodsdesc(Map<String,Object> map);//手机页面显示降序
 
  public Goods goodsByID(int gid);//根据ID查询ID信息
 
@@ -47,8 +50,11 @@ public interface GoodsDao {
 
  public int QueRen(String od_id);//确认收货
 
-
  public int Gdelete(String od_id);//删除
+
+ public int jianshao(@Param("number") int number,@Param("gooid") int gooid);//减少库存
+
+
 
 
 

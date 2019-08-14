@@ -50,6 +50,11 @@ public interface GoodsService {
 
  public int Gdelete(String od_id);//删除
 
+ public List<Goods> Finagoodsdesc(Map<String,Object> map);//手机页面显示降序
+
+ public int jianshao(int number,int gooid);//减少库存
+
+
 
 
 }

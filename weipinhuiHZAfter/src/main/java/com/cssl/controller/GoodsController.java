@@ -33,11 +33,11 @@ public class GoodsController {
  //手机页面
  @RequestMapping("/shangpingFina")
  @ResponseBody
-
  public Map<String,Object> Finagoodsz(@RequestBody Map<String,Object> map){
   System.out.println("进来了-----------");
   //System.out.println("-----------"+map.get("pageNum"));//分页的值
-  System.out.println("---------"+map.get("the_fuselage_memory"));
+  System.out.println("---------"+map.get("pricez1"));
+  System.out.println("---------"+map.get("pricez2"));
   int aa=Integer.valueOf(map.get("pageNum").toString());//map取出来是一个object类型
   Map<String,Object> mapa=new HashMap<>();
   //PageHelper.startPage(1,2);
@@ -51,6 +51,29 @@ public class GoodsController {
   return mapa;
  }
 
+
+
+ //手机页面降序
+ @RequestMapping("/shangpingFinadesc")
+ @ResponseBody
+ public Map<String,Object> Finagoodszdesc(@RequestBody Map<String,Object> map){
+  System.out.println("进来了-----------");
+  //System.out.println("-----------"+map.get("pageNum"));//分页的值
+  System.out.println("---------"+map.get("the_fuselage_memory"));
+  int aa=Integer.valueOf(map.get("pageNum").toString());//map取出来是一个object类型
+  Map<String,Object> mapa=new HashMap<>();
+  //PageHelper.startPage(1,2);
+  //Page<Object> starPage= PageHelper.startPage(1,2);
+//goodsService.Finagoods(map);
+  PageHelper.startPage(aa,4);//设置分页一页显示4个数据
+  List<Goods> list=goodsService.Finagoodsdesc(map);
+  PageInfo<Goods> pageInfo=new PageInfo<>(list,3);//navigatePages显示几个数字
+  mapa.put("list",pageInfo);
+  //PageInfo<goods> pageInf=new PageInfo<>(list,3);
+  return mapa;
+ }
+
+
 //购物车页面
 @RequestMapping("/ShopCar")
 @ResponseBody
@@ -59,14 +82,18 @@ public Map<String,Object> addShopCar(@RequestBody int gid){
  System.out.println("--------------"+gid);
   Goods gg=goodsService.goodsByID(gid);//查询出来要添加购物车的ID
  ShopCar sc=new ShopCar();//购物车实体类对象
- System.out.println(gg);
+// System.out.println(gg);
  ShopCar SpC=goodsService.SelectCar(gg.getG_id());//根据商品ID查询出来购物车数据
  Map<String,Object> map=new HashMap<>();//返回数据的
 System.out.println("购物车数据-------------"+SpC);
- if(SpC!=null){//如果查出来显示已经过该商品
+ if(SpC!=null){//如果查出来显示已经过该商品就
      SpC.setNumber(SpC.getNumber()+1);
-  System.out.println("价格--------------"+gg.getG_price()*gg.getG_discount());
+   if(SpC.getNumber()>=2){//如果超过2件
+     SpC.setNumber(2);//最多购买2件
+}
+     //System.out.println("价格--------------"+gg.getG_price()*gg.getG_discount());
      SpC.setXiaoJi(SpC.getNumber()*(gg.getG_price()*gg.getG_discount()));//商品数量*价格*//*
+
      int xg=goodsService.ShopCarupdate(SpC);//修改
   System.out.println("-------------"+xg);
   if(xg>0){
@@ -99,8 +126,11 @@ public Map<String,Object> upOneSockt(@RequestBody int gid){
   if(SpC!=null){
     SpC.setNumber(SpC.getNumber()+1);
     SpC.setXiaoJi(SpC.getXiaoJi()+(gg.getG_price()*gg.getG_discount()));
-    int xx=goodsService.ShopCarupdate(SpC);
-   System.out.println(xx);
+   if(SpC.getNumber()>=2){//最多购买2件
+     SpC.setNumber(2);
+     SpC.setXiaoJi(SpC.getXiaoJi()-(gg.getG_price()*gg.getG_discount()));
+   }
+    int xx=goodsService.ShopCarupdate(SpC);//System.out.println(xx);
     if(xx>0){
      map.put("list",goodsService.shopcar());
     }
@@ -149,7 +179,7 @@ public Map<String,Object> ShopCarDelete(@RequestBody int gid){
  }
  return map;
 }
-
+//总价钱
 @RequestMapping("/sumz")
 @ResponseBody
 public double sumShopcar(){
@@ -180,7 +210,6 @@ if(aa>0){
 @ResponseBody
 public Map<String,Object> checkedjiajia(@RequestBody int gid){
   Map<String,Object> map=new HashMap<>();
-
   ShopCar spcz=goodsService.SelectCar(gid);
  Goods gg=goodsService.goodsByID(gid);
   spcz.setXiaoJi(spcz.getNumber()*(gg.getG_price()*gg.getG_discount()));
@@ -209,7 +238,7 @@ public int Orderjiesuan(String[] cartCheckBox){
   ShopCar sszhen=goodsService.dingdanjiesuandage(ss);//每循环一次查询一次对应的gooid
   //System.out.println(sszhen);
   String uuid= UUID.randomUUID().toString().replace("-", "").toUpperCase();
-  System.out.println("UUID:--------"+uuid);
+  //System.out.println("UUID:--------"+uuid);
   od.setOd_id(uuid);// 订单详情ID
   od.setOd_uid(1);//用户的ID
   od.setOd_uname("caozhiwei");//用户ID
@@ -220,7 +249,10 @@ public int Orderjiesuan(String[] cartCheckBox){
   od.setOd_status(1);
   od.setOd_date(new Date());//当前时间
   int jie=goodsService.orderdetailinsert(od);//新增
-  System.out.println("返回-------------"+jie);
+  //System.out.println("返回-------------"+jie);
+  //System.out.println(sszhen.getNumber()+sszhen.getGooid());
+   int jj=goodsService.jianshao(sszhen.getNumber(),sszhen.getGooid());//减少库存
+  //System.out.println("---------------------库存"+jj);
   if(jie>0){
     goodsService.dingdandelete(ss);//删除
    ii=1;
@@ -229,6 +261,7 @@ public int Orderjiesuan(String[] cartCheckBox){
   return ii;
 }
 
+//订单页面
 @RequestMapping("/orderdedail")
 @ResponseBody
 public Map<String,Object> dingDan(@RequestBody Map<String,Object> mapz){

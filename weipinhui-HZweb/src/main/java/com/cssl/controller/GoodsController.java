@@ -25,7 +25,22 @@ public class GoodsController {
  private UsersServicez goodsService;
 
  @RequestMapping("finall")
- public String Finagoodsd(String g_name,String the_screen_size,String the_fuselage_memory, Model model, Map<String,Object> map, @RequestParam(name="pageNum",defaultValue = "1") String pageNum){
+ public String Finagoodsd(String pricez1,String pricez2,String g_name,String the_screen_size,String the_fuselage_memory, Model model, Map<String,Object> map, @RequestParam(name="pageNum",defaultValue = "1") String pageNum){
+  System.out.println("进来了吗a---");
+  System.out.println("-----------------"+pricez1);
+  System.out.println("----------------"+pricez2);
+  map.put("pageNum",pageNum);//分页
+  map.put("the_fuselage_memory",the_fuselage_memory);//内存
+  map.put("g_name",g_name);
+  map.put("the_screen_size",the_screen_size);//屏幕尺寸
+  map.put("pricez1",pricez1);
+  map.put("pricez2",pricez2);
+   model.addAttribute("pages",goodsService.Finagoods(map).get("list"));//传过来的全部数据
+  return "shangping";
+ }
+
+ @RequestMapping("finalldesc")
+ public String Finagoodsdesc(String g_name,String the_screen_size,String the_fuselage_memory, Model model, Map<String,Object> map, @RequestParam(name="pageNum",defaultValue = "1") String pageNum){
   System.out.println("进来了吗a---");
   //System.out.println("-----------------"+pageNum);
   //System.out.println("----------------"+the_fuselage_memory);
@@ -33,9 +48,10 @@ public class GoodsController {
   map.put("the_fuselage_memory",the_fuselage_memory);//内存
   map.put("g_name",g_name);
   map.put("the_screen_size",the_screen_size);//屏幕尺寸
-   model.addAttribute("pages",goodsService.Finagoods(map).get("list"));//传过来的全部数据
+  model.addAttribute("pages",goodsService.Finagoodszdesc(map).get("list"));//传过来的全部数据
   return "shangping";
  }
+
 
  @RequestMapping("shopcar")
  public String Shopcarz(int gid,Model model){

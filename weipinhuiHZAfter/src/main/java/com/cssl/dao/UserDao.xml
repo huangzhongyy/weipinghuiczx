@@ -18,6 +18,11 @@
         update users set password=#{password} where phone=#{phone}
     </update>
 
+    <select id="registYanzen" resultType="users">
+  select * from users where username=#{username}
+    </select>
+
+
 
 
 </mapper>
