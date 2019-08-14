@@ -7,6 +7,7 @@ import org.springframework.cloud.openfeign.FeignClient;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 
 import java.util.List;
@@ -51,8 +52,17 @@ public interface ShouYeService {
  @RequestMapping("/after/updategood")
  public String updateGood(Goods good);
 
+ // 当个商品的当年每个月销量
+ @RequestMapping("/after/xiaoliang")
+ public  List<Map<String,Object>> selectXLbygid(@RequestParam("gid") int gid);
 
 
+ /**
+  *   查询今年所有订单的各个商品的销量
+  */
+
+ @RequestMapping("/after/allCount")
+ public List<Map<String,Object>> selectAllCount();
 
 
 

@@ -306,10 +306,45 @@ public class ShouYeControl implements ServletContextAware{
 
    }
 
+ /**
+  * 当个商品的当年每个月销量
+  *
+  * @return
+  */
+  @RequestMapping("/xiaoliang")
+  @ResponseBody
+  public List<Integer> selectXLBygid(Integer gid){
+   System.out.println("进来了。。哦啊啊是");
+   System.out.println(gid+"111");
+   List<Integer> list = new ArrayList<>();
+   List<Map<String,Object>> list1 = sys.selectXLbygid(gid);
+   System.out.println(list1);
+   for (Map<String,Object> map : list1){
+     int number = Integer.parseInt(map.get("c").toString());
+     list.add(number);
+   }
+   return list;
+  }
 
-
-
-
+ /**
+  *   查询今年所有订单的各个商品的销量
+  */
+ @RequestMapping("/allCount")
+ @ResponseBody
+ public List<Map<String,Object>> selectAllCount(Model m){
+  List<String> listName = new ArrayList<>();
+  List<Integer> listCount = new ArrayList<>();
+  List<Map<String,Object>> list = sys.selectAllCount();
+  for(Map<String,Object> map : list){
+     listName.add(map.get("gname").toString());
+     int number = Integer.parseInt(map.get("gcount").toString());
+     listCount.add(number);
+  }
+   m.addAttribute("listName",listName);
+   m.addAttribute("listCount",listCount);
+   //return "bing";
+   return list;
+ }
 
 
  @RequestMapping("/testa")
