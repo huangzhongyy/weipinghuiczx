@@ -23,7 +23,7 @@ public interface GoodsService {
  public List<Map<String,Object>> selectXLBygid(int gid);
 
  // 查询今年所有订单的各个商品的销量
- public List<Map<String,Object>> selectAllCount();
+ public List<Map<String,Object>> selectAllCount(int sid);
 
  // 增加一个商品
  public int addgood(Goods good);

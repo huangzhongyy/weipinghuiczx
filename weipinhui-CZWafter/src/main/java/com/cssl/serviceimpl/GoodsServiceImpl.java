@@ -43,8 +43,8 @@ public class GoodsServiceImpl implements GoodsService {
 
  // 查询今年所有订单的各个商品的销量
  @Override
- public List<Map<String, Object>> selectAllCount() {
-  return gd.selectAllCount();
+ public List<Map<String, Object>> selectAllCount(int sid) {
+  return gd.selectAllCount(sid);
  }
 
  @Override

@@ -39,5 +39,5 @@ public interface GoodsDao {
   public List<Map<String,Object>> selectXLBygid(@Param("gid") int gid);
 
   // 查询今年所有订单的各个商品的销量
-  public List<Map<String,Object>> selectAllCount();
+  public List<Map<String,Object>> selectAllCount(@Param("sid") int sid);
 }

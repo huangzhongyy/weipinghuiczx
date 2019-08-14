@@ -49,10 +49,10 @@
 	<!-- 查询今年所有订单的各个商品的销量 -->
     <select id="selectAllCount" resultType="map" >
 
-		SELECT g.g_name as gname,COUNT(od_gid) as gcount FROM order_detail o
+		SELECT g.g_name AS gname,COUNT(g.g_name) AS gcount FROM order_detail o
 		INNER JOIN goods g ON o.od_gid=g.g_id
-		WHERE DATE_FORMAT(o.od_date,'%Y') = DATE_FORMAT(SYSDATE(),'%Y')
-		GROUP BY od_gid,g_name
+		WHERE DATE_FORMAT(o.od_date,'%Y') = DATE_FORMAT(SYSDATE(),'%Y') AND g_sid = #{sid}
+		GROUP BY g_name
 
 	</select>
     <!--  根据g_id查整个商品信息  -->

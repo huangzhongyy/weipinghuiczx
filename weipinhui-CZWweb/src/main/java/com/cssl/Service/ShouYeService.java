@@ -62,7 +62,7 @@ public interface ShouYeService {
   */
 
  @RequestMapping("/after/allCount")
- public List<Map<String,Object>> selectAllCount();
+ public List<Map<String,Object>> selectAllCount(@RequestParam("sid") int sid);
 
 
 

@@ -187,8 +187,8 @@ public class ShouYeController {
 
   @RequestMapping("/after/allCount")
   @ResponseBody
-  public List<Map<String,Object>> selectAllCount(){
-   return gs.selectAllCount();
+  public List<Map<String,Object>> selectAllCount(int sid){
+   return gs.selectAllCount(sid);
   }
 
 

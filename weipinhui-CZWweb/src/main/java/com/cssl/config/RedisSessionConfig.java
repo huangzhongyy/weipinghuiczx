@@ -10,7 +10,7 @@ import org.springframework.session.data.redis.config.annotation.web.http.EnableR
  * @Description:
  */
 
-@Configuration
+/*@Configuration
 @EnableRedisHttpSession//开启支持
 public class RedisSessionConfig {
-}
+}*/
