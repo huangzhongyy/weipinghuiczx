@@ -27,6 +27,9 @@ spring:
       uri: mongodb://192.168.44.129:27017/products
      #uri: mongodb://testrw:testrw@localhost:27017/test
 
+    solr:
+      host: http://127.0.0.1:8983/solr/goods_Core
+
   redis:
     database: 0
     host: 192.168.44.129

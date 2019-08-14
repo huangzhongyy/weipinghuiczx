@@ -138,6 +138,13 @@
             <version>1.2.6.RELEASE</version>
         </dependency>
 
+       <!-- SpringBoot+Solr-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-solr</artifactId>
+            <version>2.1.6.RELEASE</version>
+        </dependency>
+
 
         <!-- 引入thymeleaf模版 -->
         <dependency>

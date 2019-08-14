@@ -410,12 +410,13 @@
                     {
                         $("#search").click(function()
                         {
-                           alert("搜索");
+                            var title=$("#title").val();
+                            window.location.href="/search?title="+title;
                         });
                     });
                 </script>
     <div class="c-search-form">
-        <input class="c-search-input  J-search-input" type="text" mars_sead="search_entrance_click" placeholder="连衣裙" autocomplete="off" max-length="100">
+        <input id="title" class="c-search-input  J-search-input" type="text" mars_sead="search_entrance_click" placeholder="连衣裙" autocomplete="off" max-length="100">
         <a class="c-search-button  J-search-button  J_fake_a" href="###" mars_sead="search_button" id="search">
             <span class="c-search-icon"></span>
         </a>
