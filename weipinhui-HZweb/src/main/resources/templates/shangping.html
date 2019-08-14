@@ -19,6 +19,7 @@
     <script src="shangping_files/jquery-1.js" type="text/javascript"></script>
     <script src="shangping_files/core3.js" type="text/javascript"></script>
     <script type="text/javascript" src="js/jquery-1.8.3.min.js"></script>
+    <!--margin: 15px 5px;上 右 下 左 -->
 <style>
     #lili li{
         font-size: 16px;
@@ -27,9 +28,16 @@
         display: inline-block;
         width: 50px;
         height: 50px;
-        border: 1px red solid;
+        border: 1px gray solid;
+        margin: 15px 5px;
 
 
+
+    }
+
+    #lili li:hover{
+        background-color: skyblue;
+        color: white;
     }
 
 </style>
@@ -1328,9 +1336,7 @@
         <div class="oper-hd-price">
         <div class="oper-select">
             <p class="oper-select-txt price-select-txt J_sort_option " title="价格从低到高" id="J_price_sort" data-param="1" mars_sead="te_onsale_filterlist_price_btn" data-ms="te_onsale_filterlist_price_btn|te_onsale_filterlist_x_price_btn">
-                价格
-                <i class="price-sort-icon price-desc vipFont"></i>
-                <i class="price-sort-icon price-asc vipFont"></i>
+                <a id="btn" name="btn">价格从低到高</a>
             </p>
 
         </div>
@@ -1339,29 +1345,42 @@
     <div class="oper-hd-time">
         <div class="oper-select">
             <p class="oper-select-txt time-select-txt J_sort_option " data-param="3" id="J_discount_sort">
-                折扣
-                <i class="time-sort-icon time-desc vipFont"></i>
-                <i class="time-sort-icon time-asc vipFont"></i>
+                <a id="btn2" name="btn2">价格从高到底</a>
             </p>
         </div>
     </div>
 
+<!-- 查询页面-->
+<form action="finall" method="post">
+
+
     <div class="oper-hd-select" id="J_inputLayout">
         <div class="oper-select-inner">
                     <span class="oper-select-star">
-                        <input type="text" placeholder=" ¥" id="J_priceStart">
+                        <input type="text" name="pricez1" placeholder=" ¥" id="J_priceStart">
                             <em class="cat-select-tips J_placeholder"> ¥</em>
                     </span>
             <i class="i-cat-pre"> - </i>
             <span class="oper-select-end">
-                        <input type="text" placeholder=" ¥" id="J_priceEnd">
+                        <input type="text" name="pricez2" placeholder=" ¥" id="J_priceEnd">
                             <em class="cat-select-tips J_placeholder"> ¥</em>
+
                     </span>
-            <i class="i-cat-btn" data-url=""  id="J_sortSubmit_btn" mars_sead="te_onsale_filterlist_twprice_btn">确定</i>
+
         </div>
     </div>
 
-    <span class="oper-txt-clear hidden" id="J_priceClear" mars_sead="te_onsale_filterlist_twprice_clear_btn">清空</span>
+        <div class="oper-hd-time">
+            <div class="oper-select">
+                <p class="oper-select-txt time-select-txt J_sort_option " data-param="3" >
+                    <input type="submit" value="确定"/>
+                </p>
+            </div>
+        </div>
+
+
+</form>
+
     </div>
 
 </div>
@@ -1401,7 +1420,7 @@
         <a class="allpage"><b th:text="'共 '+ ${pages.pages}+ ' 页'"></b></a>
 
         <!--显示分页信息-->
-        <div class="modal-footer no-margin-top">
+        <div style="position: relative;left:300px" class="modal-footer no-margin-top">
             <div class="col-md-6">
                 当前第 [[${pages.pageNum}]]页,共 [[${pages.pages}]] 页.一共 [[${pages.total}]] 条记录
             </div>
@@ -2686,6 +2705,20 @@
           window.location.href="/finall?the_fuselage_memory="+the_fuselage_memory;
       });
 */
+
+      $("#btn").click(
+          function () {
+              location.href="finall";
+          }
+      );
+   $("#btn2").click(
+      function () {
+          location.href="finalldesc";
+      }
+  );
+
+
+
 
     </script>
 

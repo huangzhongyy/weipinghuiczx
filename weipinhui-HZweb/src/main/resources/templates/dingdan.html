@@ -932,32 +932,32 @@ $(function(){
 
                             <th class="goods" style="font-size: 5px" th:text="${z.od_id}+'-----'+${z.g_description}+'-----'+${z.od_date}"  >2222</th>
                             <!--总价 -->
-                            <th class="total" th:text="${z.od_summoney}">9999</th>
+                            <th class="total" style="color: red" th:text="${z.od_summoney}">9999</th>
 
 
 
                             <th th:if="${z.od_status==1}" class="state">
                               <!--发货状态 -->
-                                        <a  role="button"  class="total" id="J-drop-title">等待发货</a>
+                                <a  role="button" style="color: #dd1717"  class="total" id="J-drop-title">等待发货</a>
                             </th>
                             <th th:if="${z.od_status==2}" class="state">
                                 <!--发货状态 -->
-                                <a  role="button"  class="total" id="J-drop-title">已发货</a>
+                                <a  role="button" style="color: #1d6fae"  class="total" id="J-drop-title">已发货</a>
                             </th>
                             <th th:if="${z.od_status==3}" class="state">
                                 <!--发货状态 -->
-                                <a  role="button"  class="total" id="J-drop-title">已收货</a>
+                                <a  role="button" style="color: #00c500"  class="total" id="J-drop-title">已收货</a>
                             </th>
                             <th th:if="${z.od_status==4}" class="state">
                                 <!--发货状态 -->
-                                <a  role="button"  class="total" id="J-drop-title">已取消</a>
+                                <a  role="button" style="color: #411d87"  class="total" id="J-drop-title">已取消</a>
                             </th>
                             <th class="control" th:text="x+${z.od_quantity}">x2</th>
 
                             <th th:if="${z.od_status==1}" class="other"><a th:href="'/Quxiao?od_id='+${z.od_id}">取消订单</a></th>
                             <th th:if="${z.od_status==2}" class="other"><a th:href="'/Quren?od_id='+${z.od_id}">确认收货</a></th>
                             <th th:if="${z.od_status==3}" class="other"><a th:href="'/Qdelete?od_id='+${z.od_id}">删除</a></th>
-                            <th th:if="${z.od_status==4}" class="other"><a th:href="'/Qdelete?od_id='+${z.od_id}">删除取消</a></th>
+                            <th th:if="${z.od_status==4}" class="other"><a th:href="'/Qdelete?od_id='+${z.od_id}">删除</a></th>
                         </tr>
                         </thead>
 

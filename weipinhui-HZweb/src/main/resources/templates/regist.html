@@ -58,7 +58,7 @@
                         <!--   用户名   *******-->
                         <div class="c-form-item  has-form-item-icon  J_item_group">
                             <div class="ui-form-item-group">                                   <!--用户名 -->
-                                <input  onblur="yhm()" class="ui-input  u-input" type="text" id="username" name="username" placeholder="用户名" passport_mars_sead_hover="" passport_mars_sead_input="loginName"
+                                <input  onblur="yhm()" required="required" class="ui-input  u-input" type="text" id="username" name="username" placeholder="用户名" passport_mars_sead_hover="" passport_mars_sead_input="loginName"
                                  style="width: 248px;height: 32px;line-height: 32px;padding-left:40px;"> <span id="yhm" style="color: #dd1717"></span>
                                 <span class="c-icon  c-icon-account  c-icon-form"></span>
                                 <span class="u-input-warning vipFont if-wrong"></span>
@@ -154,7 +154,7 @@
 
                                 <input class="ui-btn-large ui-btn-primary ui-btn-loading reg-form-btn form-submit" type="submit" value="注册">
 
-
+                            <a id="btn" name="btn">点击</a>
                         </div>
 
 
@@ -242,9 +242,17 @@
         //判断用户名
         var reg=/^[a-z0-9_-]{6,18}$/;
         var $mz=$("#username").val();
-        if($mz==null||$mz==""){
-            $("#yhm").text("用户名不能为空").css({"display":"inline"});
-            return false;
+        if($mz!=null||$mz!=""){
+            alert($mz);
+            $.post("/yzm",{"username":$mz},function(data){
+                if(data==1){
+                    $("#yhm").text("用户已经被注册");
+                    return false;
+                }else{
+                    $("#yhm").text("用户名可以使用");
+                    return true;
+                }
+            });
         }else{
                 if(reg.test($mz)){
                 $("#yhm").css({"display":"none"});
@@ -253,7 +261,9 @@
                 $("#yhm").text("用户名不能小于2位！超过16位").css({"display":"inline"});
                 return false;
             }
+
         }
+
         return true;
     };
 
@@ -300,6 +310,15 @@
     };
 
     $(function () {
+        $("#btn").toggle(
+            function () {
+                location.href="finall";
+                //$(this).text("暂停");
+                },
+            function () { $(this).text("结束");},
+            function () { $(this).text("开始"); }
+        );
+
         $("#jsz").submit(function () {
             return yhm()&&sjhmp()&&YanZhen()&&MiMa()&&qrmm();
         });

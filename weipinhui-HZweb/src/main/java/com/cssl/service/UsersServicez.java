@@ -34,6 +34,11 @@ public interface UsersServicez {
  @RequestMapping("/shangpingFina")
  public Map<String,Object> Finagoods(Map<String,Object> map);
 
+
+ @RequestMapping("/shangpingFinadesc")
+ public Map<String,Object> Finagoodszdesc(Map<String,Object> map);
+
+
  @RequestMapping("/ShopCar")
  public Map<String,Object> addShopCar(int gid);
 
@@ -73,6 +78,9 @@ public interface UsersServicez {
 //删除订单
  @RequestMapping("/Qdelete")
  public int Gdele(String od_id);
+
+ @RequestMapping("/yzm")
+ public users YzName(String username);
 
 
 }

@@ -1,6 +1,7 @@
 package com.cssl.controller;
 
 import com.cssl.service.UsersServicez;
+import com.cssl.shiro.MD5Pwd;
 import com.weip.pojo.users;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -27,6 +28,8 @@ public class usersController {
  @RequestMapping(value = "/ZZregist")
  public String Registz(users user){
  //System.out.println("------------进来了前端的嘛-------------");
+
+  user.setPassword(MD5Pwd.MD5Pwd(user.getUsername(),user.getPassword()));
  int num=userszz.Regist(user);
  System.out.println("-----------"+num);
  if(num>0){
@@ -53,8 +56,6 @@ public int Qsms(String phone) {
  }
 
 
-
-
 @RequestMapping("/Wjmm")
 public String Upxg(users user){
  System.out.println("进来了-----");
@@ -63,6 +64,18 @@ if(userszz.Upuser(user)>0){
   return "login";
 }
 return "regist";
+}
+
+@RequestMapping("/yzm")
+@ResponseBody
+public int yzmm(String username){
+ int i=0;
+ if(userszz.YzName(username)!=null){
+ i=1;
+ }else{
+  i=0;
+ }
+ return i;
 }
 
 
